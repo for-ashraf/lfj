@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8f9fa;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><span style="color: #ff4d4d; font-weight: bold;">Latest</span>
+            <a class="navbar-brand" href="/"><span style="color: #ff4d4d; font-weight: bold;">Latest</span>
                 Fashion
                 <span style="color: #ff4d4d; font-weight: bold;">Jewellery</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
