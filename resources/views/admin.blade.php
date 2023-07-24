@@ -11,15 +11,15 @@
 <title>:: Crush On :: Home</title>
 
 <!-- Bootstrap Core and vandor -->
-<link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" />
 
 <!-- Plugins css -->
-<link rel="stylesheet" href="../assets/plugins/charts-c3/c3.min.css"/>
-<link rel="stylesheet" href="../assets/plugins/jvectormap/jvectormap-2.0.3.css" />
+<link rel="stylesheet" href="{{ asset('assets/plugins/charts-c3/c3.min.css')}}"/>
+<link rel="stylesheet" href="{{ asset('assets/plugins/jvectormap/jvectormap-2.0.3.css')}}" />
 
 <!-- Core css -->
-<link rel="stylesheet" href="../assets/css/main.css"/>
-<link rel="stylesheet" href="assets/css/theme1.css" id="theme_stylesheet"/>
+<link rel="stylesheet" href="{{ asset('assets/css/main.css')}}"/>
+<link rel="stylesheet" href="{{ asset('assets/css/theme1.css')}}" id="theme_stylesheet"/>
 </head>
 
 <body class="font-opensans">
@@ -49,7 +49,7 @@
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="nav-link icon theme_btn"><i class="fa fa-paint-brush" data-toggle="tooltip" data-placement="right" title="Themes"></i></a>
                     <a href="javascript:void(0)" class="nav-link icon settingbar"><i class="fa fa-gear fa-spin" data-toggle="tooltip" data-placement="right" title="Settings"></i></a>
-                    <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="../assets/images/user.png" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"/></a>
+                    <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="{{ asset('assets/images/user.png')}}" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"/></a>
                     <a href="javascript:void(0)" class="nav-link icon menu_toggle"><i class="fa  fa-align-left"></i></a>
                 </div>            
             </div>
@@ -222,10 +222,10 @@
                             <h3>Developer Team</h3>
                             <h4>Hangouts</h4>
                             <ul class="list-unstyled team-info margin-0 p-t-5">                                            
-                                <li><img src="../assets/images/xs/avatar1.jpg" alt="Avatar"></li>
-                                <li><img src="../assets/images/xs/avatar2.jpg" alt="Avatar"></li>
-                                <li><img src="../assets/images/xs/avatar3.jpg" alt="Avatar"></li>
-                                <li><img src="../assets/images/xs/avatar4.jpg" alt="Avatar"></li>                                            
+                                <li><img src="{{ asset('assets/images/xs/avatar1.jpg')}}" alt="Avatar"></li>
+                                <li><img src="{{ asset('assets/images/xs/avatar2.jpg')}}" alt="Avatar"></li>
+                                <li><img src="{{ asset('assets/images/xs/avatar3.jpg')}}" alt="Avatar"></li>
+                                <li><img src="{{ asset('assets/images/xs/avatar4.jpg')}}" alt="Avatar"></li>                                            
                             </ul>
                         </div>
                     </li>
@@ -263,27 +263,27 @@
                 <ul class="list-group list-unstyled">
                     <li class="list-group-item mb-2">
                         <p>Default Theme</p>
-                        <a href="../light/index.html"><img src="../assets/images/themes/default.png" alt="" class="img-fluid" /></a>
+                        <a href="../light/index.html"><img src="{{ asset('assets/images/themes/default.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                     <li class="list-group-item mb-2">
                         <p>Night Mode Theme</p>
-                        <a href="../dark/index.html"><img src="../assets/images/themes/dark.png" alt="" class="img-fluid" /></a>
+                        <a href="../dark/index.html"><img src="{{ asset('assets/images/themes/dark.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                     <li class="list-group-item mb-2">
                         <p>Horizontal Version</p>
-                        <a href="../horizontal/index.html"><img src="../assets/images/themes/horizontal.png" alt="" class="img-fluid" /></a>
+                        <a href="../horizontal/index.html"><img src="{{ asset('assets/images/themes/horizontal.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                     <li class="list-group-item mb-2">
                         <p>RTL Version</p>
-                        <a href="../rtl/index.html"><img src="../assets/images/themes/rtl.png" alt="" class="img-fluid" /></a>
+                        <a href="../rtl/index.html"><img src="{{ asset('assets/images/themes/rtl.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                     <li class="list-group-item mb-2">
                         <p>Theme two colors</p>
-                        <a href="../theme1/index.html"><img src="../assets/images/themes/theme1.png" alt="" class="img-fluid" /></a>
+                        <a href="../theme1/index.html"><img src="{{ asset('assets/images/themes/theme1.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                     <li class="list-group-item mb-2">
                         <p>Theme2 with Crypto Dashboard</p>
-                        <a href="../theme2/index.html"><img src="../assets/images/themes/theme2.png" alt="" class="img-fluid" /></a>
+                        <a href="../theme2/index.html"><img src="{{ asset('assets/images/themes/theme2.png')}}" alt="" class="img-fluid" /></a>
                     </li>
                 </ul>
             </div>
@@ -295,7 +295,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="media">
-                    <img class="avatar avatar-xl mr-3" src="../assets/images/sm/avatar1.jpg" alt="avatar">
+                    <img class="avatar avatar-xl mr-3" src="{{ asset('assets/images/sm/avatar1.jpg')}}" alt="avatar">
                     <div class="media-body">
                         <h5 class="m-0">Sara Hopkins</h5>
                         <p class="text-muted mb-0">Webdeveloper</p>
@@ -363,7 +363,7 @@
                     <li class="online">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="../assets/images/xs/avatar4.jpg" alt="">
+                                <img class="media-object " src="{{ asset('assets/images/xs/avatar4.jpg')}}" alt="">
                                 <div class="media-body">
                                     <span class="name">Donald Gardner</span>
                                     <span class="message">Designer, Blogger</span>
@@ -375,7 +375,7 @@
                     <li class="online">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
+                                <img class="media-object " src="{{ asset('assets/images/xs/avatar5.jpg')}}" alt="">
                                 <div class="media-body">
                                     <span class="name">Wendy Keen</span>
                                     <span class="message">Java Developer</span>
@@ -387,7 +387,7 @@
                     <li class="offline">
                         <a href="javascript:void(0);">
                             <div class="media">
-                                <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
+                                <img class="media-object " src="{{ asset('assets/images/xs/avatar2.jpg')}}" alt="">
                                 <div class="media-body">
                                     <span class="name">Matt Rosales</span>
                                     <span class="message">CEO, anchortheme</span>
@@ -536,11 +536,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Language</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="../assets/images/flags/us.svg" alt="">English</a>
+                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="{{ asset('assets/images/flags/us.svg')}}" alt="">English</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="../assets/images/flags/es.svg" alt="">Spanish</a>
-                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="../assets/images/flags/jp.svg" alt="">japanese</a>
-                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="../assets/images/flags/bl.svg" alt="">France</a>
+                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="{{ asset('assets/images/flags/es.svg')}}" alt="">Spanish</a>
+                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="{{ asset('assets/images/flags/jp.svg')}}" alt="">japanese</a>
+                                    <a class="dropdown-item" href="#"><img class="w20 mr-2" src="{{ asset('assets/images/flags/bl.svg')}}" alt="">France</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -572,7 +572,7 @@
                                         <li class="online">
                                             <a href="javascript:void(0);">
                                                 <div class="media">
-                                                    <img class="media-object " src="../assets/images/xs/avatar4.jpg" alt="">
+                                                    <img class="media-object " src="{{ asset('assets/images/xs/avatar4.jpg')}}" alt="">
                                                     <div class="media-body">
                                                         <span class="name">Donald Gardner</span>
                                                         <span class="message">Designer, Blogger</span>
@@ -584,7 +584,7 @@
                                         <li class="online">
                                             <a href="javascript:void(0);">
                                                 <div class="media">
-                                                    <img class="media-object " src="../assets/images/xs/avatar5.jpg" alt="">
+                                                    <img class="media-object " src="{{ asset('assets/images/xs/avatar5.jpg')}}" alt="">
                                                     <div class="media-body">
                                                         <span class="name">Wendy Keen</span>
                                                         <span class="message">Java Developer</span>
@@ -596,7 +596,7 @@
                                         <li class="offline">
                                             <a href="javascript:void(0);">
                                                 <div class="media">
-                                                    <img class="media-object " src="../assets/images/xs/avatar2.jpg" alt="">
+                                                    <img class="media-object " src="{{ asset('assets/images/xs/avatar2.jpg')}}" alt="">
                                                     <div class="media-body">
                                                         <span class="name">Matt Rosales</span>
                                                         <span class="message">CEO, anchortheme</span>
@@ -608,7 +608,7 @@
                                         <li class="online">
                                             <a href="javascript:void(0);">
                                                 <div class="media">
-                                                    <img class="media-object " src="../assets/images/xs/avatar3.jpg" alt="">
+                                                    <img class="media-object " src="{{ asset('assets/images/xs/avatar3.jpg')}}" alt="">
                                                     <div class="media-body">
                                                         <span class="name">Phillip Smith</span>
                                                         <span class="message">Writter, Mag Editor</span>
@@ -958,7 +958,7 @@
                         <div class="card">
                             <div class="card-body text-center d-flex align-items-center justify-content-center">
                                 <div style="max-width: 340px;">
-                                    <img src="../assets/images/we-released.svg" alt="..." class="img-fluid mb-4 mt-4" style="max-width: 272px;">
+                                    <img src="{{ asset('assets/images/we-released.svg')}}" alt="..." class="img-fluid mb-4 mt-4" style="max-width: 272px;">
                                     <h5 class="mb-2">We released Bootstrap 4x versions of our theme.</h5>
                                     <p class="text-muted">This is a true story and totally not made up. This is going to be better in the long run but for now this is the way it is.</p>
                                     <a href="#!" class="btn btn-primary">Try it for free</a>
@@ -1085,13 +1085,13 @@
 </div>
 
 
-<script src="../assets/bundles/lib.vendor.bundle.js"></script>
+<script src="{{ asset('assets/bundles/lib.vendor.bundle.js"></script>
 
-<script src="../assets/bundles/counterup.bundle.js"></script>
-<script src="../assets/bundles/jvectormap1.bundle.js"></script>
-<script src="../assets/bundles/c3.bundle.js"></script>
+<script src="{{ asset('assets/bundles/counterup.bundle.js"></script>
+<script src="{{ asset('assets/bundles/jvectormap1.bundle.js"></script>
+<script src="{{ asset('assets/bundles/c3.bundle.js"></script>
 
-<script src="../assets/js/core.js"></script>
+<script src="{{ asset('assets/js/core.js"></script>
 <script src="assets/js/page/index.js"></script>
 </body>
 </html>
