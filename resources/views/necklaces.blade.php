@@ -1,4 +1,4 @@
-@extends('/layout/master') <!-- Specify the parent view to extend -->
+@extends('/layout/front_master') <!-- Specify the parent view to extend -->
 
 @section('title', 'Neclace Page') <!-- Define the title for the child page -->
 

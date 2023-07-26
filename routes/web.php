@@ -19,6 +19,16 @@ Route::get('/necklaces', function () {
 Route::get('/', function () {
     return view('index');
 });
+
 Route::get('/admin', function () {
     return view('admin');
 });
+
+Route::get('/app-blog-post', function () {
+    return view('app-blog-post');
+});
+
+Route::get('/delete', function () {
+    return view('delete');
+});
+
