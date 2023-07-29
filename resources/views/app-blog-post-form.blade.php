@@ -1,9 +1,8 @@
 @extends('/layout/admin_master') <!-- Specify the parent view to extend -->
-
-@section('title', 'Neclace Page')
-
-
+@section('title', 'Add Blog')
 @section('content')
+{{Form::Open(array('url'=>'submitBlogForm'))}}
+
 <div class="section-body mt-3">
     <div class="container-fluid">
         <div class="row">
@@ -12,14 +11,20 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Blog Title</label>
-                            <input type="text" class="form-control" name="example-text-input" placeholder="Enter Blog Title...">
+                            <input type="text" class="form-control" name="title" placeholder="Enter Blog Title...">
+                            @error('title')
+                              <span style="color: red;">{{ $message }}</span>
+                            @enderror
+
                         </div>
-                        <div class="summernote">
-                            Hello there,
-                            <br/>
-                            <p>The toolbar can be customized and it also supports various callbacks such as <code>oninit</code>, <code>onfocus</code>, <code>onpaste</code> and many more.</p>
-                            <p>Please try <b>paste some texts</b> here</p>
-                        </div>                                
+                        <div>
+                        <textarea class="summernote" name="content" id="content">
+                        </textarea>
+                           @error('content')
+                               <span style="color: red;">{{ $message }}</span>
+                           @enderror
+            
+                    </div>                                
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Post</button>
@@ -29,4 +34,6 @@
         </div>
     </div>
 </div>
+{{Form::close()}}
+
 @endsection

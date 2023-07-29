@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Blogs;
 use Illuminate\Http\Request;
 
@@ -14,7 +12,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        //
+        return view('app-blog-post-form');
     }
 
     /**
@@ -24,7 +22,7 @@ class BlogsController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -35,7 +33,7 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -82,4 +80,25 @@ class BlogsController extends Controller
     {
         //
     }
+   
+    public function submitBlogForm(Request $request)
+    {
+        // Validate the form data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // If the validation passes, it means the form data is valid.
+        // Now you can process the form data (e.g., save it to the database).
+
+        // Assuming you have a Blog model and a corresponding database table,
+        // you can create a new blog entry with the validated data like this:
+        Blogs::create($validatedData);
+
+        // After processing the data, you can redirect the user to a success page
+        // or the same page with a success message.
+        return redirect()->route('app-blog-post-form')->with('success', 'Blog added successfully!');
+    }
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,13 @@ Route::get('/app-blog-post', function () {
     return view('app-blog-post');
 });
 
+Route::get('/app-blog-post-form', [BlogsController::class, 'index'])->name('app-blog-post-form');
+
+
 Route::get('/delete', function () {
     return view('delete');
 });
+
+
+Route::post('/submitBlogForm', 'App\Http\Controllers\BlogsController@submitBlogForm')->name('submitBlogForm');
 

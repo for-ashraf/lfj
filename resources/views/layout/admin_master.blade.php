@@ -8,7 +8,7 @@
 
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 
-<title>:: Crush On :: Blog Post</title>
+<title>LFJ-@yield('title')</title>
 
 <!-- Bootstrap Core and vandor -->
 <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.min.css')}}"/>
