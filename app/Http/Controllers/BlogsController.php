@@ -98,7 +98,7 @@ class BlogsController extends Controller
 
         // After processing the data, you can redirect the user to a success page
         // or the same page with a success message.
-        return redirect()->route('app-blog-post-form')->with('success', 'Blog added successfully!');
+        return redirect()->route('app-blog')->with('success', 'Blog added successfully!');
     }
 
 }

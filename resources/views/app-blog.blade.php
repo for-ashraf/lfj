@@ -1,10 +1,11 @@
 @extends('/layout/admin_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
 
+
 @section('css_files')
 <!-- Bootstrap Core and vandor -->
 <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.min.css')}}" />
-<link rel="stylesheet" href="{{asset('plugins/summernote/dist/summernote.css')}}"/>
+
 <!-- Core css -->
 <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/theme1.css')}}" id="theme_stylesheet"/>
@@ -16,7 +17,7 @@
     <div class="container-fluid">
         <div class="page-header">
             <div class="left">
-                <h1 class="page-title"><a href="app-blog.html"><i class="fa fa-arrow-left"></i></a> Blog Post</h1>
+                <h1 class="page-title">Blog</h1>
                 <select class="custom-select">
                     <option>Year</option>
                     <option>Month</option>
@@ -55,7 +56,7 @@
                             <a class="dropdown-item" href="#">iOs App Development</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Home Development</a>
-                            <a class="dropdown-item" href="#">New Blog post</a>
+                            <a class="dropdown-item" href="">New Blog post</a>
                         </div>
                     </li>
                 </ul>
@@ -178,32 +179,189 @@
         </div>
     </div>
 </div>
-{{Form::Open(array('url'=>'submitBlogForm'))}}
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="section-body mt-3">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row row-cards">
             <div class="col-12">
-                <div class="card">                            
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label">Blog Title</label>
-                            <input type="text" class="form-control" name="title" placeholder="Enter Blog Title...">
-                            @error('title')
-                              <span style="color: red;">{{ $message }}</span>
-                            @enderror
-
+                <div class="card">
+                    <div class="card-header">
+                        <a href="app-blog-post" class="btn btn-primary mr-2">New Post</a>
+                        <div class="page-subtitle ml-0">1 - 12 of 125 Post</div>
+                        <div class="page-options d-flex">
+                            <select class="form-control custom-select w-auto">
+                                <option value="asc">- Select -</option>
+                                <option value="asc">Newest</option>
+                                <option value="desc">Oldest</option>
+                            </select>
+                            <div class="input-icon ml-2">
+                                <span class="input-icon-addon">
+                                    <i class="fe fe-search"></i>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Search Post">
+                            </div>
                         </div>
-                        <div>
-                            <textarea class="summernote" name="content" id="content">
-                            </textarea>
-                               @error('content')
-                                   <span style="color: red;">{{ $message }}</span>
-                               @enderror
-                
-                        </div>                               
                     </div>
-                    <div class="card-footer text-right">
-                        <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-columns">
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/1.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/2.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/3.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/4.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/5.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/6.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/7.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/6.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/8.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <div class="card-body d-flex flex-column">
+                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
+                            <div class="d-flex align-items-center pt-5 mt-auto">
+                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
+                            <div>
+                                <a href="#">Rose Bradley</a>
+                                <small class="d-block text-muted">3 days ago</small>
+                            </div>
+                            <div class="ml-auto text-muted">
+                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,13 +369,9 @@
     </div>
 </div>
 
-{{Form::close()}}
-
 @endsection
 
 @section('script_files')
     <script src="{{asset('bundles/lib.vendor.bundle.js')}}"></script>
-    <script src="{{asset('bundles/summernote.bundle.js')}}"></script>
     <script src="{{asset('js/core.js')}}"></script>
-    <script src="{{asset('js/page/summernote.js')}}"></script>
 @endsection
