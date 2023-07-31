@@ -178,7 +178,8 @@
         </div>
     </div>
 </div>
-{{Form::Open(array('url'=>'submitBlogForm'))}}
+{!! Form::open(['route' => 'app-blog-post', 'method' => 'post']) !!}
+
 <div class="section-body mt-3">
     <div class="container-fluid">
         <div class="row">
@@ -200,7 +201,19 @@
                                    <span style="color: red;">{{ $message }}</span>
                                @enderror
                 
-                        </div>                               
+                        </div> 
+                        <!-- ... existing form code ... -->
+                        <div class="form-group">
+                            <label class="form-label">Author</label>
+                            <select class="form-control" name="author_id">
+                                <option value="">Select an Author</option>
+                                @foreach ($authors as $author)
+                                    <option value="{{ $author->author_id }}">{{ $author->author_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <!-- ... existing form code ... -->
+                              
                     </div>
                     <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Post</button>

@@ -8,16 +8,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/app-blog-post', function () {
-    return view('app-blog-post');
-});
-
-Route::get('/app-blog', function () {
-    return view('app-blog');
-});
-
 Route::get('/app-blog', function () {
     return view('app-blog');
 })->name('app-blog');
 
-Route::post('/submitBlogForm', 'App\Http\Controllers\BlogsController@submitBlogForm')->name('submitBlogForm');
+
+Route::get('/app-blog-post', 'App\Http\Controllers\BlogsController@index')->name('app-blog-post');
+
+Route::post('/app-blog-post', 'App\Http\Controllers\BlogsController@store')->name('app-blog-post');

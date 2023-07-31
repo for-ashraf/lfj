@@ -12,6 +12,7 @@ class Blogs extends Model
     protected $fillable = [
         'title', // Add any other attributes you want to allow mass assignment for
         'content',
+        'author_id',
         // Add more attributes here if needed
     ];
 }
