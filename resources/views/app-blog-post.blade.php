@@ -178,7 +178,8 @@
         </div>
     </div>
 </div>
-{!! Form::open(['route' => 'app-blog-post', 'method' => 'post']) !!}
+{!! Form::open(['route' => 'app-blog-post', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
+
 
 <div class="section-body mt-3">
     <div class="container-fluid">
@@ -202,6 +203,12 @@
                                @enderror
                 
                         </div> 
+                        
+                        <div class="form-group">
+                            <label for="featured_image">Featured Image</label>
+                            <input type="file" class="form-control-file" id="featured_image" name="featured_image">
+                        </div>
+
                         <!-- ... existing form code ... -->
                         <div class="form-group">
                             <label class="form-label">Author</label>

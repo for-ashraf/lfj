@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blogs;
 use App\Models\BlogAuthor; // Import the BlogAuthor model
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log; // Import the Log facade
 
 class BlogsController extends Controller
 {
@@ -39,27 +40,49 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the form data
+        Log::debug($request->all());
+    
+        // Validate the form data, including the uploaded file
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'author_id' => 'required|exists:blog_authors,author_id', // Add validation for author_id
+            'author_id' => 'required|exists:blog_authors,author_id',
+            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for the file
         ]);
-
+    
         // If the validation passes, it means the form data is valid.
         // Now you can process the form data (e.g., save it to the database).
-
+    
         // Create a new blog entry with the validated data, including the author_id
-        Blogs::create([
+        $blog = Blogs::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
             'author_id' => $validatedData['author_id'],
+            'featured_image' => '', // Set an empty value for now, we'll update it later
         ]);
-
+    
+        // Get the uploaded file
+        try {
+            if ($request->hasFile('featured_image')) {
+                $file = $request->file('featured_image');
+    
+                // Generate the file name using the blog_id
+                $fileName = $blog->blog_id . '.' . $file->getClientOriginalExtension();
+    
+                // Move the file to the desired location (e.g., public/uploads)
+                $file->move('uploads', $fileName);
+                $blog->update(['featured_image' => $fileName]);
+            }
+        } catch (\Exception $e) {
+            Log::error('File upload failed: ' . $e->getMessage());
+        }
+    
         // After processing the data, you can redirect the user to a success page
         // or the same page with a success message.
         return redirect()->route('app-blog')->with('success', 'Blog added successfully!');
     }
+    
+    
     
 
 }
