@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Categories;
 
 use App\Models\Blogs;
 use App\Models\BlogAuthor; // Import the BlogAuthor model
@@ -13,12 +14,19 @@ class BlogsController extends Controller
     {
         return BlogAuthor::all();
     }
+    public function loadCategories()
+    {
+        return Categories::all();
+    }
 
     public function index()
     {
         $authors = $this->loadAuthors();
-        return view('app-blog-post', compact('authors'));
+        $categories = $this->loadCategories();
+        
+        return view('app-blog-post', compact('authors', 'categories'));
     }
+    
     // Existing methods...
 
     /**
@@ -29,7 +37,8 @@ class BlogsController extends Controller
     public function create()
     {
         $authors = $this->getAuthorNames(); // Call the getAuthorNames function
-        return view('app-blog-post', compact('authors'));
+        $categories = $this->getCategoryNames(); // Call the getAuthorNames function
+        return view('app-blog-post', compact('authors', 'categories'));
     }
 
     /**
@@ -47,7 +56,8 @@ class BlogsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'author_id' => 'required|exists:blog_authors,author_id',
-            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for the file
+            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'required',
         ]);
     
         // If the validation passes, it means the form data is valid.
@@ -59,6 +69,7 @@ class BlogsController extends Controller
             'content' => $validatedData['content'],
             'author_id' => $validatedData['author_id'],
             'featured_image' => '', // Set an empty value for now, we'll update it later
+            'category_id' => $validatedData['category_id'],
         ]);
     
         // Get the uploaded file

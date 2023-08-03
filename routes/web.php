@@ -8,8 +8,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/app-blog', function () {
-    return view('app-blog');
+Route::get('/app-blog', function () { 
+        return view('app-blog');
 })->name('app-blog');
 
 

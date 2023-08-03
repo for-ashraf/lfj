@@ -187,14 +187,29 @@
             <div class="col-12">
                 <div class="card">                            
                     <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label">Blog Title</label>
-                            <input type="text" class="form-control" name="title" placeholder="Enter Blog Title...">
-                            @error('title')
-                              <span style="color: red;">{{ $message }}</span>
-                            @enderror
-
-                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="form-label">Blog Title</label>
+                                <input type="text" class="form-control" name="title" placeholder="Enter Blog Title...">
+                                @error('title')
+                                  <span style="color: red;">{{ $message }}</span>
+                                @enderror
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="form-label">Blog Category</label>
+                                  <select class="form-control" name="category_id">
+                                      <option value="">Select a Category</option>
+                                   @foreach ($categories as $category)
+                                      <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                                   @endforeach
+                                   </select>
+                              </div>
+                            </div>
+                          </div>
+                          
                         <div>
                             <textarea class="summernote" name="content" id="content">
                             </textarea>

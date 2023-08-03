@@ -15,6 +15,7 @@ class Blogs extends Model
         'content',
         'author_id',
         'featured_image',
+        'category_id',
 
         // Add more attributes here if needed
     ];
