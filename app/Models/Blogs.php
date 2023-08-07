@@ -14,8 +14,10 @@ class Blogs extends Model
         'title', // Add any other attributes you want to allow mass assignment for
         'content',
         'author_id',
+        'author_name',
         'featured_image',
         'category_id',
+        'publication_date',        
 
         // Add more attributes here if needed
     ];

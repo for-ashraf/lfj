@@ -55,7 +55,7 @@ class BlogsController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'author_id' => 'required|exists:blog_authors,author_id',
+            'author_name' => 'required|exists:blog_authors,author_name',
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required',
         ]);
@@ -67,9 +67,11 @@ class BlogsController extends Controller
         $blog = Blogs::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
-            'author_id' => $validatedData['author_id'],
+            'author_id' => 1,
+            'author_name' => $validatedData['author_name'],
             'featured_image' => '', // Set an empty value for now, we'll update it later
             'category_id' => $validatedData['category_id'],
+            'publication_date' => now(),
         ]);
     
         // Get the uploaded file

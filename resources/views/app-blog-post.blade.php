@@ -227,10 +227,10 @@
                         <!-- ... existing form code ... -->
                         <div class="form-group">
                             <label class="form-label">Author</label>
-                            <select class="form-control" name="author_id">
+                            <select class="form-control" name="author_name">
                                 <option value="">Select an Author</option>
                                 @foreach ($authors as $author)
-                                    <option value="{{ $author->author_id }}">{{ $author->author_name }}</option>
+                                    <option value="{{ $author->author_name }}">{{ $author->author_name }}</option>
                                 @endforeach
                             </select>
                         </div>
