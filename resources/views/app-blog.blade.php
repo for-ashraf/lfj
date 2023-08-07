@@ -1,7 +1,5 @@
 @extends('/layout/admin_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
-
-
 @section('css_files')
 <!-- Bootstrap Core and vandor -->
 <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.min.css')}}" />
@@ -212,160 +210,35 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card-columns">
+                    @foreach($blogs as $blog)
                     <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/1.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
+                        <a href="#">
+                            <img class="card-img-top" src="{{ asset('uploads/' . $blog->blog_id . '.jpg') }}" alt="{{ $blog->title }}">
+                        </a>
                         <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
+                            <h5><a href="#">{{ $blog->title }}</a></h5>
+                            <div class="text-muted">{{ substr($blog->content,0,100)}}...</div>
                             <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
+                                <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
+                                <div>
+                                    <a href="#">{{ $blog->author }}</a>
+                                    <small class="d-block text-muted">{{ $blog->created_at->diffForHumans() }}</small>
+                                </div>
+                                <div class="ml-auto text-muted">
+                                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
+                                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-trash"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/2.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/3.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/4.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/5.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/6.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/7.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/6.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar2.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <a href="#"><img class="card-img-top" src="{{asset('images/gallery/8.jpg')}}" alt="And this isn&#39;t my nose. This is a false one."></a>
-                        <div class="card-body d-flex flex-column">
-                            <h5><a href="#">And this isn't my nose. This is a false one.</a></h5>
-                            <div class="text-muted">Look, my liege! The Knights Who Say Ni demand a sacrifice!...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                            <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar4.jpg')}}" alt=""/>
-                            <div>
-                                <a href="#">Rose Bradley</a>
-                                <small class="d-block text-muted">3 days ago</small>
-                            </div>
-                            <div class="ml-auto text-muted">
-                                <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fe fe-heart mr-1"></i></a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+
+                    
+                    @endforeach
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

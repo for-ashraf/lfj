@@ -18,15 +18,23 @@ class BlogsController extends Controller
     {
         return Categories::all();
     }
+    public function loadBlogs()
+    {
+        return Blogs::all();
+    }
 
     public function index()
     {
         $authors = $this->loadAuthors();
         $categories = $this->loadCategories();
-        
         return view('app-blog-post', compact('authors', 'categories'));
     }
-    
+    public function appblog()
+    {
+        $blogs = $this->loadBlogs();
+        return view('app-blog', compact('blogs'));
+    }
+  
     // Existing methods...
 
     /**
