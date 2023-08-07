@@ -15,4 +15,6 @@ Route::get('/app-blog-post', 'App\Http\Controllers\BlogsController@index')->name
 
 
 Route::post('/app-blog-post', 'App\Http\Controllers\BlogsController@store')->name('app-blog-post');
+Route::get('/edit-blog/{id}', 'App\Http\Controllers\BlogsController@edit')->name('edit-blog');
+Route::patch('/app-blog-update/{id}', 'App\Http\Controllers\BlogsController@update')->name('app-blog-update');
 ?>

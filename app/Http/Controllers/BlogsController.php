@@ -102,7 +102,32 @@ class BlogsController extends Controller
         // or the same page with a success message.
         return redirect()->route('app-blog')->with('success', 'Blog added successfully!');
     }
-    
+public function edit($id)
+{
+    $blog = Blogs::findOrFail($id); // Load the existing blog post
+    $authors = $this->loadAuthors();
+    $categories = $this->loadCategories();
+
+    return view('edit-blog', compact('blog', 'authors', 'categories'));
+}
+public function update(Request $request, $id)
+{
+    $blog = Blogs::findOrFail($id); // Load the existing blog post
+
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        // Add validation rules for other fields
+    ]);
+
+    $blog->update($validatedData);
+
+    // Update any uploaded file, similar to the store method
+
+    return redirect()->route('app-blog')->with('success', 'Blog updated successfully!');
+}
+
+
     
     
 
