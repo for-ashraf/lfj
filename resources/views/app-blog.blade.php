@@ -226,7 +226,14 @@
                                 </div>
                                 <div class="ml-auto text-muted">
                                     <a href="edit-blog/{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
-                                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-trash"></i></a>
+                                    <form action="{{ route('delete-blog', $blog->blog_id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="icon btn btn-link d-none d-md-inline-block ml-3 text-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>
