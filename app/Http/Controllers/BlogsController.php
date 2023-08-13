@@ -66,7 +66,6 @@ class BlogsController extends Controller
             'author_name' => 'required|exists:blog_authors,author_name',
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required',
-            'publication_date' => now(),
         ]);
     
         // If the validation passes, it means the form data is valid.
@@ -118,42 +117,15 @@ public function update(Request $request, $id)
     $validatedData = $request->validate([
         'title' => 'required|string|max:255',
         'content' => 'required|string',
-        'author_name' => 'required|exists:blog_authors,author_name',
-        'category_id' => 'required',
-        'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Add image validation
-        'publication_date' => now(),
+        // Add validation rules for other fields
     ]);
-    $oldImage = "uploads/".$blog->featured_image;
+
     $blog->update($validatedData);
-
-    if ($request->hasFile('featured_image')) {
-        $file = $request->file('featured_image');
-        $fileName = $blog->blog_id . '.' . $file->getClientOriginalExtension();
-        $file->move('uploads', $fileName);
-        $blog->update(['featured_image' => $fileName]);
-
-        // Delete the old image
-        if ($oldImage && file_exists(public_path('uploads/' . $oldImage))) {
-            unlink(public_path('uploads/' . $oldImage));
-        }
-    }
-   
 
     // Update any uploaded file, similar to the store method
 
     return redirect()->route('app-blog')->with('success', 'Blog updated successfully!');
 }
-public function destroy(Blogs $blog)
-{ 
-    if ($blog->featured_image) {
-        \Storage::delete("/uploads/".$blog->featured_image);
-    }
-
-    $blog->delete();
-    // You can also add a success message or redirect to an appropriate page here
-    return redirect()->route('app-blog')->with('success', "the Record has been deleted with blog ID:".$blog->blog_id);
-}
-
 
 
     
