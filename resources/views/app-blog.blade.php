@@ -219,14 +219,15 @@
                             <h5><a href="#">{{ $blog->title }}</a></h5>
                             <div class="text-muted">{{ substr($blog->content,0,100)}}...</div>
                             <div class="d-flex align-items-center pt-5 mt-auto">
-                                <img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt=""/>
+                                <a href="/authors/{{$blog->author_id}}"><img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt="{{$blog->author_name}}"/></a>
                                 <div>
-                                    <a href="#">{{ $blog->author }}</a>
+                                    
                                     <small class="d-block text-muted">{{ $blog->created_at->diffForHumans() }}</small>
                                 </div>
                                 <div class="ml-auto text-muted">
                                     <a href="edit-blog/{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
-                                    <a href="#" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-trash"></i></a>
+                                    <a href="{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3" onclick="event.preventDefault(); deleteBlog({{ $blog->blog_id }});">
+                                        <i class="fa fa-trash"></i>
                                 </div>
                             </div>
                         </div>
@@ -243,6 +244,32 @@
 </div>
 
 @endsection
+<script>
+    function deleteBlog(blogId) {
+        if (confirm('Are you sure you want to delete this blog?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ url("blogs") }}/' + blogId;
+            form.style.display = 'none';
+            
+            const csrfToken = document.createElement('input');
+            csrfToken.setAttribute('type', 'hidden');
+            csrfToken.setAttribute('name', '_token');
+            csrfToken.setAttribute('value', '{{ csrf_token() }}');
+            
+            const methodInput = document.createElement('input');
+            methodInput.setAttribute('type', 'hidden');
+            methodInput.setAttribute('name', '_method');
+            methodInput.setAttribute('value', 'DELETE');
+            
+            form.appendChild(csrfToken);
+            form.appendChild(methodInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
 
 @section('script_files')
     <script src="{{asset('bundles/lib.vendor.bundle.js')}}"></script>

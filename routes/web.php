@@ -12,6 +12,7 @@ Route::get('/app-blog', 'App\Http\Controllers\BlogsController@appblog')->name('a
 
 
 Route::get('/app-blog-post', 'App\Http\Controllers\BlogsController@index')->name('app-blog-post');
+Route::delete('/blogs/{id}', 'App\Http\Controllers\BlogsController@destroy')->name('blogs.destroy');
 
 
 Route::post('/app-blog-post', 'App\Http\Controllers\BlogsController@store')->name('app-blog-post');

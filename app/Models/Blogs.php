@@ -21,4 +21,9 @@ class Blogs extends Model
 
         // Add more attributes here if needed
     ];
+    public function author()
+{
+    return $this->belongsTo(BlogAuthor::class, 'author_id');
+}
+
 }

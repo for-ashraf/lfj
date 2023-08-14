@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogAuthor extends Model
 {
+    protected $primaryKey = 'author_id';
     protected $fillable = ['name', 'email', 'bio'];
 }
