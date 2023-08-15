@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -9,7 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/app-blog', 'App\Http\Controllers\BlogsController@appblog')->name('app-blog');
-
+Route::resource('/users', UserController::class);
 
 Route::get('/app-blog-post', 'App\Http\Controllers\BlogsController@index')->name('app-blog-post');
 Route::delete('/blogs/{id}', 'App\Http\Controllers\BlogsController@destroy')->name('blogs.destroy');
