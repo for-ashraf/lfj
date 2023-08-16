@@ -26,65 +26,42 @@
 
 
 @section('content')
-<h3 style="text-align: center">All Users</h3>
+<h3 style="text-align: center">User Details</h3>
 <br>
-<a href="{{route('users.create')}}" class="btn btn-dark mb-2">Add User</a>
-<div class="section-body  py-4">
-            <div class="container-fluid">
-                <div class="row clearfix">
-                    <div class="col-lg-12">
-                        <div class="table-responsive mb-4">
-                            <table class="table table-hover js-basic-example dataTable table_custom spacing5">
-                                <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Roles</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Roles</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach($users as $user)
-                                        <tr>
-                                        <td>{{$loop->index + 1}}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>
-                                        @foreach($user->roles as $role)
-                                            {{ $role->name}} {{!loop->last ? ', ':''}}
-                                        @endforeach
-                                        </td>
-                                        <td>
-                                            <a href="{{route('users.show',$user->id)}}" class="btn btn-sm btn-dark">View</a>
-                                            <a href="{{route('users.edit',$user->id)}}" class="btn btn-sm btn-dark">Edit</a>
-                                            <form action="{{route('users.destroy',$user->id)}}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                            </td>
-                                    </tr>
-                                    @endforeach
-                                        </tbody>
-                                    </table>
+<div class="section-body mt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <p>{{ $user->name }}</p>
                                 </div>
-                            </div>                        
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <p>{{ $user->email }}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Roles</label>
+                                    <ul>
+                                        @foreach ($user->roles as $role)
+                                            <li>{{ $role->name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
+</div>
+
+
 
 @endsection
 

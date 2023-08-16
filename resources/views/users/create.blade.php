@@ -71,7 +71,7 @@
                                        </option>
                                     @endforeach
                                 </select>
-                                @error('roles[]')
+                                @error('roles')
                                 <span style="color: red;">{{ $message }}</span>
                                 @enderror
                             </div>

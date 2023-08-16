@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::latest()->get();
         return view ('users.index',['users'=>$users]);
     }
 
@@ -83,7 +83,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view ('users.show',['user'=>$user,'roles'=>$roles]);
+        return view ('users.edit',['user'=>$user,'roles'=>$roles]);
 
     }
 
@@ -96,13 +96,26 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
          $request->validate([
             'name'=>'required|string|max:255',
             'email'=>'required|email|unique:users,email,'.$user->id,
-            'password'=>'required|string|min:255',
+            'password'=>'nullable|string|min:5',
             'roles'=>'required|array',
-    ]);
-        $user = $user->update($request->all());
+            ]);
+        if ($request->filled('password'))
+           {
+            $user->update($request->all());
+           }
+        else
+            {
+            $user->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'roles'=>$request->roles
+
+            ]);
+            }
         $user->roles()->sync($request->input('roles'));
         return redirect()->route('users.index')->with('success','User Updated Successfully');
     }
