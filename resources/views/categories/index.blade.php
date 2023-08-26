@@ -1,4 +1,4 @@
-@extends('/layout/admin_master') <!-- Specify the parent view to extend -->
+@extends('../layout/admin_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
 @section('css_files')
 <!-- Bootstrap Core and vandor -->
@@ -8,30 +8,30 @@
 <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/theme1.css')}}" id="theme_stylesheet"/>
 @endsection
+
 @php
-function getImageUrl($blogId) {
+function getImageUrl($categoryId) {
+   
     $extensions = ['jpeg', 'png', 'jpg', 'gif'];
 
     foreach ($extensions as $extension) {
-        $imagePath = public_path('uploads/' . $blogId . '.' . $extension);
+        $imagePath = public_path('uploads/categories/' . $categoryId . '.' . $extension);
         if (File::exists($imagePath)) {
-            return asset('uploads/' . $blogId . '.' . $extension);
+            return asset('uploads/categories/' . $categoryId . '.' . $extension);
         }
     }
 
-    // If none of the specified extensions are found, return the default image URL
-    return asset('uploads/default.jpg');
+    // If none of the specified extensions are found, you can provide a default image URL
+    return asset('uploads/categories/default.jpg');
 }
 @endphp
-
-
 
 @section('content')
 <div id="page_top" class="section-body">
     <div class="container-fluid">
         <div class="page-header">
             <div class="left">
-                <h1 class="page-title">Blog</h1>
+                <h1 class="page-title">Category</h1>
                 <select class="custom-select">
                     <option>Year</option>
                     <option>Month</option>
@@ -204,7 +204,7 @@ function getImageUrl($blogId) {
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="app-blog-post" class="btn btn-primary mr-2">New Post</a>
+                        <a href="create" class="btn btn-primary mr-2">New Category</a>
                         <div class="page-subtitle ml-0">1 - 12 of 125 Post</div>
                         <div class="page-options d-flex">
                             <select class="form-control custom-select w-auto">
@@ -223,49 +223,49 @@ function getImageUrl($blogId) {
                 </div>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-lg-12">
                 <div class="card-columns">
-                    @foreach($blogs as $blog)
+                    @foreach($categories as $category)
+                    
                     <div class="card">
                         <a href="#">
-                            <img class="card-img-top" src="{{ getImageUrl($blog->blog_id) }}" >                       
-                         </a>
+                            <img class="card-img-top" src="{{ getImageUrl($category->category_id) }}" style="max-height: 300px;">
+                        </a>
+                        <!-- Add category details and layout here -->
                         <div class="card-body d-flex flex-column">
-                            <h5><a href="#">{{ $blog->title }}</a></h5>
-                            <div class="text-muted">{{ substr($blog->content,0,100)}}...</div>
-                            <div class="d-flex align-items-center pt-5 mt-auto">
-                                <a href="/authors/{{$blog->author_id}}"><img class="avatar avatar-md mr-3" src="{{asset('images/xs/avatar3.jpg')}}" alt="{{$blog->author_name}}"/></a>
-                                <div>
-                                    
-                                    <small class="d-block text-muted">{{ $blog->created_at->diffForHumans() }}</small>
+                            <h5><a href="#">{{ $category->category_name }}</a></h5>
+                            <div class="text-muted">{{ $category->category_description }}</div>
+                            <!-- Add more category details if needed -->
+                           <hr>
+                            <div class="row"> 
+                                <div class="text-muted"><small class="d-block text-muted">Published:{{ $category->created_at->diffForHumans() }}</small>
                                 </div>
-                                <div class="ml-auto text-muted">
-                                    <a href="edit-blog/{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
-                                    <a href="{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3" onclick="event.preventDefault(); deleteBlog({{ $blog->blog_id }});">
-                                        <i class="fa fa-trash"></i>
-                                </div>
+                            <div class="ml-auto text-muted">
+                                <a href="{{ route('categories.edit', ['category' => $category->category_id]) }}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
+
+                                <a href="{{$category->category_id}}" class="icon d-none d-md-inline-block ml-3" onclick="event.preventDefault(); deleteCategory({{ $category->category_id }});">
+                                    <i class="fa fa-trash"></i>
                             </div>
                         </div>
+                        </div>
                     </div>
-                    
-
                     
                     @endforeach
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
- 
+
 @endsection
 <script>
-    function deleteBlog(blogId) {
-        if (confirm('Are you sure you want to delete this blog?')) {
+    function deleteCategory(categoryId) {
+        if (confirm('Are you sure you want to delete this Category?')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ url("blogs") }}/' + blogId;
+            form.action = '{{ url("categories") }}/' + categoryId;
             form.style.display = 'none';
             
             const csrfToken = document.createElement('input');

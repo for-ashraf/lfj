@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model
 {
+    use HasFactory;
     protected $primaryKey = 'category_id';
-
+ 
     protected $fillable = [
-        'category_name', // Add any other attributes you want to allow mass assignment for
-         // Add more attributes here if needed
+        'category_name',
+        'category_description',
+        'parent_category_id',
+        'category_image',
     ];
 }

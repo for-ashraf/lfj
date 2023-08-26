@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoriesController;
 
 Auth::routes();
 
@@ -14,8 +15,10 @@ Route::get('/', function () {
 
 Route::get('/app-blog', 'App\Http\Controllers\BlogsController@appblog')->name('app-blog');
 Route::resource('/users', UserController::class);
+Route::resource('categories', CategoriesController::class);
 
 Route::get('/app-blog-post', 'App\Http\Controllers\BlogsController@index')->name('app-blog-post');
+Route::get('/app-category-post', 'App\Http\Controllers\CategoriesController@index')->name('app-category-post');
 Route::delete('/blogs/{id}', 'App\Http\Controllers\BlogsController@destroy')->name('blogs.destroy');
 
 
