@@ -27,7 +27,14 @@ class BlogsController extends Controller
     {
         $authors = $this->loadAuthors();
         $categories = $this->loadCategories();
-        return view('app-blog-post', compact('authors', 'categories'));
+        $blogs = $this->loadBlogs(); // Fetch the blogs data from the database (adjust the query as needed)
+    
+        return view('blogs.index', compact('authors', 'categories', 'blogs'));
+    }
+    public function show($id)
+    {
+        $blog = Blogs::findOrFail($id);
+        return view('blogs.show', compact('blog'));
     }
     public function appblog()
     {
@@ -44,9 +51,9 @@ class BlogsController extends Controller
      */
     public function create()
     {
-        $authors = $this->getAuthorNames(); // Call the getAuthorNames function
-        $categories = $this->getCategoryNames(); // Call the getAuthorNames function
-        return view('app-blog-post', compact('authors', 'categories'));
+        $authors = $this->loadAuthors(); // Call the getAuthorNames function
+        $categories = $this->loadCategories(); // Call the getAuthorNames function
+        return view('blogs.create', compact('authors', 'categories'));
     }
 
     /**
@@ -104,7 +111,7 @@ class BlogsController extends Controller
     
         // After processing the data, you can redirect the user to a success page
         // or the same page with a success message.
-        return redirect()->route('app-blog')->with('success', 'Blog added successfully!');
+        return redirect()->route('blogs.index')->with('success', 'Category added successfully!');
     }
 public function edit($id)
 {
@@ -112,7 +119,7 @@ public function edit($id)
     $authors = $this->loadAuthors();
     $categories = $this->loadCategories();
 
-    return view('edit-blog', compact('blog', 'authors', 'categories'));
+    return view('blogs.edit',compact('blog', 'authors', 'categories'));
 }
 public function update(Request $request, $id)
 {
@@ -159,7 +166,7 @@ public function update(Request $request, $id)
     
     // Update any uploaded file, similar to the store method
 
-    return redirect()->route('app-blog')->with('success', 'Blog updated successfully!');
+    return redirect()->route('blogs.index')->with('success', 'Category updated successfully!');
 }
 
 public function destroy($id)
@@ -177,7 +184,7 @@ public function destroy($id)
     // Delete the blog entry from the database
     $blog->delete();
 
-    return redirect()->route('app-blog')->with('success', 'Blog deleted successfully!');
+    return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully!');
 }
 
     

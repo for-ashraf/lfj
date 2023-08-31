@@ -111,4 +111,22 @@ public function update(Request $request, $id)
     return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
 }
 
+public function destroy($id)
+{
+    $category = Categories::findOrFail($id); // Find the blog entry by ID
+
+    // Delete the associated featured image if it exists
+    if ($category->category_image) {
+        $existingFilePath = public_path('uploads/categories/' . $category->category_image);
+        if (file_exists($existingFilePath)) {
+            unlink($existingFilePath);
+        }
+    }
+
+    // Delete the blog entry from the database
+    $category->delete();
+
+    return redirect()->route('categories.index')->with('success', 'Blog deleted successfully!');
+}
+
 }

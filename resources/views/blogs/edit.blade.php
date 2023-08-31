@@ -1,4 +1,4 @@
-@extends('/layout/admin_master') <!-- Specify the parent view to extend -->
+@extends('../layout/admin_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
 
 @section('css_files')

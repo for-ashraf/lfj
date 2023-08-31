@@ -8,24 +8,6 @@
 <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 <link rel="stylesheet" href="{{asset('css/theme1.css')}}" id="theme_stylesheet"/>
 @endsection
-
-@php
-function getImageUrl($categoryId) {
-   
-    $extensions = ['jpeg', 'png', 'jpg', 'gif'];
-
-    foreach ($extensions as $extension) {
-        $imagePath = public_path('uploads/categories/' . $categoryId . '.' . $extension);
-        if (File::exists($imagePath)) {
-            return asset('uploads/categories/' . $categoryId . '.' . $extension);
-        }
-    }
-
-    // If none of the specified extensions are found, you can provide a default image URL
-    return asset('uploads/categories/default.jpg');
-}
-@endphp
-
 @section('content')
 <div id="page_top" class="section-body">
     <div class="container-fluid">
@@ -231,7 +213,7 @@ function getImageUrl($categoryId) {
                     
                     <div class="card">
                         <a href="#">
-                            <img class="card-img-top" src="{{ getImageUrl($category->category_id) }}" style="max-height: 300px;">
+                            <img class="card-img-top" src="{{ getCategoryImageUrl($category->category_id) }}" style="max-height: 300px;">
                         </a>
                         <!-- Add category details and layout here -->
                         <div class="card-body d-flex flex-column">
