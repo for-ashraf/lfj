@@ -1,0 +1,43 @@
+.custom-select {
+   
+        border: 2px solid #007BFF;
+        background-color: #ffffff;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+/* Celebrity name styling */
+/* Celebrity name styling */
+.celebrity-name {
+    color: #333; /* Your desired text color */
+    font-size: 1.25rem; /* Adjust font size as needed */
+    margin-bottom: 10px; /* Add spacing between name and other info */
+}
+
+/* Celebrity thumbnail image styling */
+.celebrity-thumbnail {
+    width: 100%; /* Make the image responsive to the card width */
+    max-height: 200px; /* Define the maximum height for the thumbnail */
+    object-fit: cover; /* Maintain aspect ratio and crop as needed */
+}
+
+/* Social media links styling */
+.social-media-links {
+    font-size: 1.5rem; /* Adjust the size of social media icons */
+}
+
+/* Edit and delete buttons styling */
+.social-media-buttons {
+    text-align: right; /* Align buttons to the right */
+}
+
+/* Card spacing and layout */
+.card {
+    margin-bottom: 20px; /* Add space between cards */
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
