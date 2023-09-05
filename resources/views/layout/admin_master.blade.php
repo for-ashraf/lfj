@@ -439,7 +439,7 @@
                 <li><a href="app-calendar.html"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                 <li><a href="app-chat.html"><i class="icon-speech"></i><span>Chat</span></a></li>
                 <li><a href="app-contact.html"><i class="icon-notebook"></i><span>Contact</span></a></li>
-                <li class="{{ request()->is('app-blog') ? 'active' : '' }}"><a href="app-blog"><i class="icon-globe"></i><span>Blog</span></a></li>
+                <li class="{{ request()->is('blogs') ? 'active' : '' }}"><a href="blogs"><i class="icon-globe"></i><span>Blog</span></a></li>
                 <li>
                     <a href="javascript:void(0)" class="has-arrow"><i class="icon-lock"></i><span>Authentication</span></a>
                     <ul>

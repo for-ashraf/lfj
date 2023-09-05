@@ -186,7 +186,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="create" class="btn btn-primary mr-2">New Post</a>
+                    <a href="{{ route('blogs.create') }}" class="btn btn-primary mr-2">New Post</a>
                         <div class="page-subtitle ml-0">1 - 12 of 125 Post</div>
                         <div class="page-options d-flex">
                             <select class="form-control custom-select w-auto">
@@ -223,9 +223,10 @@
                                     <small class="d-block text-muted">{{ $blog->created_at->diffForHumans() }}</small>
                                 </div>
                                 <div class="ml-auto text-muted">
-                                    <a href="edit-blog/{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('blogs.edit', ['blog' => $blog->blog_id]) }}" class="icon d-none d-md-inline-block ml-3"><i class="fa fa-edit"></i></a>
                                     <a href="{{$blog->blog_id}}" class="icon d-none d-md-inline-block ml-3" onclick="event.preventDefault(); deleteBlog({{ $blog->blog_id }});">
                                         <i class="fa fa-trash"></i>
+                                     
                                 </div>
                             </div>
                         </div>

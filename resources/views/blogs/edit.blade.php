@@ -178,7 +178,7 @@
         </div>
     </div>
 </div>
-{!! Form::model($blog, ['route' => ['app-blog-update', $blog->blog_id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::model($blog, ['route' => ['blogs.update', $blog->blog_id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
 
 
 <div class="section-body mt-3">
