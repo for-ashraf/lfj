@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CelebritiesController;
+use App\Http\Controllers\EventsController;
 
 Auth::routes();
 
@@ -18,6 +19,7 @@ Route::resource('/users', UserController::class);
 Route::resource('categories', CategoriesController::class);
 Route::resource('blogs', BlogsController::class);
 Route::resource('celebrities', CelebritiesController::class);
+Route::resource('events', EventsController::class);
 
 
 ?>
