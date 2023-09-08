@@ -27,6 +27,19 @@ function getEventImageUrl($blogId) {
     // If none of the specified extensions are found, return the default image URL
     return asset('uploads/events/default.jpg');
 }
+function getImageGalleryUrl($galleryId) {
+    $extensions = ['jpeg', 'png', 'jpg', 'gif'];
+
+    foreach ($extensions as $extension) {
+        $imagePath = public_path('uploads/image_gallery/' . $galleryId . '.' . $extension);
+        if (File::exists($imagePath)) {
+            return asset('uploads/image_gallery/' . $galleryId . '.' . $extension);
+        }
+    }
+
+    // If none of the specified extensions are found, return the default image URL
+    return asset('uploads/images/default.jpg');
+}
 
 function getCategoryImageUrl($categoryId) {
     $extensions = ['jpeg', 'png', 'jpg', 'gif'];

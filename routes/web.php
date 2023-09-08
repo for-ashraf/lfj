@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CelebritiesController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\AmazonProductsController;
+use App\Http\Controllers\ImageGalleryController;
 
 Auth::routes();
 
@@ -22,6 +23,7 @@ Route::resource('blogs', BlogsController::class);
 Route::resource('celebrities', CelebritiesController::class);
 Route::resource('events', EventsController::class);
 Route::resource('products', AmazonProductsController::class);
+Route::resource('image_gallery', ImageGalleryController::class);
 
 
 ?>
