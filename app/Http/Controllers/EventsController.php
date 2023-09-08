@@ -104,7 +104,7 @@ class EventsController extends Controller
         if ($request->hasFile('event_image')) {
             $file = $request->file('event_image');
             if ($event->event_image && file_exists(public_path('uploads/events/' . $event->event_image))) {
-                unlink(public_path('uploads/events/' . $celebrity->image));
+                unlink(public_path('uploads/events/' . $event->event_image));
             }
             $fileName = $event->event_id . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/events', $fileName);

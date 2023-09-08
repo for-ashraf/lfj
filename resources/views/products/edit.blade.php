@@ -61,9 +61,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="image_url">Image URL</label>
-                        {!! Form::text('image_url', null, ['class' => 'form-control', 'placeholder' => 'Enter Image URL']) !!}
-                        @error('image_url')
+                        <label for="featured_image">Select Image</label>
+                        {!! Form::file('featured_image', null, ['class' => 'form-control', 'placeholder' => 'Upload File']) !!}
+                        @error('featured_image')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

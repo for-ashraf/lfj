@@ -16,7 +16,7 @@ class AmazonProduct extends Model
         'category',
         'title',
         'description',
-        'image_url',
+        'featured_image',
         'price',
         'affiliate_link',
     ];

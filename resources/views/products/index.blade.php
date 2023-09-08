@@ -210,7 +210,7 @@
                             </div>
                         </div>
                        
-                        {!! $product->image_url !!}
+                        {!! $product->affiliate_link !!}
                       
                         <div class="card-body">
                             <div class="text-muted">{{ substr($product->description, 0, 150) }}...</div>
