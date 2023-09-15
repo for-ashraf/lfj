@@ -1,0 +1,351 @@
+/* Global styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+}
+
+.navbar-brand {
+  font-weight: 500;
+  color: #ff4d4d;
+  font-size: 1.5em;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #555;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #ff4d4d;
+}
+
+.navbar-nav .nav-item .dropdown-menu {
+  background-color: #f8f9fa;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-item .dropdown-item {
+  color: #333;
+}
+
+.navbar-nav .nav-item .dropdown-item:hover,
+.navbar-nav .nav-item .dropdown-item:focus {
+  background-color: #f1f1f1;
+  color: #555;
+}
+
+.navbar-nav .nav-item:hover .dropdown-menu {
+  display: block;
+}
+.blogs {
+  background-color: #f7f7f7;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.blogs h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  justify-items: center;
+}
+
+.blog-item {
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.blog-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.blog-item img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.blog-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.section-column {
+  overflow: hidden;
+}
+/* Add your styles here */
+.picture-card {
+  position: relative;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  margin-right: 10px; /* Add horizontal margin for spacing */
+  margin-bottom: 20px;
+}
+/* CSS for the image zoom card */
+.image-zoom-card {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  z-index: 9999;
+}
+
+.zoomed-image {
+  max-width: 90%;
+  max-height: 80%;
+  margin-top: 5%;
+}
+
+.image-title {
+  color: white;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.close-zoom-card {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.picture-card img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.picture-card .image-back {
+  transform: rotateY(180deg); /* Initially, flip the back image */
+  filter: blur(4px); /* Apply blur effect */
+  opacity: 0; /* Initially, make it invisible */
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* CSS for hover effect */
+.picture-card:hover {
+  transform: scale(1.05); /* Increase the size slightly on hover */
+}
+
+.picture-card:hover .image-back {
+  transform: rotateY(0); /* Flip the back image to the front on hover */
+  filter: blur(0); /* Remove blur effect on hover */
+  opacity: 1; /* Make it visible on hover */
+}
+
+.section-column img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.blog-excerpt {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.mycontainer {
+  width: 120%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+}
+.btn:hover {
+  background-color: #0056b3;
+}
+/* Jumbotron */
+.jumbotron {
+  background-image: url('https://picsum.photos/1500/800');
+  background-size: cover;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 20px; /* Adjust the margin value as desired */
+}
+
+.jumbotron h1 {
+  font-weight: 500;
+  font-size: 4.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.jumbotron p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #ff4d4d;
+  border-color: #ff4d4d;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ff3333;
+  border-color: #ff3333;
+  transform: scale(1.05);
+}
+
+/* Sections */
+.section-title {
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 50px;
+  color: #ff4d4d;
+}
+
+/* Category Cards */
+.category-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+}
+.category-card .card-img-top,
+.carousel-item .carousel-item-img {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.category-card .card-body,
+.carousel-item .carousel-item-body {
+  padding: 20px;
+}
+
+.category-card .card-title,
+.carousel-item .carousel-item-title {
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.category-card .card-text,
+.carousel-item .carousel-item-text {
+  color: #666;
+}
+
+.category-card .btn,
+.carousel-item .carousel-item-btn {
+  background-color: #ff4d4d;
+  color: #fff;
+  border-radius: 0;
+  transition: background-color 0.3s ease;
+}
+
+.category-card .btn:hover,
+.carousel-item .carousel-item-btn:hover {
+  background-color: #ff3333;
+}
+
+/* Carousel */
+.carousel-item {
+  transition: transform 0.6s ease;
+}
+
+.carousel-item-next,
+.carousel-item-prev {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-item-next.carousel-item-left,
+.carousel-item-prev.carousel-item-right {
+  transform: translateX(0);
+}
+
+.carousel-item-next.carousel-item-right,
+.carousel-item-prev.carousel-item-left {
+  transform: translateX(0);
+}
+.section-column {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .section-header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .event-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .event-list li {
+    margin-bottom: 10px;
+  }
+  
+  .large-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .small-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+
+
