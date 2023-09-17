@@ -1,10 +1,11 @@
-@extends('/layout/front_master') <!-- Specify the parent view to extend -->
+@extends('.../layout/front_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
 
 
 
 @section('content')
-<header class="jumbotron jumbotron-fluid">
+
+<header class="jumbotron jumbotron-fluid" style="background-image: url('{{ asset('/images/home/sliderimage1.jpg') }}');">
 
     <h1 class="display-4">Find Your Perfect Jewellery Style</h1>
     <p class="lead">Explore our wide selection of categories and find the perfect piece to add to your jewellery
@@ -14,81 +15,24 @@
 <div class="container">
     <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <!-- Category Item 1 -->
-            <div class="carousel-item active">
+            @foreach ($categories->chunk(3) as $index => $chunk)
+            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                 <div class="row">
+                    @foreach ($chunk as $category)
                     <div class="col-md-4">
                         <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+                            <img src="/images/categories/{{ $category->category_image }}" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h3 class="card-title">Necklaces</h3>
-                                <p class="card-text">Discover our collection of necklaces and find the perfect piece
-                                    to add</p>
+                                <h3 class="card-title">{{ $category->category_name }}</h3>
+                                <p class="card-text">{{ $category->category_description }}</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Category Item 2 -->
-                    <div class="col-md-4">
-                        <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Earrings</h3>
-                                <p class="card-text">Shop our collection of earrings and find the perfect pair to
-                                    match your style.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Category Item 3 -->
-                    <div class="col-md-4">
-                        <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Bracelets</h3>
-                                <p class="card-text">Complete your look with our stunning collection of bracelets.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-            <!-- Category Item 4 -->
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Rings</h3>
-                                <p class="card-text">Explore our collection of rings and find the perfect fit for
-                                    you.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Category Item 5 -->
-                    <div class="col-md-4">
-                        <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Anklets</h3>
-                                <p class="card-text">Add a touch of elegance to your ankle with our collection of
-                                    anklets.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Category Item 6 -->
-                    <div class="col-md-4">
-                        <div class="card category-card">
-                            <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">Brooches</h3>
-                                <p class="card-text">Make a statement with our unique and stylish brooches.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
-        <!-- Add next and prev buttons if required -->
         <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -99,47 +43,68 @@
         </button>
     </div>
 </div>
+
 <div class="container-fluid" style="padding-top: 50px;">
     <div class="row">
-        <div class="col-md-2 col-6" style="padding-right: 15px;">
-            <div class="section-column">
-                <div class="card">
-                    <div class="card-header">
-                        Upcoming Events
+        <div class="col-md-2" style="padding-right: 15px;">
+            <!-- Section 1 -->
+            <div class="features-section-column" style="padding-right: 10px;">
+                <div class="features-card" style="background-color: #f7f7f7; padding: 20px; border-radius: 10px;">
+                    <div class="features-card-header">
+                        <h2 style="color: #333; font-size: 24px;">Upcoming Events</h2>
                     </div>
-                    <div class="card-body">
-                        <ul class="event-list">
-                            <li>Event 1</li>
-                            <li>Event 2</li>
-                            <li>Event 3</li>
-                            <li>Event 3</li>
-                            <li>Event 3</li>
-                            <li>Event 3</li>
-                            <li>Click for More....</li>
-                            <!-- Add more events as needed -->
+                    <div class="features-card-body">
+                        <ul class="features-event-list" style="list-style-type: none; padding: 0;">
+                            @foreach($upcomingEvents as $event)
+                            <li style="margin-bottom: 10px;">
+                                <div class="meta">
+                                    <div>
+                                        <div class="meta-left">
+                                            <span class="up-month" style="color: #007bff;">{{ date('M', strtotime($event->event_date)) }}</span>
+                                            <span class="up-day" style="color: #007bff;">{{ date('d', strtotime($event->event_date)) }}</span>
+                                        </div>
+                                        <div class="meta-right">
+                                            <div property="summary" class="title" style="overflow-wrap: break-word;">
+                                                <a href="{{ $event->event_website }}" title="{{ $event->event_name }}" target="_blank">
+                                                    <h3 style="color: #333; font-size: 18px;">{{ $event->event_name }}</h3>
+                                                </a>
+                                            </div>
+                                            <span class="up-venue toh" style="color: #555;">{{ $event->event_location }}</span>
+                                            <span class="tick-price" style="color: #555;">$59</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 col-6" style="padding-right: 15px;">
-            <div class="section-column">
-                <img src="home/1.jpg" alt="Image" style="max-height:300px;" class="large-image">
+            <!--Section 2-->
+            <div class="col-md-3" style="padding-right: 5px;">
+                <div class="features-section-column">
+                    <img src="/images/home/1.jpg" alt="Image" style="max-width: 100%; height: auto;" class="features-large-image img-fluid">
+                </div>
             </div>
-        </div>
-        <div class="col-md-4 col-6" style="padding-right: 15px;">
-            <div class="section-column">
-                <img src="home/2.jpg" alt="Image" style="max-height:125px;" class="small-image">
-                <img src="home/3.jpg" alt="Image" style="max-height:175px;" class="large-image">
+             <!--Section 3-->
+            <div class="col-md-4" style="padding-right: 5px;">
+                <div class="features-section-column" style="display: flex; flex-direction: column;">
+                    <img src="/images/home/2.jpg" alt="Image" style="max-height: 125px; margin-bottom: 10px;" class="features-small-image">
+                    <img src="/images/home/3.jpg" alt="Image" style="max-height:400px;" class="features-large-image">
+                </div>
             </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="section-column">
-                <img src="home/4.jpg" style="max-height:300px;" alt="Image" class="large-image">
+             <!--Section 4-->
+            <div class="col-md-3" style="padding-left: 15px;">
+                <div class="features-section-column" style="padding-right: 15px;">
+                    <img src="/images/home/4.jpg" style="max-width: 100%; height: auto;" alt="Image" class="features-large-image img-fluid">
+                </div>
             </div>
-        </div>
+        
     </div>
 </div>
+
+
 
 <div class="container">
     <div class="container my-4">
@@ -159,7 +124,7 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="home/h17.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
+            <img src="/images/home/h17.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
                 style="max-width: fit-content; max-height:300px;">
             <div class="carousel-caption d-none d-md-block">
                 <h4
@@ -168,7 +133,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="home/h16.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
+            <img src="/images/home/h16.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
                 style="max-width: fit-content; max-height: 300px;">
             <div class="carousel-caption d-none d-md-block">
                 <h4
