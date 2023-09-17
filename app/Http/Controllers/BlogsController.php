@@ -22,6 +22,17 @@ class BlogsController extends Controller
     {
         return Blogs::all();
     }
+    public function loadBlogsRange(Request $request)
+{
+    $startIndex = $request->input('startIndex');
+    $batchSize = $request->input('batchSize');
+
+    // Fetch the next batch of blogs based on $startIndex and $batchSize
+    $blogs = Blogs::skip($startIndex)->take($batchSize)->get();
+
+    // Return a Blade view with the loaded blogs
+    return view('partials.blog_items', compact('blogs'))->render();
+}
 
     public function index()
     {

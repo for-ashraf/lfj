@@ -386,7 +386,48 @@ body {
     height: auto;
     margin-bottom: 10px;
   }
-  
+  /* Blog Section */
+.blog {
+  padding: 20px;
+}
+
+/* Blog Cards */
+.blog-card {
+  margin-bottom: 20px;
+}
+
+/* Controls for Scrolling */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.scroll-left,
+.scroll-right {
+  font-size: 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+/* Blog Container */
+.blog-container {
+  display: flex;
+  overflow-x: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 11 */
+}
+
+.blog-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+
 
 
 

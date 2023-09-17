@@ -3,12 +3,24 @@
 namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Post;
+use App\Models\Blogs;
 use App\Models\Events;
+use App\Models\JewelleryBrand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public function loadBlogsRange($startIndex, $batchSize)
+    {
+        // Fetch the next batch of blogs based on $startIndex and $batchSize
+        $blogs = Blogs::skip($startIndex)->take($batchSize)->get();
+    
+        // Return a Blade view with the loaded blogs
+        return $blogs;
+    }
+    
 
     public function loadCategories()
     {
@@ -17,20 +29,33 @@ class HomeController extends Controller
 
     public function loadEvents()
     {
-        // Use the 'orderBy' method to order events by 'event_date' in ascending order (closest to furthest).
-        // Then, use the 'take' method to limit the results to the top 3 events.
-        return Events::orderBy('event_date')->take(3)->get();
+   
+        return Events::orderBy('event_date', 'desc')->take(4)->get();
+    }
+    public function loadJBrands()
+    {
+    
+        return JewelleryBrand::orderBy('id')->take(4)->get();
     }
     
     public function index()
     {
+        // Define the start index and batch size
+        $startIndex = 0; // Adjust this based on your needs
+        $batchSize = 4; // Adjust this based on your needs
+    
+        // Load the initial batch of blogs
+        $initialBlogs = $this->loadBlogsRange($startIndex, $batchSize);
+    
         $categories = $this->loadCategories();
+        $jbrands = $this->loadJBrands();
         $upcomingEvents = $this->loadEvents();
-        //$posts = Post::latest()->take(5)->get();
-        //$products = Product::inRandomOrder()->take(8)->get();
-
-        return view('home.index',compact('categories','upcomingEvents'));
+    
+        return view('home.index', compact('categories', 'jbrands', 'upcomingEvents', 'initialBlogs'));
     }
+    
+    
+    
 
     public function about()
     {
