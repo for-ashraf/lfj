@@ -1,7 +1,7 @@
 issues:
-- Make the font slider move
+- Make the front slider move
 - All the images' complete path should be store in image field of database
-- Add another field event registration cose (as event_cost) in Events table and incorporate that field in backend and also at home page
+- Add another field event registration cost (as event_cost) in Events table and incorporate that field in backend and also at home page
 - Add links and create their pages of categories of home page
 - Develop and incorporate jewellery_brands CRUD operation (table created). Data has been fetched in home page
 - Implement User Management System in the Project(already created just need to implement)
