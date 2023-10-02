@@ -26,6 +26,4 @@ Route::resource('events', EventsController::class);
 Route::resource('products', AmazonProductsController::class);
 Route::resource('image_gallery', ImageGalleryController::class);
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/load-blogs', 'BlogController@loadBlogsRange');
-
 ?>

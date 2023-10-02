@@ -8,7 +8,6 @@
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/mystyle.css')}}" />
-    <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 
 </head>
 

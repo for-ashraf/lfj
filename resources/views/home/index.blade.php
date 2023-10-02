@@ -51,7 +51,7 @@
             <div class="features-section-column" style="padding-right: 10px;">
                 <div class="features-card" style="background-color: #f7f7f7; padding: 20px; border-radius: 10px;">
                     <div class="features-card-header">
-                        <h2 style="color:gold; font-size: 22px;">Upcoming Events</h2>
+                        <h2 style="color: #333; font-size: 24px;">Upcoming Events</h2>
                     </div>
                     <div class="features-card-body">
                         <ul class="features-event-list" style="list-style-type: none; padding: 0;">
@@ -60,9 +60,8 @@
                                 <div class="meta">
                                     <div>
                                         <div class="meta-left">
-                                            <span class="up-month" style="color: #007bff;"><i class="fa fa-calendar"></i> {{ date('M', strtotime($event->event_date)) }}</span>
-                                            <span class="up-day" style="color: #007bff;"><i class="fa fa-calendar-day"></i> {{ date('d', strtotime($event->event_date)) }},</span>
-                                            <span class="up-day" style="color: #007bff;"><i class="fa fa-calendar-alt"></i> {{ date('y', strtotime($event->event_date)) }}</span>
+                                            <span class="up-month" style="color: #007bff;">{{ date('M', strtotime($event->event_date)) }}</span>
+                                            <span class="up-day" style="color: #007bff;">{{ date('d', strtotime($event->event_date)) }}</span>
                                         </div>
                                         <div class="meta-right">
                                             <div property="summary" class="title" style="overflow-wrap: break-word;">
@@ -70,7 +69,8 @@
                                                     <h3 style="color: #333; font-size: 18px;">{{ $event->event_name }}</h3>
                                                 </a>
                                             </div>
-                                            <span class="up-venue toh" style="color: #555;"><i class="fa fa-map-marker"></i> {{ $event->event_location }}</span>
+                                            <span class="up-venue toh" style="color: #555;">{{ $event->event_location }}</span>
+                                            <span class="tick-price" style="color: #555;">$59</span>
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,9 @@
         
     </div>
 </div>
-<br><hr>
+
+
+
 <div class="container">
     <div class="container my-4">
         <div class="row">
@@ -115,53 +117,68 @@
 </div>
 <div id="carouselExampleCaptions" class="carousel slide pointer-event" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        @foreach($jbrands as $index => $jbrand)
         <button type="button" style="background-color: black" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
-        @endforeach
+            data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+        <button type="button" style="background-color: black" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
     </div>
     <div class="carousel-inner">
-        @foreach($jbrands as $index => $jbrand)
-        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-            <img src="{{ $jbrand->brand_image }}" class="d-block mx-auto my-auto carousel-image"
-                alt="{{ $jbrand->brand_name }}"
-                style="max-width: fit-content; max-height: 300px;">
-                <br><hr>
+        <div class="carousel-item active">
+            <img src="/images/home/h17.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
+                style="max-width: fit-content; max-height:300px;">
             <div class="carousel-caption d-none d-md-block">
-                <h4 style="color: goldenrod; font-family: 'Arial', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                    </h4>
+                <h4
+                    style="color: goldenrod; font-family: 'Arial', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                    Milan Jewellery</h4>
             </div>
         </div>
-        @endforeach
+        <div class="carousel-item">
+            <img src="/images/home/h16.jpg" class="d-block mx-auto my-auto carousel-image" alt="..."
+                style="max-width: fit-content; max-height: 300px;">
+            <div class="carousel-caption d-none d-md-block">
+                <h4
+                    style="color: goldenrod; font-family: 'Arial', sans-serif; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                    Known for its uniqueness.</h4>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="container">
     <section class="blog">
         <h2>Blogs</h2>
         <div class="row">
-            <div class="col-md-12">
-                <div class="blog-container">
-                    @foreach($initialBlogs as $blog)
-                    <div class="col-md-4">
-                        <div class="card blog-card">
-                            <img src="{{ asset($blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $blog->title }}</h3>
-                                <p class="card-text">{{ $blog->content }}</p>
-                            </div>
-                        </div>
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title">Top 10 Jewellery Styles for 2023</h3>
+                        <p class="card-text">Find out what the top 10 jewellery styles for 2023 are and how you can
+                            incorporate them into your wardrobe.</p>
                     </div>
-                    @endforeach
                 </div>
             </div>
-        </div>
-        <div class="controls">
-            <button class="scroll-left">◄</button>
-            <button class="scroll-right">►</button>
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title">How to Choose the Perfect Engagement Ring</h3>
+                        <p class="card-text">Get expert tips on how to choose the perfect engagement ring for your
+                            partner.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card blog-card">
+                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3 class="card-title">DIY Jewellery Making</h3>
+                        <p class="card-text">Learn how to make your own jewellery with these easy DIY tutorials.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more blog posts here -->
         </div>
     </section>
-    
     <div id="image-zoom-card" class="image-zoom-card">
         <span id="close-zoom-card" class="close-zoom-card">×</span>
         <img id="zoomed-image" class="zoomed-image">
@@ -252,5 +269,4 @@
 @section('script_files')
 <script src="{{asset('js/core.js')}}"></script>
 <script src="{{asset('js/page/index.js')}}"></script>
-<script src="{{asset('js/myScript.js')}}"></script>
 @endsection
