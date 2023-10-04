@@ -8,6 +8,7 @@
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('css/mystyle.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
 
 </head>
 
@@ -113,7 +114,7 @@
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('/js/myScript.js') }}"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
