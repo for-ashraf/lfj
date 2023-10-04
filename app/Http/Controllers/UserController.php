@@ -7,7 +7,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log; // Import the Log facade
-
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -16,10 +16,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+  
+
     public function index()
     {
+        $token = Str::random(60); // Generate a random dummy token
+    
         $users = User::latest()->get();
-        return view ('users.index',['users'=>$users]);
+    
+        return view('users.index', compact('users', 'token'));
     }
 
     /**
@@ -80,7 +85,8 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+
+     public function edit(User $user)
     {
         $roles = Role::all();
         return view ('users.edit',['user'=>$user,'roles'=>$roles]);

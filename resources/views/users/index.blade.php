@@ -1,3 +1,7 @@
+@php
+    // Assuming you have a $user variable available with user data
+    $user = Auth::user(); // You can replace this with your method of retrieving the user
+@endphp
 @extends('/layout/admin_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
 @section('css_files')
@@ -25,7 +29,29 @@
 @endsection
 
 
+
 @section('content')
+<div class="dropdown me-3">
+    <a href="javascript:void(0)" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ auth()->user()->name }}
+    </a>
+  
+        <li><a class="dropdown-item" href="{{ route('users.show', ['user' => auth()->user()->id]) }}">Profile</a></li>
+        <li><a href="{{ route('password.request') }}">Reset Password</a></li>
+        <!-- Add other menu items here -->
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+            >
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </li>
+   
+</div>
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -101,6 +127,8 @@
 
 
 @section('script_files')
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.js') }}"></script>
+
     <script src="{{asset('bundles/lib.vendor.bundle.js')}}"></script>
     <script src="{{asset('bundles/dataTables.bundle.js')}}"></script>
     <script src="{{asset('js/core.js')}}"></script>
