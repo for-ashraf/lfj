@@ -23,12 +23,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 /* Route::get('/', function () {
     return view('index');
 }); */
+Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
+    // Define routes that require admin authentication here.
+    Route::resource('/events', UserController::class);
+    // Other admin-only routes...
+});
+
 
 Route::resource('/users', UserController::class);
 Route::resource('categories', CategoriesController::class);
 Route::resource('blogs', BlogsController::class);
 Route::resource('celebrities', CelebritiesController::class);
-Route::resource('events', EventsController::class);
+//Route::resource('events', EventsController::class);
 Route::resource('products', AmazonProductsController::class);
 Route::resource('image_gallery', ImageGalleryController::class);
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -16,14 +16,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
 
     public function index()
     {
         $token = Str::random(60); // Generate a random dummy token
-    
+
         $users = User::latest()->get();
-    
+
         return view('users.index', compact('users', 'token'));
     }
 
@@ -35,7 +35,11 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view ('users.create',['roles'=>$roles]);
+        return view('users.create', ['roles' => $roles]);
+    }
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Assuming you have a 'role' column in your users table.
     }
 
     /**
@@ -47,12 +51,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required|string|max:255',
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|min:5',
-            'roles'=>'required|array',
-    ]);
-    try {
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:5',
+            'roles' => 'required|array',
+        ]);
+        try {
             $userData = $request->all();
             $userData['password'] = Hash::make($request->input('password')); // Hash the password
 
@@ -60,12 +64,12 @@ class UserController extends Controller
             $user->roles()->attach($request->input('roles'));
 
             return redirect()->route('users.index')->with('success', 'User Created Successfully');
-    } catch (\Exception $e) {
-      
-              Log::debug($e);
-        
-           return redirect()->back()->withInput()->withErrors(['error' => 'User creation failed.']);
-    }
+        } catch (\Exception $e) {
+
+            Log::debug($e);
+
+            return redirect()->back()->withInput()->withErrors(['error' => 'User creation failed.']);
+        }
     }
 
     /**
@@ -76,7 +80,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show',['user'=>$user]);
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -86,10 +90,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function edit(User $user)
+    public function edit(User $user)
     {
         $roles = Role::all();
-        return view ('users.edit',['user'=>$user,'roles'=>$roles]);
+        return view('users.edit', ['user' => $user, 'roles' => $roles]);
 
     }
 
@@ -103,27 +107,24 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
 
-         $request->validate([
-            'name'=>'required|string|max:255',
-            'email'=>'required|email|unique:users,email,'.$user->id,
-            'password'=>'nullable|string|min:5',
-            'roles'=>'required|array',
-            ]);
-        if ($request->filled('password'))
-           {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:5',
+            'roles' => 'required|array',
+        ]);
+        if ($request->filled('password')) {
             $user->update($request->all());
-           }
-        else
-            {
+        } else {
             $user->update([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'roles'=>$request->roles
+                'name' => $request->name,
+                'email' => $request->email,
+                'roles' => $request->roles
 
             ]);
-            }
+        }
         $user->roles()->sync($request->input('roles'));
-        return redirect()->route('users.index')->with('success','User Updated Successfully');
+        return redirect()->route('users.index')->with('success', 'User Updated Successfully');
     }
 
     /**
@@ -136,7 +137,7 @@ class UserController extends Controller
     {
         $user->roles()->detach();
         $user->delete();
-        return redirect()->route('users.index')->with('success','User deleted successfully');
-        
+        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+
     }
 }

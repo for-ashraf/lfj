@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Assuming you have a 'role' column in your users table.
+    }
 }
