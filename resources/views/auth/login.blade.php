@@ -1,4 +1,3 @@
-I am header
 @extends('layouts.app')
 
 @section('content')

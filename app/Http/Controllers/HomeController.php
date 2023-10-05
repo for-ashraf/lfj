@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\Categories;
-use App\Models\Post;
 use App\Models\Blogs;
+use App\Models\AmazonProduct;
 use App\Models\Events;
+use App\Models\Celebrities;
+use App\Models\User;
 use App\Models\JewelleryBrand;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -53,21 +54,21 @@ class HomeController extends Controller
     
         return view('home.index', compact('categories', 'jbrands', 'upcomingEvents', 'initialBlogs'));
     }
-    
-    
-    
-
-    public function about()
+    public function dashboard()
     {
-        return view('home.about');
-    }
+        $users = User::latest()->get();
+        // Your dashboard logic here...
+        $totalBlogs = Blogs::count();
+        $totalProd = AmazonProduct::count();
+        $totalEvents = Events::count();
+        $totalCelebrities = Celebrities::count();
+        // Then, return a view and pass the data to be displayed on the dashboard.
+        return view('backend.dashboard', compact('totalBlogs', 'totalProd', 'totalEvents', 'totalCelebrities','users'));
 
-    public function contact()
-    {
-        return view('home.contact');
     }
-
-    public function sendContactForm(Request $request)
+    
+    
+     public function sendContactForm(Request $request)
     {
         // Validate the contact form inputs
         $validatedData = $request->validate([

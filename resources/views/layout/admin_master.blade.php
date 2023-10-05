@@ -51,7 +51,7 @@
     </div>
 
     <div id="left-sidebar" class="sidebar">
-        <h5 class="brand-name">Nesh Galaxy<a href="javascript:void(0)" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5>
+        <a href="\"><h5 class="brand-name">Latest Fashion Jewellery<a href="javascript:void(0)" class="menu_option float-right"><i class="icon-grid font-16" data-toggle="tooltip" data-placement="left" title="Grid & List Toggle"></i></a></h5></a>
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
                 <li class="g_heading">Directories</li>

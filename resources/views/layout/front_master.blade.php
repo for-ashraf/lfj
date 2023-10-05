@@ -31,7 +31,7 @@
                     <li class="nav-item dropdown menu-title">
                         <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-list-ul"></i> Categories
+                           Categories
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             @foreach ($categories as $category)
@@ -43,7 +43,7 @@
                  
                         <a class="nav-link dropdown-toggle" href="#" id="blogsDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-book"></i> Blogs
+                            Blogs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="blogsDropdown">
                             <li><a class="dropdown-item" href="#">Latest Trends</a></li>
@@ -57,7 +57,7 @@
                     <li class="nav-item dropdown menu-title">
                         <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-calendar"></i> Events
+                           Events
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
                             <li><a class="dropdown-item" href="#">Fashion Show</a></li>
@@ -71,7 +71,7 @@
                     <li class="nav-item dropdown menu-title">
                         <a class="nav-link dropdown-toggle" href="#" id="celebritiesDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-star"></i> Celebrities
+                             Celebrities
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="celebritiesDropdown">
                             <li><a class="dropdown-item" href="#">Hollywood Actresses</a></li>
@@ -85,7 +85,7 @@
                     <li class="nav-item dropdown menu-title">
                         <a class="nav-link dropdown-toggle" href="#" id="shopNowDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-shopping-bag"></i> Shop Now
+                           Shop Now
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="shopNowDropdown">
                             <li><a class="dropdown-item" href="#">Necklaces</a></li>
