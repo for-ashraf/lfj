@@ -33,3 +33,4 @@ Route::middleware(['auth'])->group(function () {
 
 // Root route without authentication
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');

@@ -66,7 +66,11 @@ class HomeController extends Controller
         return view('backend.dashboard', compact('totalBlogs', 'totalProd', 'totalEvents', 'totalCelebrities','users'));
 
     }
-    
+    public function blogs()
+    {
+        //$roles = Role::all();
+        return view('home.blogs');
+    }
     
      public function sendContactForm(Request $request)
     {

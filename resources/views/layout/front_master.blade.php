@@ -41,8 +41,7 @@
                     </li>
                     <li class="nav-item dropdown menu-title">
                  
-                        <a class="nav-link dropdown-toggle" href="#" id="blogsDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="/blogs" id="blogsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Blogs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="blogsDropdown">
