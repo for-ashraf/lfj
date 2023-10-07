@@ -68,8 +68,10 @@ class HomeController extends Controller
     }
     public function blogs()
     {
+        $categories=Categories::all();
+        $blogs = Blogs::latest()->take(6)->get();
         //$roles = Role::all();
-        return view('home.blogs');
+        return view('home.blogs',compact('blogs','categories'));
     }
     
      public function sendContactForm(Request $request)

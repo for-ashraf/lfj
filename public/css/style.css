@@ -477,10 +477,9 @@ h6,
     background-size: cover;
 }
 .bg-header2 {
-    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), center center no-repeat;
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7));
     background-size: cover;
 }
-
 .link-animated a {
     transition: .5s;
 }
