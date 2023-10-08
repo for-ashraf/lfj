@@ -34,3 +34,6 @@ Route::middleware(['auth'])->group(function () {
 // Root route without authentication
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
+Route::get('/searchBlog', [HomeController::class, 'searchBlog'])->name('home.searchBlog'); // Match the method name 'searchBlog'
+Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('home.showblog');
+

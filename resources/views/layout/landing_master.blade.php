@@ -167,11 +167,14 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex align-items-center justify-content-center">
-                    <div class="input-group" style="max-width: 600px;">
-                        <input type="text" class="form-control bg-transparent border-primary p-3"
-                            placeholder="Type search keyword">
-                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
-                    </div>
+                    <form action="{{ route('home.searchBlog') }}" method="GET">
+                        <div class="input-group" style="max-width: 600px;">
+                            <input type="text" name="query" class="form-control bg-transparent border-primary p-3"
+                                placeholder="Type search keyword">
+                            <button type="submit" class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -215,10 +218,7 @@
                         pieces that will elevate your look. Stay in touch with us for more fashion inspiration and
                         exclusive offers!</p>
                     <form action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control border-white p-3" placeholder="Your Email">
-                            <button class="btn btn-dark">For Offers</button>
-                        </div>
+                       <h2 style="color:yellow">Join Our WhatsApp Group for Latest Designs and Offers</h2>&nbsp;&nbsp;&nbsp;<h1><a href="https://chat.whatsapp.com/E2XyBOg8A2fFfilZ6F81Zs" style="color:black">https://chat.whatsapp.com/E2XyBOg8A2fFfilZ6F81Zs</a></h1>
                     </form>
                 </div>
             </div>

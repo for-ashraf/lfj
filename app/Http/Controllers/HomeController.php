@@ -73,6 +73,37 @@ class HomeController extends Controller
         //$roles = Role::all();
         return view('home.blogs',compact('blogs','categories'));
     }
+    public function searchBlog(Request $request)
+    {
+        $sblogs = Blogs::latest()->take(6)->get();
+        $categories=Categories::all();
+        $query = $request->input('query');
+        $blogs = Blogs::where('title', 'like', '%' . $query . '%')
+        ->orWhere('content', 'like', '%' . $query . '%')
+        ->get();
+
+        return view('home.searchblog', compact('sblogs','blogs', 'query','categories'));
+    }
+    
+// app/Http/Controllers/HomeController.php
+
+public function showBlog($id)
+{
+    $categories=Categories::all();
+    // Retrieve the blog with the given ID from your database
+    $blogs = Blogs::latest()->take(6)->get();
+    $blog = Blogs::find($id);
+
+    // Check if the blog exists
+    if (!$blog) {
+        abort(404); // Display a 404 error page if the blog is not found
+    }
+
+    return view('home.showblog', compact('blog','blogs','categories'));
+}
+
+
+
     
      public function sendContactForm(Request $request)
     {

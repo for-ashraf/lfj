@@ -6,12 +6,21 @@
             <div class="row g-5">
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
-                    <div class="mb-5">
-                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/' . $blogs->first()->featured_image) }}"
-                            alt="{{ $blogs->first()->title }}" width="300" height="200">
-                        <h1 class="mb-3">{{ $blogs->first()->title }}</h1>
-                        <p>{{ $blogs->first()->content }}</p>
-                    </div>
+                    @if ($blogs->count() > 0)
+                        <h2>Search Results for: "{{ $query }}"</h2>
+                        <ul>
+                            @foreach ($blogs as $blog)
+                                <li>
+                                    <a href="{{ route('home.showblog', $blog->blog_id) }}">{{ $blog->title }}</a>
+
+                                    {{-- <a href="">{{ $blog->title }}</a> --}}
+
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No results found for: "{{ $query }}"</p>
+                    @endif
 
                     <!-- Blog Detail End -->
                     <hr>
@@ -145,7 +154,7 @@
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
                             <h3 class="mb-0">Recent Post</h3>
                         </div>
-                        @foreach ($blogs as $blog)
+                        @foreach ($sblogs as $blog)
                             <div class="d-flex rounded overflow-hidden mb-3">
                                 <img class="img-fluid" src="{{ asset('uploads/' . $blog->featured_image) }}"
                                     style="width: 100px; height: 100px; object-fit: cover;" alt="">

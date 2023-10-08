@@ -7,12 +7,11 @@
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
                     <div class="mb-5">
-                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/' . $blogs->first()->featured_image) }}"
-                            alt="{{ $blogs->first()->title }}" width="300" height="200">
-                        <h1 class="mb-3">{{ $blogs->first()->title }}</h1>
-                        <p>{{ $blogs->first()->content }}</p>
+                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/'.$blog->featured_image) }}" alt="{{ $blog->title }}" width="300" height="200">
+                        <h1 class="mb-3">{{ $blog->title }}</h1>
+                        <p>{{ $blog->content }}</p>
                     </div>
-
+                    
                     <!-- Blog Detail End -->
                     <hr>
                     <!-- Tags Start -->
@@ -48,7 +47,7 @@
                         </div>
                     </div>
                     <!-- Tags End -->
-                    {{--     
+{{--     
                     <!-- Comment List Start -->
                     <div class="mb-5">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
@@ -111,61 +110,58 @@
                     </div>
                     <!-- Comment Form End --> --}}
                 </div>
-
+    
                 <!-- Sidebar Start -->
                 <div class="col-lg-4">
-                    <!-- Search Form Start -->
-                    <form action="{{ route('home.searchBlog') }}" method="GET">
-                        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                            <div class="input-group">
-                                <input type="text" class="form-control p-3" placeholder="Keyword" name="query">
-                                <!-- Add the name attribute to capture the input value -->
-                                <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Search Form End -->
-
+                 <!-- Search Form Start -->
+<form action="{{ route('home.searchBlog') }}" method="GET">
+    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+        <div class="input-group">
+            <input type="text" class="form-control p-3" placeholder="Keyword" name="query">
+            <!-- Add the name attribute to capture the input value -->
+            <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+        </div>
+    </div>
+</form>
+<!-- Search Form End -->
+    
                     <!-- Category Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
                             <h3 class="mb-0">Categories</h3>
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
-                            @foreach ($categories as $category)
-                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-                                        class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
+                            @foreach($categories as $category)
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i class="bi bi-arrow-right me-2"></i>{{$category->category_name}} </a>
                             @endforeach
                         </div>
                     </div>
                     <!-- Category End -->
-
+    
                     <!-- Recent Post Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
                             <h3 class="mb-0">Recent Post</h3>
                         </div>
-                        @foreach ($blogs as $blog)
-                            <div class="d-flex rounded overflow-hidden mb-3">
-                                <img class="img-fluid" src="{{ asset('uploads/' . $blog->featured_image) }}"
-                                    style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                        @foreach($blogs as $blog)
+                        <div class="d-flex rounded overflow-hidden mb-3">
+                            <img class="img-fluid" src="{{ asset('uploads/'.$blog->featured_image) }}" style="width: 100px; height: 100px; object-fit: cover;" alt="">
 
-                                <a href=""
-                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{ $blog->title }}
-                                </a>
-                            </div>
+                            <a href="" class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{$blog->title}}
+                            </a>
+                        </div>
                         @endforeach
-
+                       
                     </div>
                     <!-- Recent Post End -->
-
+    
                     <!-- Image Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
                     </div>
                     <!-- Image End -->
-
-
+    
+    
                     {{-- <!-- Plain Text Start -->
                     <div class="wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
