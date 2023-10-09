@@ -30,7 +30,7 @@
                     @foreach($blogs as $blog)
                     <div class="card">
                         <a href="#">
-                            <img class="card-img-top" src="{{ getBlogImageUrl($blog->blog_id) }}" >                       
+                            <img class="card-img-top" src="{{getBlogImageUrl($blog->blog_id) }}" >                       
                          </a>
                         <div class="card-body d-flex flex-column">
                             <h5><a href="#">{{ $blog->title }}</a></h5>
@@ -67,7 +67,7 @@
         if (confirm('Are you sure you want to delete this blog?')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '{{ url("blogs") }}/' + blogId;
+            form.action = '{{ url("admin/blogs") }}/' + blogId;
             form.style.display = 'none';
             
             const csrfToken = document.createElement('input');

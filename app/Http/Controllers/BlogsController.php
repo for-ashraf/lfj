@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Categories;
+use App\Models\Tag;
 
 use App\Models\Blogs;
 use App\Models\BlogAuthor; // Import the BlogAuthor model
@@ -62,9 +63,10 @@ class BlogsController extends Controller
      */
     public function create()
     {
+        $tags = Tag::pluck('title', 'title')->all();
         $authors = $this->loadAuthors(); // Call the getAuthorNames function
         $categories = $this->loadCategories(); // Call the getAuthorNames function
-        return view('blogs.create', compact('authors', 'categories'));
+        return view('blogs.create', compact('authors', 'categories','tags'));
     }
 
     /**
@@ -101,7 +103,13 @@ class BlogsController extends Controller
             'category_id' => $validatedData['category_id'],
             'publication_date' => now(),
         ]);
-    
+        if ($blog->save()){
+            $tagsId = collect($request->tags)->map(function ($tag) {
+                return Tag::firstOrCreate(['title' => $tag])->id;
+            });
+ 
+            $blog->tags()->attach($tagsId);
+        }
         // Get the uploaded file
         try {
             if ($request->hasFile('featured_image')) {
@@ -113,7 +121,7 @@ class BlogsController extends Controller
                 $fileName = $blog->blog_id . '.' . $file->getClientOriginalExtension();
     
                 // Move the file to the desired location (e.g., public/uploads)
-                $file->move('uploads', $fileName);
+                $file->move('uploads/blogs', $fileName);
                 $blog->update(['featured_image' => $fileName]);
             }
         } catch (\Exception $e) {
@@ -129,55 +137,66 @@ public function edit($id)
     $blog = Blogs::findOrFail($id); // Load the existing blog post
     $authors = $this->loadAuthors();
     $categories = $this->loadCategories();
-
-    return view('blogs.edit',compact('blog', 'authors', 'categories'));
+    $tags = Tag::all();
+    $selectedTags = $blog->tags->pluck('title')->all();
+    return view('blogs.edit',compact('blog', 'authors', 'categories','tags','selectedTags'));
 }
+
 public function update(Request $request, $id)
 {
-    $blog = Blogs::findOrFail($id); // Load the existing blog post
-   
-    $author = BlogAuthor::where('author_name', $request['author_name'])->first();
-    $validatedData['author_id'] = $author->author_id;
+    // Find the blog entry by its ID
+    $blog = Blogs::findOrFail($id);
 
+    // Validate the form data, including the uploaded file
     $validatedData = $request->validate([
         'title' => 'required|string|max:255',
         'content' => 'required|string',
-        'author_name' => 'required', 
-        'category_id' => 'required', 
-        
-        // Add validation rules for other fields
+        'author_name' => 'required|exists:blog_authors,author_name',
+        'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'category_id' => 'required',
     ]);
 
-    $blog->update($validatedData);
+    // Retrieve the author by name and update the author_id in the validated data
+    $author = BlogAuthor::where('author_name', $validatedData['author_name'])->first();
+    $validatedData['author_id'] = $author->author_id;
+
+    // Update the blog entry with the validated data
+    $blog->update([
+        'title' => $validatedData['title'],
+        'content' => $validatedData['content'],
+        'author_name' => $validatedData['author_name'],
+        'author_id' => $validatedData['author_id'],
+        'category_id' => $validatedData['category_id'],
+    ]);
+
+    // Update the tags associated with the blog entry
+    $tagsId = collect($request->tags)->map(function ($tag) {
+        return Tag::firstOrCreate(['title' => $tag])->id;
+    });
+
+    $blog->tags()->sync($tagsId);
+
+    // Handle the featured image upload
     try {
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
-            
-            // Ensure that the existing file is deleted before adding the new one
-            if ($blog->featured_image) {
-                // Delete the existing file from the server
-                $existingFilePath = public_path('uploads/' . $blog->featured_image);
-                if (file_exists($existingFilePath)) {
-                    unlink($existingFilePath);
-                }
-            }
-    
+
             // Generate the file name using the blog_id
             $fileName = $blog->blog_id . '.' . $file->getClientOriginalExtension();
-    
-            // Move the new file to the desired location (e.g., public/uploads)
-            $file->move('uploads', $fileName);
-    
-            // Update the featured_image column in the database
+
+            // Move the file to the desired location (e.g., public/uploads)
+            $file->move('uploads/blogs/', $fileName);
+
+            // Update the featured_image column
             $blog->update(['featured_image' => $fileName]);
         }
     } catch (\Exception $e) {
         Log::error('File upload failed: ' . $e->getMessage());
     }
-    
-    // Update any uploaded file, similar to the store method
 
-    return redirect()->route('blogs.index')->with('success', 'Category updated successfully!');
+    // After updating the data, you can redirect the user to a success page
+    // or the same page with a success message.
+    return redirect()->route('blogs.index')->with('success', 'Blog entry updated successfully!');
 }
 
 public function destroy($id)
@@ -186,7 +205,7 @@ public function destroy($id)
 
     // Delete the associated featured image if it exists
     if ($blog->featured_image) {
-        $existingFilePath = public_path('uploads/' . $blog->featured_image);
+        $existingFilePath = public_path('uploads/blogs/' . $blog->featured_image);
         if (file_exists($existingFilePath)) {
             unlink($existingFilePath);
         }

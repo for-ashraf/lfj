@@ -4,9 +4,9 @@ function getBlogImageUrl($blogId) {
     $extensions = ['jpeg', 'png', 'jpg', 'gif'];
 
     foreach ($extensions as $extension) {
-        $imagePath = public_path('uploads/' . $blogId . '.' . $extension);
+        $imagePath = public_path('uploads/blogs/' . $blogId . '.' . $extension);
         if (File::exists($imagePath)) {
-            return asset('uploads/' . $blogId . '.' . $extension);
+            return asset('uploads/blogs/' . $blogId . '.' . $extension);
         }
     }
 

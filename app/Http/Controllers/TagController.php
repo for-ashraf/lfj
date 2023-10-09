@@ -49,7 +49,7 @@ class TagController extends Controller
 
         Tag::create(['title' => $request->title]);
 
-        return redirect('/tags')->with('message','Tag created successfully');
+        return redirect('admin/tags')->with('message','Tag created successfully');
     }
 
     /**
@@ -87,7 +87,7 @@ class TagController extends Controller
 
         $tag->update($request->all());
 
-        return redirect()->route('tags.index')->with('message','Tag updated successfully');
+        return redirect()->route('admin/tags')->with('message','Tag updated successfully');
     }
 
     /**
