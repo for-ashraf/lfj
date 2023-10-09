@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CelebritiesController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\AmazonProductsController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\HomeController; // Import HomeController
 
@@ -18,16 +19,17 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 // Apply 'auth' middleware to protect routes other than the root ("/") route
 Route::middleware(['auth'])->group(function () {
     // Define routes that require authentication here.
-    Route::resource('/users', UserController::class);
-    Route::resource('categories', CategoriesController::class);
-    Route::resource('blogs', BlogsController::class);
-    Route::resource('celebrities', CelebritiesController::class);
-    Route::resource('products', AmazonProductsController::class);
-    Route::resource('image_gallery', ImageGalleryController::class);
-    Route::resource('events', EventsController::class);
+    Route::resource('admin/users', UserController::class);
+    Route::resource('admin/categories', CategoriesController::class);
+    Route::resource('admin/blogs', BlogsController::class);
+    Route::resource('admin/celebrities', CelebritiesController::class);
+    Route::resource('admin/products', AmazonProductsController::class);
+    Route::resource('admin/image_gallery', ImageGalleryController::class);
+    Route::resource('admin/events', EventsController::class);
+    Route::resource('admin/tags', TagController::class);
 
     // Route to the dashboard, protected by 'auth' middleware
-    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard'); // Use the controller method
+    Route::get('backend/dashboard', [HomeController::class, 'dashboard'])->name('backend.dashboard'); // Use the controller method
 
 });
 
@@ -36,4 +38,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/searchBlog', [HomeController::class, 'searchBlog'])->name('home.searchBlog'); // Match the method name 'searchBlog'
 Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('home.showblog');
+Route::get('/blogs/{category}', [HomeController::class, 'showCategory'])->name('home.category');
+
 

@@ -6,3 +6,8 @@ issues:
 - Develop and incorporate jewellery_brands CRUD operation (table created). Data has been fetched in home page
 - Implement User Management System in the Project(already created just need to implement)
 - JewelleryBrands table CRUD views to be created and also to include in route file
+
+---------------------------latest----------
+- in blog page add tags to be inserted into the blogs
+- set the path for blogs images
+- Start work back from HomeController

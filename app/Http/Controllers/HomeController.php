@@ -84,9 +84,33 @@ class HomeController extends Controller
 
         return view('home.searchblog', compact('sblogs','blogs', 'query','categories'));
     }
-    
-// app/Http/Controllers/HomeController.php
+    public function showCategory($category)
+    {
+        $sblogs = Blogs::latest()->take(6)->get();
+        $categories=Categories::all(); 
+        $blogs = Blogs::where('category', $category)->get();
+        if ($blogs->count() > 0) {
+            return view('home.searchblog', compact('blogs','blogs','categories'));
+        }
+        else
+        {
+            if ($category=='Latest Trends')
+                $blogs = Blogs::where('category', $category)->get();
+            else if ($category=='Style Tips')
+                $blogs = Blogs::where('category', $category)->get();
+            else if ($category=='Jewelry Care')
+                $blogs = Blogs::where('category', $category)->get();
+            else if ($category=='Celebrity Jewelry')
+                $blogs = Blogs::where('category', $category)->get();
+            else if ($category=='DIY Jewelry Projects')
+                $blogs = Blogs::where('category', $category)->get();
+            else if ($category=='Jewelry Gift Ideas')
+                $blogs = Blogs::where('category', $category)->get();
 
+                
+        }
+        
+    }  
 public function showBlog($id)
 {
     $categories=Categories::all();

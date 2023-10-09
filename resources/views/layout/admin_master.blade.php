@@ -55,14 +55,15 @@
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul class="metismenu">
                 <li class="g_heading">Directories</li>
-                <li class="{{ request()->is('dashboard') ? 'active' : '' }}"><a href="dashboard"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
-                <li class="{{ request()->is('categories') ? 'active' : '' }}"><a href="categories"><i class="fa fa-bars"></i><span>Categories</span></a></li>
-                <li class="{{ request()->is('products') ? 'active' : '' }}"><a href="products"><i class="fa fa-shopping-bag"></i><span>Products</span></a></li>
-                <li class="{{ request()->is('blogs') ? 'active' : '' }}"><a href="blogs"><i class="fa fa-qrcode"></i><span>Blogs</span></a></li>
-                <li class="{{ request()->is('events') ? 'active' : '' }}"><a href="events"><i class="fa fa-globe"></i><span>Events</span></a></li>
-                <li class="{{ request()->is('celebrities') ? 'active' : '' }}"><a href="celebrities"><i class="fa fa-star"></i><span>Celebrities</span></a></li>
-                <li class="{{ request()->is('image_gallery') ? 'active' : '' }}"><a href="image_gallery"><i class="fa fa-picture-o"></i><span>Image Gallery</span></a></li>
-                <li class="{{ request()->is('users') ? 'active' : '' }}"><a href="users"><i class="fa fa-lock"></i><span>Users</span></a></li>
+<li class="{{ request()->is('dashboard') ? 'active' : '' }}"><a href="{{ route('backend.dashboard') }}"><i class="icon-home"></i><span>Dashboard</span></a></li>                        
+<li class="{{ request()->is('admin/categories') ? 'active' : '' }}"><a href="{{ route('categories.index') }}"><i class="fa fa-bars"></i><span>Categories</span></a></li>
+<li class="{{ request()->is('admin/products') ? 'active' : '' }}"><a href="{{ route('products.index') }}"><i class="fa fa-shopping-bag"></i><span>Products</span></a></li>
+<li class="{{ request()->is('admin/blogs') ? 'active' : '' }}"><a href="{{ route('blogs.index') }}"><i class="fa fa-qrcode"></i><span>Blogs</span></a></li>
+<li class="{{ request()->is('admin/tags') ? 'active' : '' }}"><a href="{{ route('tags.index') }}"><i class="fa fa-qrcode"></i><span>Tags</span></a></li>
+<li class="{{ request()->is('admin/events') ? 'active' : '' }}"><a href="{{ route('events.index') }}"><i class="fa fa-globe"></i><span>Events</span></a></li>
+<li class="{{ request()->is('admin/celebrities') ? 'active' : '' }}"><a href="{{ route('celebrities.index') }}"><i class="fa fa-star"></i><span>Celebrities</span></a></li>
+<li class="{{ request()->is('admin/image_gallery') ? 'active' : '' }}"><a href="{{ route('image_gallery.index') }}"><i class="fa fa-picture-o"></i><span>Image Gallery</span></a></li>
+<li class="{{ request()->is('admin/users') ? 'active' : '' }}"><a href="{{ route('users.index') }}"><i class="fa fa-lock"></i><span>Users</span></a></li>
                 {{-- <li >
                     <a href="javascript:void(0)" class="has-arrow"><i class="icon-lock"></i><span>Users</span></a>
                     <ul>
