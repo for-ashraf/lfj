@@ -203,6 +203,9 @@ public function destroy($id)
 {
     $blog = Blogs::findOrFail($id); // Find the blog entry by ID
 
+    // Detach the related tags from the blog entry
+    $blog->tags()->detach();
+
     // Delete the associated featured image if it exists
     if ($blog->featured_image) {
         $existingFilePath = public_path('uploads/blogs/' . $blog->featured_image);

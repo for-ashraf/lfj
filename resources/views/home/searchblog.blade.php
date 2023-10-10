@@ -1,4 +1,14 @@
 @extends('../layout/landing_master') <!-- Specify the parent view to extend -->
+<style>
+    .content-wrapper {
+    display: inline-block;
+}
+
+.blog-content-right {
+    display: inline-block;
+    vertical-align: top;
+}
+</style>
 @section('content')
     <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -7,17 +17,31 @@
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
                     @if ($blogs->count() > 0)
-                        <h2>Search Results for: "{{ $query }}"</h2>
-                        <ul>
+                        <h2>Search Results for: "{{$query}}"</h2>
+                        <div class="blog-list">
                             @foreach ($blogs as $blog)
-                                <li>
-                                    <a href="{{ route('home.showblog', $blog->blog_id) }}">{{ $blog->title }}</a>
-
-                                    {{-- <a href="">{{ $blog->title }}</a> --}}
-
-                                </li>
+                                <div class="blog-item">
+                                    <div class="blog-content">
+                                        <h2 class="blog-title">
+                                            <a href="{{ route('home.showblog', $blog->blog_id) }}">{{ $blog->title }}</a>
+                                        </h2>
+                                        <table>
+                                            <tr>
+                                                <td style="vertical-align: top; width: 80%;">
+                                                    <div class="content-wrapper">
+                                                        {{ \Illuminate\Support\Str::words($blog->content, 30, '...') }}
+                                                        <a href="{{ route('home.showblog', $blog->blog_id) }}" class="read-more">Read More</a>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align: top; width: 20%;">
+                                                    <img width="100px" height="100px" src="/uploads/blogs/{{ $blog->featured_image }}" alt="Featured Image" style="border: 2px solid #ccc; border-radius: 5px;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                             @endforeach
-                        </ul>
+                        </div>
                     @else
                         <p>No results found for: "{{ $query }}"</p>
                     @endif
@@ -142,9 +166,9 @@
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($categories as $category)
-                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-                                        class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
-                            @endforeach
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="/blogs/{{$category->category_name}}"><i
+                                    class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
+                        @endforeach
                         </div>
                     </div>
                     <!-- Category End -->
@@ -156,10 +180,10 @@
                         </div>
                         @foreach ($sblogs as $blog)
                             <div class="d-flex rounded overflow-hidden mb-3">
-                                <img class="img-fluid" src="{{ asset('uploads/' . $blog->featured_image) }}"
+                                <img class="img-fluid" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}"
                                     style="width: 100px; height: 100px; object-fit: cover;" alt="">
 
-                                <a href=""
+                                <a href="/blog/{{ $blog->blog_id }}"
                                     class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{ $blog->title }}
                                 </a>
                             </div>
@@ -192,4 +216,5 @@
         </div>
     </div>
     <!-- Blog End -->
-@endsection
+
+    @endsection

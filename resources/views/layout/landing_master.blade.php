@@ -100,10 +100,10 @@
                         <div class="dropdown-menu m-0">
                             <a class="dropdown-item" href="/blogs/Latest Trends">Latest Trends</a>
                             <a class="dropdown-item" href="/blogs/Style Tips">Style Tips</a>
-                            <a class="dropdown-item" href="/blogs/Jewelry Care">Jewelry Care</a>
-                            <a class="dropdown-item" href="/blogs/Jewelry Care">Celebrity Jewelry</a>
-                            <a class="dropdown-item" href="/blogs/DIY Jewelry Projects">DIY Jewelry Projects</a>
-                            <a class="dropdown-item" href="/blogs/Jewelry Gift Ideas">Jewelry Gift Ideas</a>
+                            <a class="dropdown-item" href="/blogs/Jewellery Care">Jewellery Care</a>
+                            <a class="dropdown-item" href="/blogs/Celebrity Jewellery">Celebrity Jewellery</a>
+                            <a class="dropdown-item" href="/blogs/DIY Jewellery Projects">DIY Jewellery Projects</a>
+                            <a class="dropdown-item" href="/blogs/Jewellery Gift Ideas">Jewellery Gift Ideas</a>
 
                         </div>
                     </div>

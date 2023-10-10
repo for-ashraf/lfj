@@ -7,7 +7,7 @@
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
                     <div class="mb-5">
-                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/' . $blog->featured_image) }}"
+                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}"
                             alt="{{ $blog->title }}" width="300" height="200">
                         <h1 class="mb-3">{{ $blog->title }}</h1>
                         <p>{{ $blog->content }}</p>
@@ -133,9 +133,9 @@
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($categories as $category)
-                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#"><i
-                                        class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
-                            @endforeach
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="/blogs/{{$category->category_name}}"><i
+                                    class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
+                        @endforeach
                         </div>
                     </div>
                     <!-- Category End -->
@@ -147,11 +147,12 @@
                         </div>
                         @foreach ($blogs as $blog)
                             <div class="d-flex rounded overflow-hidden mb-3">
-                                <img class="img-fluid" src="{{ asset('uploads/' . $blog->featured_image) }}"
+                                <img class="img-fluid" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}"
                                     style="width: 100px; height: 100px; object-fit: cover;" alt="">
 
-                                <a href=""
-                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{ $blog->title }}
+                                    <a href="/blog/{{ $blog->blog_id }}"
+                                        class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{ $blog->title }}
+                                    </a>
                                 </a>
                             </div>
                         @endforeach

@@ -29,5 +29,8 @@ public function tags()
 {
     return $this->belongsToMany(Tag::class, 'blog_tag', 'blog_id', 'tag_id')->withTimestamps();
 }
-
+public function categories()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }

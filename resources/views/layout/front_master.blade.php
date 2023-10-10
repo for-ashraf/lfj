@@ -45,12 +45,12 @@
                             Blogs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="blogsDropdown">
-                            <li><a class="dropdown-item" href="#">Latest Trends</a></li>
-                            <li><a class="dropdown-item" href="#">Style Tips</a></li>
-                            <li><a class="dropdown-item" href="#">Jewelry Care</a></li>
-                            <li><a class="dropdown-item" href="#">Celebrity Jewelry</a></li>
-                            <li><a class="dropdown-item" href="#">DIY Jewelry Projects</a></li>
-                            <li><a class="dropdown-item" href="#">Jewelry Gift Ideas</a></li>
+                            <li><a class="dropdown-item" href="/blogs/Latest Trends">Latest Trends</a></li>
+                            <li><a class="dropdown-item" href="/blogs/Style Tips">Style Tips</a></li>
+                            <li><a class="dropdown-item" href="/blogs/Jewellery Care">Jewellery Care</a></li>
+                            <li><a class="dropdown-item" href="/blogs/Celebrity Jewellery">Celebrity Jewellery</a></li>
+                            <li><a class="dropdown-item" href="/blogs/DIY Jewelry Projects">DIY Jewelry Projects</a></li>
+                            <li><a class="dropdown-item" href="/blogs/Jewelry Gift Ideas">Jewelry Gift Ideas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
