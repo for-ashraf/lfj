@@ -21,25 +21,16 @@
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet')">
-
+    <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js"></script>
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
+        <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
-    <!-- Spinner Start -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner"></div>
-    </div>
-    <!-- Spinner End -->
+  
 
 
     <!-- Topbar Start -->
@@ -83,10 +74,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="/" class="{{ request()->is('/') ? 'active' : '' }}; nav-item nav-link">Home</a>
+                    <a href="/about" class="nav-item nav-link {{ request()->is('about') ? 'active' : '' }}">About</a>
                     <div class="nav-item dropdown">
-                        <a href="/categories" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
+                        <a href="/categories" class="nav-link dropdown-toggle {{ request()->is('categories') ? 'active' : '' }}" data-bs-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
                                 <a class="dropdown-item"
@@ -96,7 +87,7 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Blog</a>
+                        <a href="/blogs" class="nav-link dropdown-toggle {{ request()->is('blog') ? 'active' : '' }}" data-bs-toggle="dropdown">Blog</a>
                         <div class="dropdown-menu m-0">
                             <a class="dropdown-item" href="/blogs/Latest Trends">Latest Trends</a>
                             <a class="dropdown-item" href="/blogs/Style Tips">Style Tips</a>
@@ -108,7 +99,7 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Events</a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('events') ? 'active' : '' }}" data-bs-toggle="dropdown">Events</a>
                         <div class="dropdown-menu m-0">
                             <a class="dropdown-item" href="/events/Fashion Show">Fashion Show</a>
                             <a class="dropdown-item" href="/events/Jewelry Exhibition">Jewelry Exhibition</a>
@@ -119,7 +110,7 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Celebrities</a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('blog') ? 'celebrities' : '' }}" data-bs-toggle="dropdown">Celebrities</a>
                         <div class="dropdown-menu m-0">
                             <a class="dropdown-item" href="/celebrities/Hollywood Actresses">Hollywood Actresses</a>
                             <a class="dropdown-item" href="/celebrities/Bollywood Actresses">Bollywood Actresses</a>
@@ -129,12 +120,12 @@
                                 Moments</a>
                             <a class="dropdown-item" href="/celebrities/Celebrity Collaborations">Celebrity
                                 Collaborations</a>
-                            <a class="dropdown-item" href="/celebrities/Jewelry Brands Loved by Celebrities">Jewelry
+                            <a class="dropdown-item" href="/celebrities/Jewellery Brands Loved by Celebrities">Jewellery
                                 Brands Loved by Celebrities</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop Now</a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('shopNow') ? 'active' : '' }}" data-bs-toggle="dropdown">Shop Now</a>
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
                                 <a class="dropdown-item"
@@ -261,7 +252,7 @@
 
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
 <script src="{{ asset('lib/easing/easing.min.js') }}"></script>

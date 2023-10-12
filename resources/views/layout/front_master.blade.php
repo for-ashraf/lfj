@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
 
-                    <li class="nav-item dropdown menu-title">
+                    <li class="nav-item dropdown menu-title {{ request()->is('categories') ? 'active' : '' }}">
                         <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                            Categories
@@ -41,7 +41,7 @@
                     </li>
                     <li class="nav-item dropdown menu-title">
                  
-                        <a class="nav-link dropdown-toggle" href="/blogs" id="blogsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ request()->is('blog') ? 'active' : '' }}" href="/blogs" id="blogsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Blogs
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="blogsDropdown">
@@ -54,7 +54,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
-                        <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button"
+                        <a class="nav-link dropdown-toggle {{ request()->is('events') ? 'active' : '' }}" href="#" id="eventsDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                            Events
                         </a>
@@ -68,7 +68,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
-                        <a class="nav-link dropdown-toggle" href="#" id="celebritiesDropdown" role="button"
+                        <a class="nav-link dropdown-toggle {{ request()->is('Celebrities') ? 'active' : '' }}" href="#" id="celebritiesDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                              Celebrities
                         </a>
@@ -82,7 +82,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
-                        <a class="nav-link dropdown-toggle" href="#" id="shopNowDropdown" role="button"
+                        <a class="nav-link dropdown-toggle {{ request()->is('shopNow') ? 'active' : '' }}" href="#" id="shopNowDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                            Shop Now
                         </a>

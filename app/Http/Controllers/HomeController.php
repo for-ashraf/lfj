@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Blogs;
 use App\Models\AmazonProduct;
+use App\Models\ImageGallery;
 use App\Models\Events;
 use App\Models\Celebrities;
 use App\Models\User;
 use App\Models\JewelleryBrand;
 use Illuminate\Http\Request;
+
+
+
 
 class HomeController extends Controller
 {
@@ -133,6 +137,23 @@ class HomeController extends Controller
         }
 
         return view('home.showblog', compact('blog', 'blogs', 'categories'));
+    }
+
+    public function about()
+    {
+        $categories = Categories::all();
+        return view('home.about',compact('categories'));
+    }
+    public function categories()
+    {
+        $blogs = Blogs::count();
+        $events= Events::count();
+        $images = ImageGallery::count();
+        $celebrities = Celebrities::count();
+        $products=AmazonProduct::count();
+        $amazonProducts=AmazonProduct::all();
+        $categories = Categories::all();
+        return view('home.categories',compact('categories','amazonProducts','blogs','events','images','celebrities','products'));
     }
 
 
