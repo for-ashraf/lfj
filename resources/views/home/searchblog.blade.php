@@ -162,7 +162,7 @@
                     <!-- Category Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Categories</h3>
+                            <a href="/categories"><h3 class="mb-0">Categories</h3></a>
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($categories as $category)

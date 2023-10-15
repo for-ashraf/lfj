@@ -75,8 +75,11 @@ class HomeController extends Controller
     {
         $categories = Categories::all();
         $blogs = Blogs::latest()->take(6)->get();
+        $myBlogs = Blogs::inRandomOrder()
+        ->limit(10)
+        ->get();
         //$roles = Role::all();
-        return view('home.blogs', compact('blogs', 'categories'));
+        return view('home.blogs', compact('blogs', 'categories','myBlogs'));
     }
     public function searchBlog(Request $request)
     {

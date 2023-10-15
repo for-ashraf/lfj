@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Categories;
+use App\Models\Celebrities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\ImageGallery;
@@ -17,8 +18,8 @@ class ImageGalleryController extends Controller
     {
         $categories = $this->loadCategories(); // Call the getAuthorNames function
         $images = ImageGallery::all();
-
-        return view('image_gallery.index', compact('images','categories'));
+        $celebrities=Celebrities::all();
+        return view('image_gallery.index', compact('images','categories','celebrities'));
     }
 
     public function show($id)
@@ -31,7 +32,8 @@ class ImageGalleryController extends Controller
     public function create()
     {
         $categories = $this->loadCategories(); // Call the getAuthorNames function
-        return view('image_gallery.create', compact('categories'));
+        $celebrities = Celebrities::all();
+        return view('image_gallery.create', compact('categories','celebrities'));
     }
 
     public function store(Request $request)
@@ -42,6 +44,7 @@ class ImageGalleryController extends Controller
             'category' => 'required|string|max:50',
             'title' => 'required|string|max:100',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'celebrity_id'=> 'nullable',
         ]);
         $image = ImageGallery::create($validatedData);
         try {
@@ -66,38 +69,41 @@ class ImageGalleryController extends Controller
     {
         $categories = $this->loadCategories(); 
         $image = ImageGallery::findOrFail($id);
+        $celebrities = Celebrities::all();
 
-        return view('image_gallery.edit', compact('image','categories'));
+        return view('image_gallery.edit', compact('image','categories','celebrities'));
     }
 
     public function update(Request $request, $id)
     {
         $image = ImageGallery::findOrFail($id);
-
+    
         $validatedData = $request->validate([
             'category' => 'required|string|max:50',
             'title' => 'required|string|max:100',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'celebrity_id' => 'nullable',
         ]);
-        $image->update($validatedData);
     
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                if ($image->image && file_exists(public_path('uploads/image_gallery/' . $image->image))) {
-                    unlink(public_path('uploads/image_gallery/' . $image->image));
-                }
-                $fileName = $image->id . '.' . $file->getClientOriginalExtension();
-                $file->move('uploads/image_gallery/', $fileName);
-                $validatedData['image'] = $fileName;
-                // Delete the old image file if it exists
+        $fileName = null; // Initialize $fileName to null
+    
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+    
+            // Delete the old image file if it exists
+            if ($image->image && file_exists(public_path('uploads/image_gallery/' . $image->image))) {
+                unlink(public_path('uploads/image_gallery/' . $image->image));
             }
-
-                $validatedData['image'] = $fileName;
-                  
-            $image->update($validatedData);
-            return redirect()->route('image_gallery.index')->with('success', 'Image updated successfully!');
-
+    
+            $fileName = $image->id . '.' . $file->getClientOriginalExtension();
+            $file->move('uploads/image_gallery/', $fileName);
+            $validatedData['image'] = $fileName;
+        }
+    
+        $image->update($validatedData);
+        return redirect()->route('image_gallery.index')->with('success', 'Image updated successfully!');
     }
+    
 
     public function destroy($id)
     {

@@ -8,7 +8,7 @@
 <header class="jumbotron jumbotron-fluid" style="background-image: url('{{ asset('/images/home/sliderimage1.jpg') }}');">
 
     <h1 class="display-4">Find Your Perfect Jewellery Style</h1>
-    <p class="lead">Explore our wide selection of categories and find the perfect piece to add to your jewellery
+    <p class="lead">Explore our wide selection of <a href="/categories"><h3 class="mb-0">Categories</a> and find the perfect piece to add to your jewellery
         collection.</p>
 
 </header>

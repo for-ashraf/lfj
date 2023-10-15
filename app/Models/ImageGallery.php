@@ -14,6 +14,7 @@ class ImageGallery extends Model
         'image',
         'created_at',
         'updated_at',
+        'celebrity_id',
     ];
 
     // Add any additional model logic or relationships here

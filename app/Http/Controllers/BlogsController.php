@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Tag;
-
+use App\Models\Celebrities;
 use App\Models\Blogs;
 use App\Models\BlogAuthor; // Import the BlogAuthor model
 use Illuminate\Http\Request;
@@ -63,10 +63,11 @@ class BlogsController extends Controller
      */
     public function create()
     {
+        $celebrities=Celebrities::all();
         $tags = Tag::pluck('title', 'title')->all();
         $authors = $this->loadAuthors(); // Call the getAuthorNames function
         $categories = $this->loadCategories(); // Call the getAuthorNames function
-        return view('blogs.create', compact('authors', 'categories','tags'));
+        return view('blogs.create', compact('authors', 'categories','tags','celebrities'));
     }
 
     /**
@@ -78,7 +79,7 @@ class BlogsController extends Controller
     public function store(Request $request)
     {
         Log::debug($request->all());
-    
+     
         // Validate the form data, including the uploaded file
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -86,8 +87,10 @@ class BlogsController extends Controller
             'author_name' => 'required|exists:blog_authors,author_name',
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required',
+            'celebrity_id'=>'nullable',
         ]);
-    
+        $content = str_replace('&nbsp;', ' ', $request->input('content'));
+        $content = trim(strip_tags($request->input('content')));
         // If the validation passes, it means the form data is valid.
         // Now you can process the form data (e.g., save it to the database).
         $author = BlogAuthor::where('author_name', $request['author_name'])->first();
@@ -96,18 +99,26 @@ class BlogsController extends Controller
         // Create a new blog entry with the validated data, including the author_id
         $blog = Blogs::create([
             'title' => $validatedData['title'],
-            'content' => $validatedData['content'],         
+            'content' => $content,    
             'author_name' => $validatedData['author_name'],
             'author_id' => $validatedData['author_id'],            
+            'celebrity_id' => $validatedData['celebrity_id'],            
             'featured_image' => '', // Set an empty value for now, we'll update it later
             'category_id' => $validatedData['category_id'],
             'publication_date' => now(),
         ]);
         if ($blog->save()){
             $tagsId = collect($request->tags)->map(function ($tag) {
-                return Tag::firstOrCreate(['title' => $tag])->id;
-            });
- 
+                $tag = Tag::where('title', $tag)->first();
+            
+                if ($tag) {
+                    return $tag->id;
+                }
+            
+                return null;
+            })->filter(function ($tagId) {
+                return $tagId !== null;
+            })->all();
             $blog->tags()->attach($tagsId);
         }
         // Get the uploaded file
@@ -138,15 +149,16 @@ public function edit($id)
     $authors = $this->loadAuthors();
     $categories = $this->loadCategories();
     $tags = Tag::all();
+    $celebrities=Celebrities::all();
     $selectedTags = $blog->tags->pluck('title')->all();
-    return view('blogs.edit',compact('blog', 'authors', 'categories','tags','selectedTags'));
+    return view('blogs.edit',compact('blog', 'authors', 'categories','tags','selectedTags','celebrities'));
 }
 
 public function update(Request $request, $id)
 {
     // Find the blog entry by its ID
     $blog = Blogs::findOrFail($id);
-
+   
     // Validate the form data, including the uploaded file
     $validatedData = $request->validate([
         'title' => 'required|string|max:255',
@@ -154,8 +166,11 @@ public function update(Request $request, $id)
         'author_name' => 'required|exists:blog_authors,author_name',
         'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'category_id' => 'required',
+        'celebrity_id'=>'nullable',
     ]);
-
+    $content = str_replace('&nbsp;', ' ', $request->input('content'));
+    $content = trim(strip_tags($request->input('content')));
+    
     // Retrieve the author by name and update the author_id in the validated data
     $author = BlogAuthor::where('author_name', $validatedData['author_name'])->first();
     $validatedData['author_id'] = $author->author_id;
@@ -163,17 +178,26 @@ public function update(Request $request, $id)
     // Update the blog entry with the validated data
     $blog->update([
         'title' => $validatedData['title'],
-        'content' => $validatedData['content'],
+        'content' => $content,
         'author_name' => $validatedData['author_name'],
         'author_id' => $validatedData['author_id'],
         'category_id' => $validatedData['category_id'],
+        'celebrity_id'=> $validatedData['celebrity_id'],
     ]);
 
     // Update the tags associated with the blog entry
     $tagsId = collect($request->tags)->map(function ($tag) {
-        return Tag::firstOrCreate(['title' => $tag])->id;
-    });
-
+        $tag = Tag::where('title', $tag)->first();
+    
+        if ($tag) {
+            return $tag->id;
+        }
+    
+        return null;
+    })->filter(function ($tagId) {
+        return $tagId !== null;
+    })->all();
+    
     $blog->tags()->sync($tagsId);
 
     // Handle the featured image upload

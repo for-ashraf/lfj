@@ -39,33 +39,32 @@
 
             <!-- First Section -->
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; background-color: #f9f3ff; border-color: #8c61ff;">
                     <img src="{{asset('uploads/home/blogs1.jpg')}}" style="width: 100px; height:100px;" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Blogs</h5>
-                        <p class="card-text" style="text-align: justify">Explore exquisite jewelry trends, expert buying guides, and timeless pieces in our captivating jewelry blog.</p>
-                        <a href="#" class="btn btn-primary">Blogs to Cover {{$blogs}}</a>
+                        <h5 class="card-title" style="color: #8c61ff;">Blogs</h5>
+                        <p class="card-text" style="text-align: justify; color: #4f4f4f;">Explore exquisite jewelry trends, expert buying guides, and timeless pieces in our captivating jewelry blog.</p>
+                        <a href="/blogs" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Blogs to Cover {{$blogs}}</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; background-color: #fff3e6; border-color: #ffa94d;">
                     <img src="{{asset('uploads/home/celeb1.jpg')}}" class="card-img-top" style="width: 100px; height:100px;" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Celebrities</h5>
-                        <p class="card-text" style="text-align: justify">Explore how your favorite celebrities adorn themselves with exquisite jewelry, adding sparkle to their glamorous lives. </p>
-                        <a href="#" class="btn btn-primary">Coverage of {{$celebrities}} Beauties</a>
+                        <h5 class="card-title" style="color: #ff6b00;">Celebrities</h5>
+                        <p class="card-text" style="text-align: justify; color: #6c757d;">Explore how your favorite celebrities adorn themselves with exquisite jewelry, adding sparkle to their glamorous lives.</p>
+                        <a href="#" class="btn btn-primary" style="background-color: #ff6b00; border-color: #ff6b00;">Coverage of {{$celebrities}} Beauties</a>
                     </div>
                 </div>
             </div>
-            
             <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; background-color: #f9f3ff; border-color: #8c61ff;">
                     <img src="{{asset('uploads/home/events1.jpg')}}" class="card-img-top" style="width: 100px; height:100px;" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Events</h5>
-                        <p class="card-text" style="text-align: justify">Discover the dazzling world of jewelry events, where elegance and creativity unite in stunning showcases</p>
-                        <a href="#" class="btn btn-primary">{{$events}} Upcoming Events</a>
+                        <h5 class="card-title" style="color: #8c61ff;">Events</h5>
+                        <p class="card-text" style="text-align: justify; color: #4f4f4f;">Discover the dazzling world of jewelry events, where elegance and creativity unite in stunning showcases.</p>
+                        <a href="#" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Coverage of {{$celebrities}} Beauties</a>
                     </div>
                 </div>
             </div>
