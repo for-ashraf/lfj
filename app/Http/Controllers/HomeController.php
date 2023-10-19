@@ -76,10 +76,21 @@ class HomeController extends Controller
         $categories = Categories::all();
         $blogs = Blogs::latest()->take(6)->get();
         $myBlogs = Blogs::inRandomOrder()
-        ->limit(10)
-        ->get();
+            ->limit(10)
+            ->get();
         //$roles = Role::all();
-        return view('home.blogs', compact('blogs', 'categories','myBlogs'));
+        return view('home.blogs', compact('blogs', 'categories', 'myBlogs'));
+    }
+    public function celebrities()
+    {
+        $categories = Categories::all();
+        $blogs = Blogs::latest()->take(6)->get();
+        $celebrities = Celebrities::all();
+        $myBlogs = Blogs::inRandomOrder()
+            ->limit(10)
+            ->get();
+        //$roles = Role::all();
+        return view('home.celebrities', compact('blogs', 'categories', 'myBlogs', 'celebrities'));
     }
     public function searchBlog(Request $request)
     {
@@ -97,36 +108,45 @@ class HomeController extends Controller
 
         return view('home.searchblog', compact('sblogs', 'blogs', 'query', 'categories'));
     }
-    public function showCategory($category)
-{
-    //dd($category);
-    $sblogs = Blogs::latest()->take(6)->get();
-    $categories = Categories::all();
-    $query = $category;
-    // Assuming you have a 'category_id' column in the 'blogs' table
-    $blogs = Blogs::whereHas('categories', function ($query) use ($category) {
-        $query->where('category_name', $category);
-    })->get();
-    
-    if ($blogs->count() > 0) {
-        return view('home.searchblog', compact('blogs', 'sblogs', 'categories','query'));
-    } else {
-        // If no blogs are found in the specified category, perform a search
-   
-        $blogs = Blogs::from('blogs as b')
-        ->distinct()
-        ->leftJoin('blog_tag as bt', 'b.blog_id', '=', 'bt.blog_id')
-        ->leftJoin('tags as t', 'bt.tag_id', '=', 't.id')
-        ->where('t.title', $category)
-        ->select('b.*')
-        ->get();
-        
-        return view('home.searchblog', compact('blogs', 'sblogs', 'query', 'categories'));
-    }
-}
+    public function showCelebrity($id)
+    {
+        $categories = Categories::all();
+        $blogs = Blogs::where('celebrity_id',$id)->get();
+        $celebrity = Celebrities::find($id); // Replace 'Celebrity' with your actual model name
 
-    
-    
+        return view('home.celebrityShow', compact('celebrity','categories','blogs'));
+    }
+
+    public function showCategory($category)
+    {
+        //dd($category);
+        $sblogs = Blogs::latest()->take(6)->get();
+        $categories = Categories::all();
+        $query = $category;
+        // Assuming you have a 'category_id' column in the 'blogs' table
+        $blogs = Blogs::whereHas('categories', function ($query) use ($category) {
+            $query->where('category_name', $category);
+        })->get();
+
+        if ($blogs->count() > 0) {
+            return view('home.searchblog', compact('blogs', 'sblogs', 'categories', 'query'));
+        } else {
+            // If no blogs are found in the specified category, perform a search
+
+            $blogs = Blogs::from('blogs as b')
+                ->distinct()
+                ->leftJoin('blog_tag as bt', 'b.blog_id', '=', 'bt.blog_id')
+                ->leftJoin('tags as t', 'bt.tag_id', '=', 't.id')
+                ->where('t.title', $category)
+                ->select('b.*')
+                ->get();
+
+            return view('home.searchblog', compact('blogs', 'sblogs', 'query', 'categories'));
+        }
+    }
+
+
+
     public function showBlog($id)
     {
         $categories = Categories::all();
@@ -145,18 +165,18 @@ class HomeController extends Controller
     public function about()
     {
         $categories = Categories::all();
-        return view('home.about',compact('categories'));
+        return view('home.about', compact('categories'));
     }
     public function categories()
     {
         $blogs = Blogs::count();
-        $events= Events::count();
+        $events = Events::count();
         $images = ImageGallery::count();
         $celebrities = Celebrities::count();
-        $products=AmazonProduct::count();
-        $amazonProducts=AmazonProduct::all();
+        $products = AmazonProduct::count();
+        $amazonProducts = AmazonProduct::all();
         $categories = Categories::all();
-        return view('home.categories',compact('categories','amazonProducts','blogs','events','images','celebrities','products'));
+        return view('home.categories', compact('categories', 'amazonProducts', 'blogs', 'events', 'images', 'celebrities', 'products'));
     }
 
 

@@ -184,6 +184,14 @@
             }
         }
 
+        .view-btn-large {
+            font-size: 18px;
+            /* Increase the font size to make the link larger */
+            padding: 10px 20px;
+            /* Adjust the padding as needed for larger size */
+            /* Add any other styles you need */
+        }
+
         .credit {
             font-size: 14px;
         }
@@ -200,23 +208,26 @@
                                 <div class="card h-100">
                                     <div class="inner-card">
                                         <div class="img-wrapper">
-                                            <img src="{{ asset('uploads/blogs/' . $myblog->featured_image) }}" alt="">
+                                            <img src="{{ asset('uploads/blogs/' . $myblog->featured_image) }}"
+                                                alt="">
                                         </div>
                                         <div class="content">
-                                            <h1>{{$myblog->title}}</h1>
+                                            <h1>{{ $myblog->title }}</h1>
                                             <p>{{ \Illuminate\Support\Str::words($myblog->content, 10, '...') }}</p>
                                         </div>
                                         <div class="btn-wrapper">
-                                            <button class="view-btn" data-src="{{ route('home.showblog', $myblog->blog_id) }}">View</button>
+                                            <a href="{{ route('home.showblog', $myblog->blog_id) }}" class="view-btn view-btn-large">View</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @if($loop->iteration % 2 == 0)
-                                </div><div class="row">
-                            @endif
+                            @if ($loop->iteration % 2 == 0)
+                    </div>
+                    <div class="row">
+                        @endif
                         @endforeach
-                        <h4 style="color:#478559">Search for huge collection of Jewellery Blogs</h4><br>   <!-- Search Form Start -->
+                        <h4 style="color:#478559">Search for huge collection of Jewellery Blogs</h4><br>
+                        <!-- Search Form Start -->
                         <form action="{{ route('home.searchBlog') }}" method="GET">
                             <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                                 <div class="input-group">
@@ -283,7 +294,9 @@
                     <!-- Category Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <a href="/categories"><h3 class="mb-0">Categories</h3></a>
+                            <a href="/categories">
+                                <h3 class="mb-0">Categories</h3>
+                            </a>
                         </div>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             @foreach ($categories as $category)
@@ -328,21 +341,24 @@
     </div>
     <!-- Blog End -->
     <script>
-        let lightImg = document.querySelector(".light-img");
-        let viewBtn = document.querySelectorAll(".view-btn");
+        // Ensure the DOM is fully loaded before adding the event listeners
+        document.addEventListener("DOMContentLoaded", function() {
+            let lightImg = document.querySelector(".light-img");
+            let viewBtn = document.querySelectorAll(".view-btn");
 
-        viewBtn.forEach(el => {
-            el.addEventListener("click", () => {
-                document.body.classList.add("effect");
-                let imgSrc = el.getAttribute("data-src");
-                lightImg.src = imgSrc;
+            viewBtn.forEach(el => {
+                el.addEventListener("click", () => {
+                    document.body.classList.add("effect");
+                    let imgSrc = el.getAttribute("data-src");
+                    lightImg.src = imgSrc;
+                });
+            });
+
+            window.addEventListener("click", event => {
+                if (event.target.className == "box-wrapper" || event.target.className == "close-btn") {
+                    document.body.classList.remove("effect");
+                }
             });
         });
-
-        window.addEventListener("click", event => {
-            if (event.target.className == "box-wrapper" || event.target.className == "close-btn") {
-                document.body.classList.remove("effect");
-            }
-        })
     </script>
 @endsection

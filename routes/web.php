@@ -41,5 +41,7 @@ Route::get('/searchBlog', [HomeController::class, 'searchBlog'])->name('home.sea
 Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('home.showblog');
 Route::get('/blogs/{category}', [HomeController::class, 'showCategory'])->name('home.category');
 Route::get('/categories', [HomeController::class, 'categories'])->name('home.categories');
+Route::get('/celebrities', [HomeController::class, 'celebrities'])->name('celebrities');
+Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');
 
 
