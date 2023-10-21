@@ -128,22 +128,20 @@ class HomeController extends Controller
 
         return view('home.celebrityShow', compact('celebrity', 'categories', 'blogs'));
     }
-    public function showEvents($id)
+    public function showEvent($id)
     {
         $categories = Categories::all();
-        $blogs = Blogs::where('celebrity_id', $id)->get();
-        $celebrity = Celebrities::find($id); // Replace 'Celebrity' with your actual model name
-
-        return view('home.celebrityShow', compact('celebrity', 'categories', 'blogs'));
+        $event = Events::find($id); // Replace 'Celebrity' with your actual model name
+        $category_id = $event->category_id;
+        $blogs = Blogs::where('category_id', $category_id)->take(4)->get();
+        return view('home.eventShow', compact('event', 'categories', 'blogs'));
     }
 
     public function showCategory($category)
     {
-        //dd($category);
         $sblogs = Blogs::latest()->take(6)->get();
         $categories = Categories::all();
         $query = $category;
-        // Assuming you have a 'category_id' column in the 'blogs' table
         $blogs = Blogs::whereHas('categories', function ($query) use ($category) {
             $query->where('category_name', $category);
         })->get();
