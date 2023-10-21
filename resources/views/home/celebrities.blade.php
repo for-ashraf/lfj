@@ -61,7 +61,7 @@
 </style>
 @section('content')
 <div class="container">
-    <input type="text" id="searchInput" class="form-control search-box" placeholder="Search celebrities...">
+    <input type="text" id="searchInput" name="searchInput" class="form-control search-box" placeholder="Search celebrities...">
 </div>
 
 <div class="container">

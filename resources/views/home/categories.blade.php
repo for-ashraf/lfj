@@ -36,7 +36,6 @@
 
     <div class="container">
         <div class="row">
-
             <!-- First Section -->
             <div class="col-md-4">
                 <div class="card" style="width: 18rem; background-color: #f9f3ff; border-color: #8c61ff;">
@@ -54,7 +53,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="color: #ff6b00;">Celebrities</h5>
                         <p class="card-text" style="text-align: justify; color: #6c757d;">Explore how your favorite celebrities adorn themselves with exquisite jewelry, adding sparkle to their glamorous lives.</p>
-                        <a href="#" class="btn btn-primary" style="background-color: #ff6b00; border-color: #ff6b00;">Coverage of {{$celebrities}} Beauties</a>
+                        <a href="/celebrities" class="btn btn-primary" style="background-color: #ff6b00; border-color: #ff6b00;">Coverage of {{$celebrities}} Beauties</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +63,7 @@
                     <div class="card-body">
                         <h5 class="card-title" style="color: #8c61ff;">Events</h5>
                         <p class="card-text" style="text-align: justify; color: #4f4f4f;">Discover the dazzling world of jewelry events, where elegance and creativity unite in stunning showcases.</p>
-                        <a href="#" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Coverage of {{$celebrities}} Beauties</a>
+                        <a href="/events" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Coverage of {{$events}} Events</a>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Categories;
 use App\Models\Blogs;
 use App\Models\AmazonProduct;
@@ -92,6 +93,17 @@ class HomeController extends Controller
         //$roles = Role::all();
         return view('home.celebrities', compact('blogs', 'categories', 'myBlogs', 'celebrities'));
     }
+    public function events()
+    {
+        $categories = Categories::all();
+
+        $now = Carbon::now();
+
+        $events = Events::where('event_date', '>=', $now)->get();
+
+        //$roles = Role::all();
+        return view('home.events', compact('events', 'categories'));
+    }
     public function searchBlog(Request $request)
     {
         $sblogs = Blogs::latest()->take(6)->get();
@@ -111,10 +123,18 @@ class HomeController extends Controller
     public function showCelebrity($id)
     {
         $categories = Categories::all();
-        $blogs = Blogs::where('celebrity_id',$id)->get();
+        $blogs = Blogs::where('celebrity_id', $id)->get();
         $celebrity = Celebrities::find($id); // Replace 'Celebrity' with your actual model name
 
-        return view('home.celebrityShow', compact('celebrity','categories','blogs'));
+        return view('home.celebrityShow', compact('celebrity', 'categories', 'blogs'));
+    }
+    public function showEvents($id)
+    {
+        $categories = Categories::all();
+        $blogs = Blogs::where('celebrity_id', $id)->get();
+        $celebrity = Celebrities::find($id); // Replace 'Celebrity' with your actual model name
+
+        return view('home.celebrityShow', compact('celebrity', 'categories', 'blogs'));
     }
 
     public function showCategory($category)
