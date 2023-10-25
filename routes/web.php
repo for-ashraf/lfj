@@ -47,3 +47,4 @@ Route::get('/events/{id}', [HomeController::class, 'showEvent'])->name('eventSho
 Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');
 
 
+

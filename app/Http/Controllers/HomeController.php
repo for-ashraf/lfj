@@ -50,16 +50,21 @@ class HomeController extends Controller
         // Define the start index and batch size
         $startIndex = 0; // Adjust this based on your needs
         $batchSize = 4; // Adjust this based on your needs
-
         // Load the initial batch of blogs
         $initialBlogs = $this->loadBlogsRange($startIndex, $batchSize);
+
+
+        $products = AmazonProduct::inRandomOrder()
+        ->limit(30)
+        ->get();
 
         $categories = $this->loadCategories();
         $jbrands = $this->loadJBrands();
         $upcomingEvents = $this->loadEvents();
-
-        return view('home.index', compact('categories', 'jbrands', 'upcomingEvents', 'initialBlogs'));
+      
+        return view('home.index', compact('categories', 'jbrands', 'upcomingEvents', 'initialBlogs','products'));
     }
+
     public function dashboard()
     {
         $users = User::latest()->get();
