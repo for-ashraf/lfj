@@ -1,7 +1,9 @@
 @extends('../layout/front_master') <!-- Specify the parent view to extend -->
 @section('title', 'Latest Fashion Jewellery')
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 <style>
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
@@ -49,6 +51,35 @@
     .buttons a:hover {
         background-color: orange;
     }
+    .centered-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(236, 199, 205);
+    color: rgb(12, 12, 12);
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    opacity: 0.70;
+}
+
+.centered-button:hover {
+    background-color: #ff6b00; /* Change color on hover */
+     color: rgb(252, 251, 251);
+}
+.myCard
+{
+   
+    color: rgb(12, 12, 12);
+    padding: 10px 20px;
+    font-size: 28px;
+    text-align: center;    
+}
+
 </style>
 
 
@@ -172,7 +203,85 @@
     </div>
     <br>
     <hr>
-    <div class="container">
+     <div class="container">
+        <div id="shopCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($products->chunk(3) as $index => $chunk)
+                    <div class="carousel-item {{ $index === (count($products->chunk(3)) - 1) ? 'active' : '' }}">
+                        <div class="row">
+                            @foreach ($chunk as $product)
+                                <div class="col-md-4">
+                                    <div class="card product-card">
+                                        <img class="card-img-top product-image" src="uploads/products/{{ $product->featured_image }}" alt="{{ $product->title }}">
+                                        <div class="card-body">
+                                            <h3 class="card-title myCard" style="font-size: 22px;opacity:0.5">{{ $product->title }}</h3>
+                                            <p class="card-text" style="color:black;">${{ $product->price }}</p>
+                                            <div class="buttons">
+                                                <a href="/product/{{ $product->id }}/try" class="btn btn-secondary">Try</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#shopCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#shopCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <hr>
+      <div class="container">
+        <div class="row">
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem; background-color: #f9f3ff; border-color: #8c61ff;">
+            <img src="{{asset('uploads/home/blogs1.jpg')}}" style="width: 100px; height:100px;" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #8c61ff;">Blogs</h5>
+                <p class="card-text" style="text-align: justify; color: #4f4f4f;">Explore exquisite jewelry trends, expert buying guides, and timeless pieces in our captivating jewelry blog.</p>
+                <a href="/blogs" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Blogs to Cover {{$blogs}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem; background-color: #fff3e6; border-color: #ffa94d;">
+            <img src="{{asset('uploads/home/celeb1.jpg')}}" class="card-img-top" style="width: 100px; height:100px;" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #ff6b00;">Celebrities</h5>
+                <p class="card-text" style="text-align: justify; color: #6c757d;">Explore how your favorite celebrities adorn themselves with exquisite jewelry, adding sparkle to their glamorous lives.</p>
+                <a href="/celebrities" class="btn btn-primary" style="background-color: #ff6b00; border-color: #ff6b00;">Coverage of {{$celebrities}} Beauties</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem; background-color: #f9f3ff; border-color: #8c61ff;">
+            <img src="{{asset('uploads/home/events1.jpg')}}" class="card-img-top" style="width: 100px; height:100px;" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #8c61ff;">Events</h5>
+                <p class="card-text" style="text-align: justify; color: #4f4f4f;">Discover the dazzling world of jewelry events, where elegance and creativity unite in stunning showcases.</p>
+                <a href="/events" class="btn btn-primary" style="background-color: #8c61ff; border-color: #8c61ff;">Coverage of {{$events}} Events</a>
+            </div>
+        </div>
+    </div>
+     <!-- End First Section -->
+     <!-- Second Section -->
+     <div class="col-md-12" style="margin-top: 20px; position: relative;">
+        <img src="{{ asset('uploads/home/jewellery_studio.jpg') }}" alt="Large Image" class="img-fluid">
+        <a href="{{ route('jewellerystudio') }}" class="centered-button">Try our Jewelry Studio</a>
+    </div>
+    
+        </div>
+    </div>
+     <!-- End Second Section -->
+    <br>
+  <div class="container">
         <div class="container my-4">
             <div class="row">
                 <div class="col text-center">
@@ -204,150 +313,7 @@
                 </div>
             @endforeach
         </div>
-    </div>
-
-    {{-- <div class="container">
-    <section class="blog">
-        <h2>Blogs</h2>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="blog-container">
-                    @foreach ($initialBlogs as $blog)
-                    <div class="col-md-4">
-                        <div class="card blog-card">
-                            <img src="{{ asset($blog->featured_image) }}" class="card-img-top" alt="{{ $blog->title }}">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $blog->title }}</h3>
-                                <p class="card-text">{{ $blog->content }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <div class="controls">
-            <button class="scroll-left">◄</button>
-            <button class="scroll-right">►</button>
-        </div>
-    </section>
-</div> 
-
-    <div id="image-zoom-card" class="image-zoom-card">
-        <span id="close-zoom-card" class="close-zoom-card">×</span>
-        <img id="zoomed-image" class="zoomed-image">
-        <div id="image-title" class="image-title"></div>
-    </div> --}}
-
-    <div class="container">
-        <div id="shopCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @foreach ($products->chunk(3) as $index => $chunk)
-                    <div class="carousel-item {{ $index === (count($products->chunk(3)) - 1) ? 'active' : '' }}">
-                        <div class="row">
-                            @foreach ($chunk as $product)
-                                <div class="col-md-4">
-                                    <div class="card product-card">
-                                        <img class="card-img-top product-image" src="uploads/products/{{ $product->featured_image }}" alt="{{ $product->title }}">
-                                        <div class="card-body">
-                                            <h3 class="card-title" style=" color: red;font-size: 20px;font-weight: bold;display: flex; justify-content:center;">{{ $product->title }}</h3>
-                                            <p class="card-text" style="color: red;font-size: 20px;font-weight: bold;">${{ $product->price }}</p>
-                                            <div class="buttons">
-                                                <a href="/product/{{ $product->id }}/try" class="btn btn-secondary">Try</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#shopCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#shopCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <hr>
-
-
-    <section class="container" style="padding-top: 20px; padding-bottom: 20px;">
-        <h2>Events</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card event-card">
-                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title">Fashion Show</h3>
-                        <p class="card-text">Attend our upcoming fashion show and witness the latest jewellery trends on
-                            the runway.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card">
-                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title">Jewellery Exhibition</h3>
-                        <p class="card-text">Visit our exhibition to explore a wide range of exquisite jewellery designs
-                            from renowned artists.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card event-card">
-                    <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title">Workshop: Jewellery Care</h3>
-                        <p class="card-text">Join our workshop to learn essential tips for caring and maintaining your
-                            precious jewellery.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more events here -->
-        </div>
-    </section>
-
-    <section class="celebrities">
-        <h2>Celebrities</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card celebrity-card">
-                    <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title">Hollywood Actresses</h3>
-                        <p class="card-text">Check out these Hollywood actresses flaunting their latest jewellery
-                            designs.</p>
-                        <a href="#" class="btn btn-primary">View more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card celebrity-card">
-                    <img src="https://via.placeholder.com/350x250" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3 class="card-title">Bollywood Actresses</h3>
-                        <p class="card-text">See these Bollywood actresses dazzle in their latest jewellery
-                            collections.</p>
-                        <a href="#" class="btn btn-primary">View more</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more celebrity sections here -->
-        </div>
-    </section>
-    <section class="purchase">
-        <h2>Purchase</h2>
-        <p>Click on the button below to purchase our latest collection on Amazon.</p>
-        <a href="https://www.amazon.com/" class="btn btn-primary">Buy now</a>
-    </section>
-    <!-- Add more sections here -->
-    </div>
+    </div>  
 @endsection
 
 @section('script_files')

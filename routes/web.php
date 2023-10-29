@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Root route without authentication
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/load-blogs', [HomeController::class, 'loadBlogsRange']); // Add the route for loading blogs
 Route::get('/blogs', [HomeController::class, 'blogs'])->name('blogs');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/searchBlog', [HomeController::class, 'searchBlog'])->name('home.searchBlog'); // Match the method name 'searchBlog'
@@ -42,6 +43,7 @@ Route::get('/blog/{id}', [HomeController::class, 'showBlog'])->name('home.showbl
 Route::get('/blogs/{category}', [HomeController::class, 'showCategory'])->name('home.category');
 Route::get('/categories', [HomeController::class, 'categories'])->name('home.categories');
 Route::get('/celebrities', [HomeController::class, 'celebrities'])->name('celebrities');
+Route::get('/jewellerystudio', [HomeController::class, 'jstudio'])->name('jewellerystudio');
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{id}', [HomeController::class, 'showEvent'])->name('eventShow');
 Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');

@@ -47,22 +47,22 @@ class HomeController extends Controller
 
     public function index()
     {
-        // Define the start index and batch size
-        $startIndex = 0; // Adjust this based on your needs
-        $batchSize = 4; // Adjust this based on your needs
-        // Load the initial batch of blogs
-        $initialBlogs = $this->loadBlogsRange($startIndex, $batchSize);
-
+        $blogs = Blogs::count();
+        $events = Events::count();
+        $images = ImageGallery::count();
+        $celebrities = Celebrities::count();
+        $products = AmazonProduct::count();
+        $amazonProducts = AmazonProduct::all();
+        $categories = Categories::all();
 
         $products = AmazonProduct::inRandomOrder()
         ->limit(30)
         ->get();
 
-        $categories = $this->loadCategories();
         $jbrands = $this->loadJBrands();
         $upcomingEvents = $this->loadEvents();
       
-        return view('home.index', compact('categories', 'jbrands', 'upcomingEvents', 'initialBlogs','products'));
+        return view('home.index', compact('blogs','celebrities','events','categories', 'jbrands', 'upcomingEvents', 'products'));
     }
 
     public function dashboard()
@@ -86,6 +86,12 @@ class HomeController extends Controller
             ->get();
         //$roles = Role::all();
         return view('home.blogs', compact('blogs', 'categories', 'myBlogs'));
+    }
+    public function jstudio()
+    {
+        $categories = Categories::all();
+      
+        return view('home.jstudio', compact('categories'));
     }
     public function celebrities()
     {

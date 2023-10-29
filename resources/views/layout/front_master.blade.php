@@ -107,11 +107,54 @@
 
     
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2023 Latest Fashion Jewellery. All rights reserved.</p>
+ <!-- Footer Start -->
+<div class="container-fluid bg-dark text-light mt-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row">
+            <!-- First Section -->
+            <div class="col col-md-12 mb-4">
+                <div
+                    class="d-flex flex-column align-items-center justify-content-center text-center h-100 bg-primary p-4">
+                    <a href="index.html" class="navbar-brand">
+                        <h2 class="m-0 text-white">Fashion Jewellery</h2>
+                    </a>
+                    <p class="mt-3 mb-4">Admiring your style? Visit Latest Fashion Jewellery for the trendiest
+                        pieces that will elevate your look. Stay in touch with us for more fashion inspiration and
+                        exclusive offers!</p>
+                    <form action="">
+                       <h2 style="color:yellow">Join Our WhatsApp Group for Latest Designs and Offers</h2>&nbsp;&nbsp;&nbsp;<h1><a href="https://chat.whatsapp.com/E2XyBOg8A2fFfilZ6F81Zs" style="color:black">https://chat.whatsapp.com/E2XyBOg8A2fFfilZ6F81Zs</a></h1>
+                    </form>
+                </div>
+            </div>
+            <!-- Second Section -->
+            <div class="col col-md-12 mb-4">
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="bi bi-envelope-open text-primary me-2"></i>
+                    <a href="mailto:info@latestfashionjewellery.com"><p class="mb-0">info@latestfashionjewellery.com</p></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-primary btn-square me-2" href="#"><i
+                            class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-primary btn-square me-2" href="#"><i
+                            class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-primary btn-square me-2" href="#"><i
+                            class="fab fa-linkedin-in fw-normal"></i></a>
+                    <a class="btn btn-primary btn-square" href="#"><i
+                            class="fab fa-instagram fw-normal"></i></a>
+                </div>
+            </div>
+            <!-- Third Section -->
+            <div class="col col-md-12 mb-4">
+                <div class="d-flex justify-content-center align-items-center">
+                    &copy;<a class="text-white border-bottom" href="/">Latest Fashion Jewellery </a>.
+                    <hr> All Rights Reserved. Designed by <a class="text-white border-bottom"
+                        href="http://www.educationsoul.com">EducationSoul</a>
+                    </p>
+                </div>
+            </div>
+
         </div>
-    </footer>
+    </div>
+</div>
+<!-- Footer End -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     {{-- <script src="{{ asset('/js/myScript.js') }}"></script> --}}
 
