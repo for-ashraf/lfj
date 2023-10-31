@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Editor</title>
+    <style>
+        #canvas {
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Editor</h1>
+    <input type="file" id="upload" accept="image/*" />
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button id="save">Save</button>
+    <a id="download" style="display: none" download="image.png">Download</a>
+
+    <script src='fabric.min.js'></script> <!-- Include the Fabric.js library -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var canvas = new fabric.Canvas('canvas');
+            var currentImage;
+
+            // Function to handle image upload from client's computer
+            document.getElementById('upload').addEventListener('change', function(e) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function(f) {
+                    var data = f.target.result;
+                    if (currentImage) {
+                        // If an image already exists, remove it before adding the new one
+                       ;//canvas.remove(currentImage);
+                    }
+                    fabric.Image.fromURL(data, function(img) {
+                        currentImage = img;
+                        canvas.add(img).renderAll();
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Function to save the canvas as an image and trigger download
+            document.getElementById('save').addEventListener('click', function() {
+                if (currentImage) {
+                    var dataURL = canvas.toDataURL({ format: 'png' });
+                    var downloadLink = document.getElementById('download');
+                    downloadLink.href = dataURL;
+                    downloadLink.style.display = 'block';
+                    downloadLink.click();
+                } else {
+                    console.log('No image to save.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -319,4 +319,4 @@
 @section('script_files')
     <script src="{{ asset('js/core.js') }}"></script>
     <script src="{{ asset('js/page/index.js') }}"></script>
-@endsection
+ @endsection
