@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Imagick;
 use Illuminate\Http\Request;
 use App\Models\Categories;
 use Illuminate\Support\Facades\Log;
@@ -116,4 +116,22 @@ class AmazonProductsController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
     }
+    public function loadImage(Request $request)
+{
+    $lfjCode = $request->input('featured_image');
+    
+    $product = AmazonProduct::where('id', $lfjCode)->first();
+ 
+    if ($product && $product->featured_image) {
+        // Load the image from the database and display it on the canvas
+        $imagePath = 'uploads/products/' . $product->featured_image;
+
+        $imageURL = asset($imagePath );
+
+        $html = '<img src="' . $imageURL . '" onload="loadImageToCanvas(this.src)">';
+        return response()->json(['html' => $html]);
+    }
+
+    return response()->json(['html' => '']);
+}
 }

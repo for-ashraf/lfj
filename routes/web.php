@@ -47,6 +47,6 @@ Route::get('/jewellerystudio', [HomeController::class, 'jstudio'])->name('jewell
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{id}', [HomeController::class, 'showEvent'])->name('eventShow');
 Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');
-
+Route::post('/load-image', [AmazonProductsController::class, 'loadImage'])->name('loadImage');
 
 
