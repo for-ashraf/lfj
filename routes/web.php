@@ -44,6 +44,7 @@ Route::get('/blogs/{category}', [HomeController::class, 'showCategory'])->name('
 Route::get('/categories', [HomeController::class, 'categories'])->name('home.categories');
 Route::get('/celebrities', [HomeController::class, 'celebrities'])->name('celebrities');
 Route::get('/jewellerystudio', [HomeController::class, 'jstudio'])->name('jewellerystudio');
+Route::get('/jewellerystudio/{id}', [HomeController::class, 'jstudio'])->name('jewellerystudio.id');
 Route::get('/events', [HomeController::class, 'events'])->name('events');
 Route::get('/events/{id}', [HomeController::class, 'showEvent'])->name('eventShow');
 Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');

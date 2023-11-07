@@ -87,11 +87,22 @@ class HomeController extends Controller
         //$roles = Role::all();
         return view('home.blogs', compact('blogs', 'categories', 'myBlogs'));
     }
-    public function jstudio()
+    public function jstudio($id = null)
     {
         $categories = Categories::all();
-      
-        return view('home.jstudio', compact('categories'));
+        $imageURL = null;
+    
+        if ($id) {
+            // Load the product image based on the ID
+            $product = Product::find($id);
+    
+            if ($product && $product->featured_image) {
+                $imagePath = 'uploads/products/' . $product->featured_image;
+                $imageURL = asset($imagePath);
+            }
+        }
+    
+        return view('home.jstudio', compact('categories', 'imageURL'));
     }
     public function celebrities()
     {

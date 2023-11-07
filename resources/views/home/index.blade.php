@@ -217,7 +217,7 @@
                                             <h3 class="card-title myCard" style="font-size: 22px;opacity:0.5">{{ $product->title }}</h3>
                                             <p class="card-text" style="color:black;">${{ $product->price }}</p>
                                             <div class="buttons">
-                                                <a href="/product/{{ $product->id }}/try" class="btn btn-secondary">Try</a>
+                                                <a href="{{ route('jewellerystudio', ['id' => $product->id]) }}" class="centered-button">Try our Jewelry Studio</a>
                                             </div>
                                         </div>
                                     </div>

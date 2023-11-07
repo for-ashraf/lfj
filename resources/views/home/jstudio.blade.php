@@ -7,7 +7,8 @@
 
     <head>
         <title>Image Studio - Creative Image Development Hub</title>
-        <meta name="description" content="Unlock your creativity with Image Studio. Transform your ideas into stunning images. Follow these simple steps to craft and download your masterpiece.">
+        <meta name="description"
+            content="Unlock your creativity with Image Studio. Transform your ideas into stunning images. Follow these simple steps to craft and download your masterpiece.">
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -61,11 +62,12 @@
             #save {
                 margin: 10px 0;
                 padding: 10px;
-                border: 2px solid #e74c3c;
+                border: 2px solid green;
                 border-radius: 5px;
-                background-color: #e74c3c;
+                background-color: lightgreen;
                 color: #fff;
                 cursor: pointer;
+                color: black;
             }
 
             #download {
@@ -103,7 +105,7 @@
 
             /* Attractive Introduction Styles */
             #introduction {
-                background-color: #3498db;
+                background-color: #f18876;
                 padding: 20px;
                 border-radius: 10px;
                 color: #fff;
@@ -126,12 +128,7 @@
         <div class="container">
             <h1>Image Studio - Creative Image Development Hub</h1>
 
-            <!-- Attractive Introduction -->
-            <div id="introduction">
-                <h2>Welcome to Image Studio - Your Creative Image Development Hub</h2>
-                <p>Unlock Your Creativity with Image Studio: Transform Ideas into Stunning Images</p>
-                <p>Start your visual journey today. Follow these simple steps to craft and download your masterpiece:</p>
-            </div>
+
 
             <div id="canvas-container">
                 <div id="styling-section">
@@ -150,10 +147,47 @@
             </div>
             <button id="save">Save Image</button>
             <a id="download" download="image.png" style="display: none;"></a>
+            <!-- Attractive Introduction -->
+            <div id="introduction">
+                <p>Unlock Your Creativity with Image Studio: Transform Ideas into Stunning Images</p>
+                <p>Start your visual journey today with our Image Studio - the ultimate platform for creative image
+                    development. Whether you're an artist, designer, or enthusiast, our tools and features empower you to
+                    transform your concepts into breathtaking visuals. Explore a world of possibilities, unleash your
+                    artistic potential, and craft images that stand out. Follow these simple steps to craft and download
+                    your masterpiece:</p>
+            </div>
+
         </div>
 
-       <script src="{{ asset('js/fabric.min.js') }}"></script>
+
+        <script src="{{ asset('js/fabric.min.js') }}"></script>
         <script>
+            var urlParams = new URLSearchParams(window.location.search);
+            var imageID = urlParams.get('id');
+
+            if (imageID) {
+    var imageSrc = '/uploads/products/' + imageID + '.jpg';
+    // Check if the image exists
+    fabric.Image.fromURL(imageSrc, function(img) {
+        img.scaleToWidth(400);
+        img.scaleToHeight(400);
+        canvas.add(img).renderAll();
+        currentImages.push(img);
+        canvas.bringToFront(img);
+
+        // Add a mouse click event listener to the canvas to reorder images
+        canvas.on('mouse:down', function(event) {
+            if (event.target) {
+                // Bring the clicked image to the front
+                canvas.bringToFront(event.target);
+            }
+        });
+
+    }, function() {
+        console.log('Image not found');
+    });
+}
+
             var canvas = new fabric.Canvas('canvas');
             var currentImages = []; // Array to store all loaded images
 
@@ -193,7 +227,7 @@
                         document.getElementById('error-message').textContent = ''; // Clear the error message
                     }, function() {
                         document.getElementById('error-message').textContent =
-                        'Image not found'; // Display error message
+                            'Image not found'; // Display error message
                     });
                 } else {
                     document.getElementById('error-message').textContent = 'Please enter LFJ Code'; // Display error message
@@ -208,15 +242,15 @@
 
             // Function to save the canvas as an image and trigger download
             document.getElementById('save').addEventListener('click', function() {
-    var dataURL = canvas.toDataURL({
-        format: 'png'
-    });
-    var downloadLink = document.getElementById('download');
-    downloadLink.href = dataURL;
+                var dataURL = canvas.toDataURL({
+                    format: 'png'
+                });
+                var downloadLink = document.getElementById('download');
+                downloadLink.href = dataURL;
 
-    // Programmatically trigger the click event on the download link
-    downloadLink.click();
-});
+                // Programmatically trigger the click event on the download link
+                downloadLink.click();
+            });
 
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Delete' || event.key === 'Backspace') {
