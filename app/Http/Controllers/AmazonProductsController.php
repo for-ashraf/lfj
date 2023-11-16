@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Imagick;
 use Illuminate\Http\Request;
 use App\Models\Categories;
@@ -50,7 +51,7 @@ class AmazonProductsController extends Controller
 
         $product = AmazonProduct::create($validatedData);
 
-      
+
         try {
             if ($request->hasFile('featured_image')) {
                 $file = $request->file('featured_image');
@@ -70,7 +71,7 @@ class AmazonProductsController extends Controller
         $categories = $this->loadCategories(); // Call the getAuthorNames function
         $product = AmazonProduct::findOrFail($id);
 
-        return view('products.edit', compact('product','categories'));
+        return view('products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -82,7 +83,7 @@ class AmazonProductsController extends Controller
             'category' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'featured_image' =>'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'price' => 'nullable|numeric',
             'affiliate_link' => 'required|string|max:1000',
         ]);
@@ -117,21 +118,21 @@ class AmazonProductsController extends Controller
         return redirect()->route('products.index')->with('success', 'Product deleted successfully!');
     }
     public function loadImage(Request $request)
-{
-    $lfjCode = $request->input('featured_image');
-    
-    $product = AmazonProduct::where('id', $lfjCode)->first();
- 
-    if ($product && $product->featured_image) {
-        // Load the image from the database and display it on the canvas
-        $imagePath = 'uploads/products/' . $product->featured_image;
+    {
+        $lfjCode = $request->input('featured_image');
 
-        $imageURL = asset($imagePath );
+        $product = AmazonProduct::where('id', $lfjCode)->first();
 
-        $html = '<img src="' . $imageURL . '" onload="loadImageToCanvas(this.src)">';
-        return response()->json(['html' => $html]);
+        if ($product && $product->featured_image) {
+            // Load the image from the database and display it on the canvas
+            $imagePath = 'uploads/products/' . $product->featured_image;
+
+            $imageURL = asset($imagePath);
+
+            $html = '<img src="' . $imageURL . '" onload="loadImageToCanvas(this.src)">';
+            return response()->json(['html' => $html]);
+        }
+
+        return response()->json(['html' => '']);
     }
-
-    return response()->json(['html' => '']);
-}
 }

@@ -218,10 +218,39 @@ class HomeController extends Controller
         $categories = Categories::all();
         return view('home.categories', compact('categories', 'amazonProducts', 'blogs', 'events', 'images', 'celebrities', 'products'));
     }
+    public function category($key)
+    {
+        $currentDate = Carbon::now();
+        $blogs = Blogs::inRandomOrder()->take(5)->get();
+        $events = Events::where('event_date', '>=', $currentDate)->orderBy('event_date')->take(5)->get();
 
+        $images = ImageGallery::count();
+        $celebrities = Celebrities::inRandomOrder()->take(5)->get();
+        $products = AmazonProduct::paginate(5);
+        $categories = Categories::all();
+        return view('home.category', compact('categories', 'products', 'blogs', 'events', 'images', 'celebrities'));
+    }
 
+    public function loadMoreData(Request $request)
+    {
+        $start = $request->input('start');
+    
+        $data = AmazonProduct::orderBy('id', 'ASC')
+            ->offset($start)
+            ->limit(3)
+            ->get();
+    
+        // Log the data for debugging
 
-
+        // Calculate the next start point for pagination
+        $nextStart = $start + count($data);
+    
+        // Return the blog data and the next start point
+        return response()->json(['message' => 'Success', 'data' => $data, 'next' => $nextStart]);
+    }
+    
+    
+    
     public function sendContactForm(Request $request)
     {
         // Validate the contact form inputs

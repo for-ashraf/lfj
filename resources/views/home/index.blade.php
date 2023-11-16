@@ -81,9 +81,6 @@
 }
 
 </style>
-
-
-
 @section('content')
 
     <header class="jumbotron jumbotron-fluid" style="background-image: url('{{ asset('/images/home/sliderimage1.jpg') }}');">

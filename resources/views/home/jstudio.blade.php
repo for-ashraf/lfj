@@ -162,34 +162,13 @@
 
         <script src="{{ asset('js/fabric.min.js') }}"></script>
         <script>
+            // Check if there is an image ID in the URL parameters
             var urlParams = new URLSearchParams(window.location.search);
             var imageID = urlParams.get('id');
 
-            if (imageID) {
-    var imageSrc = '/uploads/products/' + imageID + '.jpg';
-    // Check if the image exists
-    fabric.Image.fromURL(imageSrc, function(img) {
-        img.scaleToWidth(400);
-        img.scaleToHeight(400);
-        canvas.add(img).renderAll();
-        currentImages.push(img);
-        canvas.bringToFront(img);
-
-        // Add a mouse click event listener to the canvas to reorder images
-        canvas.on('mouse:down', function(event) {
-            if (event.target) {
-                // Bring the clicked image to the front
-                canvas.bringToFront(event.target);
-            }
-        });
-
-    }, function() {
-        console.log('Image not found');
-    });
-}
-
+            // Initialize the fabric canvas and an array to store loaded images
             var canvas = new fabric.Canvas('canvas');
-            var currentImages = []; // Array to store all loaded images
+            var currentImages = [];
 
             // Function to handle image upload from the client's computer
             document.getElementById('upload').addEventListener('change', function(e) {
@@ -227,7 +206,7 @@
                         document.getElementById('error-message').textContent = ''; // Clear the error message
                     }, function() {
                         document.getElementById('error-message').textContent =
-                            'Image not found'; // Display error message
+                        'Image not found'; // Display error message
                     });
                 } else {
                     document.getElementById('error-message').textContent = 'Please enter LFJ Code'; // Display error message
@@ -252,6 +231,7 @@
                 downloadLink.click();
             });
 
+            // Event listener to delete the selected image using the Delete or Backspace key
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Delete' || event.key === 'Backspace') {
                     var activeObject = canvas.getActiveObject();
@@ -265,5 +245,29 @@
                     }
                 }
             });
+
+            // If an image ID is provided in the URL, load and display the image
+            if (imageID) {
+                var imageSrc = '/uploads/products/' + imageID + '.jpg';
+                // Check if the image exists
+                fabric.Image.fromURL(imageSrc, function(img) {
+                    img.scaleToWidth(400);
+                    img.scaleToHeight(400);
+                    canvas.add(img).renderAll();
+                    currentImages.push(img);
+                    canvas.bringToFront(img);
+
+                    // Add a mouse click event listener to the canvas to reorder images
+                    canvas.on('mouse:down', function(event) {
+                        if (event.target) {
+                            // Bring the clicked image to the front
+                            canvas.bringToFront(event.target);
+                        }
+                    });
+
+                }, function() {
+                    console.log('Image not found');
+                });
+            }
         </script>
     @endsection
