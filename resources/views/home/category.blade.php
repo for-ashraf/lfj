@@ -19,19 +19,19 @@
             border: none;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
-
+    
         .card-title {
             color: #f0645c;
             text-align: center;
             /* Center-align the title */
         }
-
+    
         .card-text {
             color: #5c5c5c;
             text-align: center;
             /* Center-align the text */
         }
-
+    
         .card-img-top {
             max-height: 350px;
             /* Set a maximum height for the image */
@@ -39,6 +39,25 @@
             /* Ensure the image takes the full width of the container */
             object-fit: contain;
             /* Ensure the entire image is visible without cropping */
+        }
+    
+        /* Additional style for blog cards */
+        #blogs_container .card {
+            /* Add specific styles for blog cards */
+            // Customize the styles as per your preference
+            background-color: #f8f9fa; /* Light gray background */
+            border-radius: 10px; /* Rounded corners */
+            transition: transform 0.3s ease-in-out; /* Smooth transition on hover */
+    
+            /* You can add more styles here */
+        }
+    
+        #blogs_container .card:hover {
+            transform: scale(1.05); /* Enlarge on hover */
+        }
+    
+        #blogs_container .card-body {
+            padding: 15px; /* Add some padding inside the card body */
         }
     </style>
 

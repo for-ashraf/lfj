@@ -56,13 +56,13 @@ class HomeController extends Controller
         $categories = Categories::all();
 
         $products = AmazonProduct::inRandomOrder()
-        ->limit(30)
-        ->get();
+            ->limit(30)
+            ->get();
 
         $jbrands = $this->loadJBrands();
         $upcomingEvents = $this->loadEvents();
-      
-        return view('home.index', compact('blogs','celebrities','events','categories', 'jbrands', 'upcomingEvents', 'products'));
+
+        return view('home.index', compact('blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
     }
 
     public function dashboard()
@@ -91,17 +91,17 @@ class HomeController extends Controller
     {
         $categories = Categories::all();
         $imageURL = null;
-    
+
         if ($id) {
             // Load the product image based on the ID
             $product = Product::find($id);
-    
+
             if ($product && $product->featured_image) {
                 $imagePath = 'uploads/products/' . $product->featured_image;
                 $imageURL = asset($imagePath);
             }
         }
-    
+
         return view('home.jstudio', compact('categories', 'imageURL'));
     }
     public function celebrities()
@@ -221,36 +221,90 @@ class HomeController extends Controller
     public function category($key)
     {
         $currentDate = Carbon::now();
-        $blogs = Blogs::inRandomOrder()->take(5)->get();
-        $events = Events::where('event_date', '>=', $currentDate)->orderBy('event_date')->take(5)->get();
-
-        $images = ImageGallery::count();
-        $celebrities = Celebrities::inRandomOrder()->take(5)->get();
-        $products = AmazonProduct::paginate(5);
+        $categoryName = '';
         $categories = Categories::all();
-        return view('home.category', compact('categories', 'products', 'blogs', 'events', 'images', 'celebrities'));
+        if (is_numeric($key)) {
+            // Find category_id based on numeric key
+            $category = Categories::where('category_id', $key)->first();
+
+            // If category exists, use its name for searching
+            if ($category) {
+                $categoryName = $category->category_name;
+
+                $blogs = Blogs::where('category_id', $key)
+                    ->orWhere('content', 'like', '%' . $categoryName . '%')
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+
+                // Search in Celebrities table
+                $celebrities = Celebrities::where('description', 'like', '%' . $categoryName . '%')
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+                $products = AmazonProduct::where('title', 'like', '%' . $categoryName . '%')
+                    ->orWhere('description', 'like', '%' . $categoryName . '%')
+                    ->paginate(5);
+
+                $events = Events::where('event_date', '>=', $currentDate)
+                    ->where(function ($query) use ($categoryName) {
+                        $query->where('event_name', 'like', '%' . $categoryName . '%')
+                            ->orWhere('event_description', 'like', '%' . $categoryName . '%');
+                    })
+                    ->orderBy('event_date')
+                    ->take(5)
+                    ->get();
+            }
+            // Search in Blogs table
+        } else {
+            $blogs = Blogs::where('category_id', $key)
+                    ->orWhere('content', 'like', '%' . $key . '%')
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+
+                // Search in Celebrities table
+                $celebrities = Celebrities::where('description', 'like', '%' . $key . '%')
+                    ->inRandomOrder()
+                    ->take(5)
+                    ->get();
+                $products = AmazonProduct::where('title', 'like', '%' . $key . '%')
+                    ->orWhere('description', 'like', '%' . $key . '%')
+                    ->paginate(5);
+
+                $events = Events::where('event_date', '>=', $currentDate)
+                    ->where(function ($query) use ($key) {
+                        $query->where('event_name', 'like', '%' . $key . '%')
+                            ->orWhere('event_description', 'like', '%' . $key . '%');
+                    })
+                    ->orderBy('event_date')
+                    ->take(5)
+                    ->get();
+            
+        }
+        return view('home.category', compact('categories', 'products', 'blogs', 'events', 'celebrities'));
     }
 
     public function loadMoreData(Request $request)
     {
         $start = $request->input('start');
-    
+
         $data = AmazonProduct::orderBy('id', 'ASC')
             ->offset($start)
             ->limit(3)
             ->get();
-    
+
         // Log the data for debugging
 
         // Calculate the next start point for pagination
         $nextStart = $start + count($data);
-    
+
         // Return the blog data and the next start point
         return response()->json(['message' => 'Success', 'data' => $data, 'next' => $nextStart]);
     }
-    
-    
-    
+
+
+
     public function sendContactForm(Request $request)
     {
         // Validate the contact form inputs
