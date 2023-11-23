@@ -80,8 +80,7 @@
                         <a href="/categories" class="nav-link dropdown-toggle {{ request()->is('categories') ? 'active' : '' }}" data-bs-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
-                                <a class="dropdown-item"
-                                    href="categories/{{ $category->category_name }}">{{ $category->category_name }}</a>
+                            <li><a class="dropdown-item" href="{{ url('/category/' . $category->category_name) }}">{{ $category->category_name }}</a></li>
                             @endforeach
 
                         </div>

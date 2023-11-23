@@ -19,19 +19,19 @@
             border: none;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
-    
+
         .card-title {
             color: #f0645c;
             text-align: center;
             /* Center-align the title */
         }
-    
+
         .card-text {
             color: #5c5c5c;
             text-align: center;
             /* Center-align the text */
         }
-    
+
         .card-img-top {
             max-height: 350px;
             /* Set a maximum height for the image */
@@ -40,29 +40,48 @@
             object-fit: contain;
             /* Ensure the entire image is visible without cropping */
         }
-    
+
         /* Additional style for blog cards */
         #blogs_container .card {
             /* Add specific styles for blog cards */
             // Customize the styles as per your preference
-            background-color: #f8f9fa; /* Light gray background */
-            border-radius: 10px; /* Rounded corners */
-            transition: transform 0.3s ease-in-out; /* Smooth transition on hover */
-    
+            background-color: #f8f9fa;
+            /* Light gray background */
+            border-radius: 10px;
+            /* Rounded corners */
+            transition: transform 0.3s ease-in-out;
+            /* Smooth transition on hover */
+
             /* You can add more styles here */
         }
-    
+
         #blogs_container .card:hover {
-            transform: scale(1.05); /* Enlarge on hover */
+            transform: scale(1.05);
+            /* Enlarge on hover */
         }
-    
+
         #blogs_container .card-body {
-            padding: 15px; /* Add some padding inside the card body */
+            padding: 15px;
+            /* Add some padding inside the card body */
+        }
+
+        .my-alert {
+            border: 1px solid #32CD32;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
         }
     </style>
 
     <main>
         <div class="container my-5">
+            @if ($key)
+                <div class="alert alert-success alert-dismissible fade show my-alert" role="alert">
+                    <strong>Here is a list of itmes related to: </strong> {{ $key }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <!-- Products Section -->
             <h2 class="mb-4">Latest Elegant Designs</h2>
             <div id="products_container" class="row">
@@ -103,7 +122,8 @@
                                     alt="{{ $blog->title }}">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $blog->title }}</h4>
-                                    <p class="card-text">{{ \Illuminate\Support\Str::words($blog->content, 20, '...') }}</p>
+                                    <p class="card-text">{{ \Illuminate\Support\Str::words($blog->content, 20, '...') }}
+                                    </p>
                                 </div>
                             </div>
                         </a>
@@ -165,27 +185,35 @@
             <div id="celebrities_container" class="row">
                 @foreach ($celebrities as $celebrity)
                     <div class="col-md-4 mb-4">
-                        <a href="{{ route('celebrityShow', ['id' => $celebrity->celebrity_id]) }}" class="text-decoration-none">
+                        <a href="{{ route('celebrityShow', ['id' => $celebrity->celebrity_id]) }}"
+                            class="text-decoration-none">
                             <div class="card box-shadow">
-                                <img class="card-img-top" src="{{ asset('uploads/celebrities/' . $celebrity->image) }}" alt="{{ $celebrity->name }}">
+                                <img class="card-img-top" src="{{ asset('uploads/celebrities/' . $celebrity->image) }}"
+                                    alt="{{ $celebrity->name }}">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $celebrity->name }}</h4>
-                                    <p class="card-text">{{ \Illuminate\Support\Str::words($celebrity->description, 20, '...') }}</p>
+                                    <p class="card-text">
+                                        {{ \Illuminate\Support\Str::words($celebrity->description, 20, '...') }}</p>
                                 </div>
                                 <div class="card-footer bg-light d-flex justify-content-between">
-                                    <small class="fa fa-birthday-cake">&nbsp;{{ $celebrity->birthdate ? \Carbon\Carbon::parse($celebrity->birthdate)->format('M d, Y') : 'Birthdate Unknown' }}</small>
+                                    <small
+                                        class="fa fa-birthday-cake">&nbsp;{{ $celebrity->birthdate ? \Carbon\Carbon::parse($celebrity->birthdate)->format('M d, Y') : 'Birthdate Unknown' }}</small>
                                     <div class="d-flex">
-                                        <a href="https://instagram.com/{{ $celebrity->instagram }}" target="_blank" class="text-muted me-2"><i class="fab fa-instagram"></i></a>
-                                        <a href="https://twitter.com/{{ $celebrity->twitter }}" target="_blank" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
-                                        <a href="https://facebook.com/{{ $celebrity->facebook }}" target="_blank" class="text-muted me-2"><i class="fab fa-facebook"></i></a>
-                                        <a href="https://youtube.com/{{ $celebrity->youtube }}" target="_blank" class="text-muted me-2"><i class="fab fa-youtube"></i></a>
+                                        <a href="https://instagram.com/{{ $celebrity->instagram }}" target="_blank"
+                                            class="text-muted me-2"><i class="fab fa-instagram"></i></a>
+                                        <a href="https://twitter.com/{{ $celebrity->twitter }}" target="_blank"
+                                            class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                                        <a href="https://facebook.com/{{ $celebrity->facebook }}" target="_blank"
+                                            class="text-muted me-2"><i class="fab fa-facebook"></i></a>
+                                        <a href="https://youtube.com/{{ $celebrity->youtube }}" target="_blank"
+                                            class="text-muted me-2"><i class="fab fa-youtube"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 @endforeach
-            
+
                 <!-- Load More card for Celebrities -->
                 <div id="load_more_celebrity_card" class="col-md-4 content_box">
                     <a href="{{ route('celebrities') }}" class="text-decoration-none">
@@ -201,7 +229,7 @@
                     </a>
                 </div>
             </div>
-            
+
 
 
         </div>

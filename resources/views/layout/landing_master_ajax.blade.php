@@ -79,7 +79,7 @@
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
                                 <a class="dropdown-item"
-                                    href="categories/{{ $category->category_name }}">{{ $category->category_name }}</a>
+                                    href="category/{{ $category->category_name }}">{{ $category->category_name }}</a>
                             @endforeach
 
                         </div>

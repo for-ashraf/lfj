@@ -72,28 +72,64 @@
 
 @section('content')
 <div class="container">
+  
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <img src="{{ asset('/uploads/events/' . $event->event_image) }}" alt="{{ $event->event_name }}" class="card-img">
-                <div class="center-content">
-                    <div class="card-overlay">
-                        <h5 class="card-title">{{ $event->event_name }}</h5>
-                        <p class="card-text" style="color: grey">
-                            Date: {{ date('d', strtotime($event->event_date)) }} - {{ date('M', strtotime($event->event_date)) }} - {{ date('Y', strtotime($event->event_date)) }}
-                        </p>
-                        <p class="card-text" style="color: grey">Location: {{ $event->event_location }}</p>
-                        <p class="card-text" style="color: grey">Description: {{ $event->event_description }}</p>
-                        <div class="event-details-btn">
-                            <a target="_blank" href="{{ $event->registration_link }}"><h5 style="color: orange">{{ $event->registration_link }}</h5></a>
+        @if($events instanceof \Illuminate\Database\Eloquent\Collection && $events->count() > 1)
+                @foreach ($events as $event)
+                <div class="col-md-6">
+                    <a href="{{ route('eventShow', $event->event_id) }}">
+                        <div class="card mb-3">
+                            <a href="{{ route('eventShow', $event->event_id) }}">
+                                <div class="card-image">
+                                    <img src="{{ asset('/uploads/events/' . $event->event_image) }}" alt="{{ $event->event_name }}" class="card-img">
+                                    <div class="card-overlay">
+                                        <div>
+                                            <h5 class="card-title">{{ $event->event_name }}</h5>
+                                            <p class="card-text">
+                                                <span>{{ date('d', strtotime($event->event_date)) }}</span> -
+                                                <span>{{ date('M', strtotime($event->event_date)) }}</span> -
+                                                <span>{{ date('Y', strtotime($event->event_date)) }}</span>
+                                            </p>
+                                            <p class="card-text">{{ $event->event_location }}</p>
+                                            <div class="event-details-btn">
+                                                <a href="{{ route('eventShow', $event->event_id) }}">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                     
+                    </a>
+                </div>
+                @endforeach
+                @elseif($events instanceof \App\Models\Events)
+                  <!-- Display a single event card -->
+        <div class="card">
+            <img src="{{ asset('/uploads/events/' . $events->event_image) }}" alt="{{ $events->event_name }}" class="card-img">
+            <div class="center-content">
+                <div class="card-overlay">
+                    <h5 class="card-title">{{ $events->event_name }}</h5>
+                    <p class="card-text" style="color: grey">
+                        Date: {{ date('d', strtotime($events->event_date)) }} - {{ date('M', strtotime($events->event_date)) }} - {{ date('Y', strtotime($events->event_date)) }}
+                    </p>
+                    <p class="card-text" style="color: grey">Location: {{ $events->event_location }}</p>
+                    <p class="card-text" style="color: grey">Description: {{ $events->event_description }}</p>
+                    <div class="event-details-btn">
+                        <a target="_blank" href="{{ $events->registration_link }}">
+                            <h5 style="color: orange">{{ $events->registration_link }}</h5>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    @endif
+            </div>
+        </div>
+        
+        
+        
                 <div class="container mt-5" style="text-align: left">
-                    <h3 class="mb-3">Related Category Blogs</h3>
+                    <h3 class="mb-3">Related Blogs</h3>
                     <div class="blog-list">
                         @foreach ($blogs as $blog)
                             <div class="blog-item">
@@ -126,5 +162,5 @@
 
 
 </div>
-</div>
+
 @endsection

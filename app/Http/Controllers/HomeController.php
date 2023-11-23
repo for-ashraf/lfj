@@ -153,12 +153,31 @@ class HomeController extends Controller
     public function showEvent($id)
     {
         $categories = Categories::all();
-        $event = Events::find($id); // Replace 'Celebrity' with your actual model name
-        $category_id = $event->category_id;
-        $blogs = Blogs::where('category_id', $category_id)->take(4)->get();
-        return view('home.eventShow', compact('event', 'categories', 'blogs'));
-    }
 
+        // Check if $id is numeric
+        if (is_numeric($id)) {
+            $events = Events::find($id);
+            $category_id = $events->category_id;
+            $blogs = Blogs::where('category_id', $category_id)->take(4)->get();
+           
+            }
+         else {
+            // If $id is not numeric, try finding in event_category first
+            $events = Events::where('event_category', 'LIKE', "%$id%")->get();
+    
+            if ($events->isEmpty()) {
+                // If not found in event_category, assume it's an event name and find by name
+                $events = Events::where('event_name', 'LIKE', "%$id%")
+                    ->orWhere('event_description', 'LIKE', "%$id%")
+                    ->get();
+            }
+    
+            $blogs = Blogs::inRandomOrder()
+                ->take(4)
+                ->get();
+        }
+        return view('home.eventShow', compact('events', 'categories', 'blogs'));
+    }
     public function showCategory($category)
     {
         $sblogs = Blogs::latest()->take(6)->get();
@@ -184,9 +203,6 @@ class HomeController extends Controller
             return view('home.searchblog', compact('blogs', 'sblogs', 'query', 'categories'));
         }
     }
-
-
-
     public function showBlog($id)
     {
         $categories = Categories::all();
@@ -258,31 +274,31 @@ class HomeController extends Controller
             // Search in Blogs table
         } else {
             $blogs = Blogs::where('category_id', $key)
-                    ->orWhere('content', 'like', '%' . $key . '%')
-                    ->inRandomOrder()
-                    ->take(5)
-                    ->get();
+                ->orWhere('content', 'like', '%' . $key . '%')
+                ->inRandomOrder()
+                ->take(5)
+                ->get();
 
-                // Search in Celebrities table
-                $celebrities = Celebrities::where('description', 'like', '%' . $key . '%')
-                    ->inRandomOrder()
-                    ->take(5)
-                    ->get();
-                $products = AmazonProduct::where('title', 'like', '%' . $key . '%')
-                    ->orWhere('description', 'like', '%' . $key . '%')
-                    ->paginate(5);
+            // Search in Celebrities table
+            $celebrities = Celebrities::where('description', 'like', '%' . $key . '%')
+                ->inRandomOrder()
+                ->take(5)
+                ->get();
+            $products = AmazonProduct::where('title', 'like', '%' . $key . '%')
+                ->orWhere('description', 'like', '%' . $key . '%')
+                ->paginate(5);
 
-                $events = Events::where('event_date', '>=', $currentDate)
-                    ->where(function ($query) use ($key) {
-                        $query->where('event_name', 'like', '%' . $key . '%')
-                            ->orWhere('event_description', 'like', '%' . $key . '%');
-                    })
-                    ->orderBy('event_date')
-                    ->take(5)
-                    ->get();
-            
+            $events = Events::where('event_date', '>=', $currentDate)
+                ->where(function ($query) use ($key) {
+                    $query->where('event_name', 'like', '%' . $key . '%')
+                        ->orWhere('event_description', 'like', '%' . $key . '%');
+                })
+                ->orderBy('event_date')
+                ->take(5)
+                ->get();
+
         }
-        return view('home.category', compact('categories', 'products', 'blogs', 'events', 'celebrities'));
+        return view('home.category', compact('categories', 'products', 'blogs', 'events', 'celebrities', 'key'));
     }
 
     public function loadMoreData(Request $request)
