@@ -360,12 +360,12 @@ class HomeController extends Controller
         $categories = Categories::all();
     
         $allProducts = AmazonProduct::all();
-        $perPage = 5;
+        $perPage = 14;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
     
         $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
     
-        return view('home.category', compact('categories', 'products'));
+        return view('home.products', compact('categories', 'products'));
     }
 }
