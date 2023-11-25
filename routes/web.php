@@ -50,8 +50,8 @@ Route::get('/events/{id}', [HomeController::class, 'showEvent'])->name('eventSho
 Route::get('/celebrities/{id}', [HomeController::class, 'showCelebrity'])->name('celebrityShow');
 Route::post('/load-image', [AmazonProductsController::class, 'loadImage'])->name('loadImage');
 Route::get('/category/{key}', [HomeController::class, 'category'])->name('category');
-
 Route::get('/load-more-data', [HomeController::class, 'loadMoreData'])->name('load.more');
+Route::get('/products', [HomeController::class, 'products'])->name('products');
 
 
 

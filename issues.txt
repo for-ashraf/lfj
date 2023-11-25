@@ -11,3 +11,6 @@ issues:
 - in blog page add tags to be inserted into the blogs
 - set the path for blogs images
 - Start work back from HomeController
+
+----latest ones-----
+-Add a select field in Celebrities Table showing Celebrity Type

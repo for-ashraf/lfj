@@ -74,7 +74,7 @@
 <div class="container">
   
     <div class="row">
-        @if($events instanceof \Illuminate\Database\Eloquent\Collection && $events->count() > 1)
+        @if($events instanceof \Illuminate\Database\Eloquent\Collection && $events->count() > 0)
                 @foreach ($events as $event)
                 <div class="col-md-6">
                     <a href="{{ route('eventShow', $event->event_id) }}">

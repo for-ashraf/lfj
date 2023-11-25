@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 use Carbon\Carbon;
 use App\Models\Categories;
 use App\Models\Blogs;
@@ -145,11 +145,31 @@ class HomeController extends Controller
     public function showCelebrity($id)
     {
         $categories = Categories::all();
-        $blogs = Blogs::where('celebrity_id', $id)->get();
-        $celebrity = Celebrities::find($id); // Replace 'Celebrity' with your actual model name
 
-        return view('home.celebrityShow', compact('celebrity', 'categories', 'blogs'));
+        // Check if $id is numeric
+        if (is_numeric($id)) {
+            $celebrities = Celebrities::find($id);
+            $blogs = Blogs::where('title', 'LIKE', "%$celebrities->name%")
+                ->orWhere('content', 'LIKE', "%$celebrities->name%")
+                ->get();
+
+        } else {
+            // If $id is not numeric, assume it's a celebrity name and find by name
+            $celebrities = Celebrities::where('name', 'LIKE', "%$id%")
+                ->orWhere('description', 'LIKE', "%$id%")
+                ->orWhere('celebrity_type', 'LIKE', "%$id%")
+                ->get();
+
+
+            $blogs = Blogs::where('title', 'LIKE', "%$id%")
+                ->orWhere('content', 'LIKE', "%$id%")
+                ->get();
+
+        }
+
+        return view('home.celebrityShow', compact('celebrities', 'categories', 'blogs'));
     }
+
     public function showEvent($id)
     {
         $categories = Categories::all();
@@ -159,21 +179,20 @@ class HomeController extends Controller
             $events = Events::find($id);
             $category_id = $events->category_id;
             $blogs = Blogs::where('category_id', $category_id)->take(4)->get();
-           
-            }
-         else {
+
+        } else {
             // If $id is not numeric, try finding in event_category first
             $events = Events::where('event_category', 'LIKE', "%$id%")->get();
-    
+
             if ($events->isEmpty()) {
                 // If not found in event_category, assume it's an event name and find by name
                 $events = Events::where('event_name', 'LIKE', "%$id%")
                     ->orWhere('event_description', 'LIKE', "%$id%")
                     ->get();
             }
-    
-            $blogs = Blogs::inRandomOrder()
-                ->take(4)
+
+            $blogs = Blogs::where('title', 'LIKE', "%$id%")
+                ->orWhere('content', 'LIKE', "%$id%")
                 ->get();
         }
         return view('home.eventShow', compact('events', 'categories', 'blogs'));
@@ -334,5 +353,19 @@ class HomeController extends Controller
 
         // Redirect back to the contact page with a success message
         return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
+    }
+    public function products()
+    {
+        $currentDate = Carbon::now();
+        $categories = Categories::all();
+    
+        $allProducts = AmazonProduct::all();
+        $perPage = 5;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
+    
+        $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
+    
+        return view('home.category', compact('categories', 'products'));
     }
 }
