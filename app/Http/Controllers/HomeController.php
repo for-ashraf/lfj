@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Pagination\LengthAwarePaginator;
 use Carbon\Carbon;
 use App\Models\Categories;
@@ -337,9 +338,6 @@ class HomeController extends Controller
         // Return the blog data and the next start point
         return response()->json(['message' => 'Success', 'data' => $data, 'next' => $nextStart]);
     }
-
-
-
     public function sendContactForm(Request $request)
     {
         // Validate the contact form inputs
@@ -356,16 +354,44 @@ class HomeController extends Controller
     }
     public function products()
     {
-        $currentDate = Carbon::now();
+
         $categories = Categories::all();
-    
+
         $allProducts = AmazonProduct::all();
         $perPage = 14;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
-    
+
         $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
-    
+
         return view('home.products', compact('categories', 'products'));
     }
+    public function showProducts($key)
+    {
+        $categories = Categories::all();
+
+        // Check if $key is numeric
+        if (is_numeric($key)) {
+            $products = AmazonProduct::find($key);
+        } else {
+            // If $key is not numeric, assume it's a product title and find by title
+            $products = AmazonProduct::where('title', 'LIKE', "%$key%")
+                ->orWhere('description', 'LIKE', "%$key%")
+                ->get();
+           
+            if ($products->isEmpty()) {
+                $allProducts = AmazonProduct::all();
+                $perPage = 14;
+                $currentPage = LengthAwarePaginator::resolveCurrentPage();
+                $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        
+                $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
+                     
+            }
+
+        }
+
+        return view('home.productShow', compact('products', 'categories'));
+    }
+
 }

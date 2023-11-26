@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('blog') ? 'celebrities' : '' }}" data-bs-toggle="dropdown">Celebrities</a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('blog') ? 'active' : '' }}" data-bs-toggle="dropdown">Celebrities</a>
                         <div class="dropdown-menu m-0">
                             <a class="dropdown-item" href="/celebrities/Hollywood Actresses">Hollywood Actresses</a>
                             <a class="dropdown-item" href="/celebrities/Bollywood Actresses">Bollywood Actresses</a>
@@ -128,7 +128,7 @@
                         <div class="dropdown-menu m-0">
                             @foreach ($categories as $category)
                                 <a class="dropdown-item"
-                                    href="categories/{{ $category->category_name }}">{{ $category->category_name }}</a>
+                                    href="/products/{{ $category->category_name }}">{{ $category->category_name }}</a>
                             @endforeach
                         </div>
                     </div>
