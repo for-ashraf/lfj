@@ -195,8 +195,8 @@
 
                 if (lfjCode) {
                     // Construct the image source URL
-                    var imageSrc = '/uploads/products/' + lfjCode + '.jpg';
-
+                    var imageSrc =  '{{ asset('uploads/products/') }}' + '/' + imageID + '.jpg';
+                    
                     // Check if the image exists
                     fabric.Image.fromURL(imageSrc, function(img) {
                         img.scaleToWidth(400);
@@ -248,26 +248,29 @@
 
             // If an image ID is provided in the URL, load and display the image
             if (imageID) {
-                var imageSrc = '/uploads/products/' + imageID + '.jpg';
-                // Check if the image exists
-                fabric.Image.fromURL(imageSrc, function(img) {
-                    img.scaleToWidth(400);
-                    img.scaleToHeight(400);
-                    canvas.add(img).renderAll();
-                    currentImages.push(img);
-                    canvas.bringToFront(img);
+    // Use the asset function to generate the full URL
+    var imageSrc = '{{ asset('uploads/products/') }}' + '/' + imageID + '.jpg';
+    
+    // Check if the image exists
+    fabric.Image.fromURL(imageSrc, function(img) {
+        img.scaleToWidth(400);
+        img.scaleToHeight(400);
+        canvas.add(img).renderAll();
+        currentImages.push(img);
+        canvas.bringToFront(img);
 
-                    // Add a mouse click event listener to the canvas to reorder images
-                    canvas.on('mouse:down', function(event) {
-                        if (event.target) {
-                            // Bring the clicked image to the front
-                            canvas.bringToFront(event.target);
-                        }
-                    });
-
-                }, function() {
-                    console.log('Image not found');
-                });
+        // Add a mouse click event listener to the canvas to reorder images
+        canvas.on('mouse:down', function(event) {
+            if (event.target) {
+                // Bring the clicked image to the front
+                canvas.bringToFront(event.target);
             }
+        });
+
+    }, function() {
+        console.log('Image not found');
+    });
+}
+
         </script>
     @endsection

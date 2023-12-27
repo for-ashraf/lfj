@@ -59,11 +59,14 @@ class HomeController extends Controller
         $products = AmazonProduct::inRandomOrder()
             ->limit(30)
             ->get();
+        $randBlogs = Blogs::inRandomOrder()
+            ->limit(3)
+            ->get();
 
         $jbrands = $this->loadJBrands();
         $upcomingEvents = $this->loadEvents();
 
-        return view('home.index', compact('blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
+        return view('home.index', compact('randBlogs','blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
     }
 
     public function dashboard()
@@ -150,9 +153,7 @@ class HomeController extends Controller
         // Check if $id is numeric
         if (is_numeric($id)) {
             $celebrities = Celebrities::find($id);
-            $blogs = Blogs::where('title', 'LIKE', "%$celebrities->name%")
-                ->orWhere('content', 'LIKE', "%$celebrities->name%")
-                ->get();
+            $blogs = $celebrities->blogs;
 
         } else {
             // If $id is not numeric, assume it's a celebrity name and find by name
@@ -198,6 +199,32 @@ class HomeController extends Controller
         }
         return view('home.eventShow', compact('events', 'categories', 'blogs'));
     }
+    public function showBrands($id)
+    {
+        $categories = Categories::all();
+
+        // Check if $id is numeric
+        if (is_numeric($id)) {
+            $brand = JewelleryBrand::find($id);
+          
+        } else {
+            ;
+            // If $id is not numeric, try finding in event_category first
+            // $events = Events::where('event_category', 'LIKE', "%$id%")->get();
+
+            // if ($events->isEmpty()) {
+            //     // If not found in event_category, assume it's an event name and find by name
+            //     $events = Events::where('event_name', 'LIKE', "%$id%")
+            //         ->orWhere('event_description', 'LIKE', "%$id%")
+            //         ->get();
+            }
+
+        //     $blogs = Blogs::where('title', 'LIKE', "%$id%")
+        //         ->orWhere('content', 'LIKE', "%$id%")
+        //         ->get();
+        // }
+        return view('home.brandShow', compact('brand', 'categories'));
+    }
     public function showCategory($category)
     {
         $sblogs = Blogs::latest()->take(6)->get();
@@ -229,13 +256,16 @@ class HomeController extends Controller
         // Retrieve the blog with the given ID from your database
         $blogs = Blogs::latest()->take(6)->get();
         $blog = Blogs::find($id);
-
+        $amazonProducts = AmazonProduct::join('categories', 'amazon_products.category', '=', 'categories.category_name')
+        ->where('categories.id', $blog->category_id)
+        ->take(12)
+        ->get();
         // Check if the blog exists
         if (!$blog) {
             abort(404); // Display a 404 error page if the blog is not found
         }
 
-        return view('home.showblog', compact('blog', 'blogs', 'categories'));
+        return view('home.showblog', compact('blog', 'blogs', 'categories','amazonProducts'));
     }
 
     public function about()
@@ -369,7 +399,7 @@ class HomeController extends Controller
     public function showProducts($key)
     {
         $categories = Categories::all();
-
+        $status = 0;
         // Check if $key is numeric
         if (is_numeric($key)) {
             $products = AmazonProduct::find($key);
@@ -378,20 +408,21 @@ class HomeController extends Controller
             $products = AmazonProduct::where('title', 'LIKE', "%$key%")
                 ->orWhere('description', 'LIKE', "%$key%")
                 ->get();
-           
+
             if ($products->isEmpty()) {
                 $allProducts = AmazonProduct::all();
                 $perPage = 14;
                 $currentPage = LengthAwarePaginator::resolveCurrentPage();
                 $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        
+
                 $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
-                     
+                $status = 1;
             }
 
         }
 
-        return view('home.productShow', compact('products', 'categories'));
+
+        return view('home.productShow', compact('products', 'categories', 'status'));
     }
 
 }

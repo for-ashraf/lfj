@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z8WPXRT9C1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z8WPXRT9C1');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LFJ-@yield('title')</title>
@@ -55,45 +64,44 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
-                        <a class="nav-link dropdown-toggle {{ request()->is('events') ? 'active' : '' }}" href="#" id="eventsDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                           Events
-                        </a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('events') ? 'active' : '' }}" data-bs-toggle="dropdown">Events</a>
                         <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
-                            <li><a class="dropdown-item" href="#">Fashion Show</a></li>
-                            <li><a class="dropdown-item" href="#">Jewelry Exhibition</a></li>
-                            <li><a class="dropdown-item" href="#">Workshops</a></li>
-                            <li><a class="dropdown-item" href="#">Charity Events</a></li>
-                            <li><a class="dropdown-item" href="#">Jewelry Launch Events</a></li>
-                            <li><a class="dropdown-item" href="#">Networking Events</a></li>
+                            <li><a class="dropdown-item" href="/events/Fashion Show">Fashion Show</a></li>
+                            <li><a class="dropdown-item" href="/events/Jewelry Exhibition">Jewelry Exhibition</a></li>
+                            <li> <a class="dropdown-item" href="/events/Workshops">Workshops</a></li>
+                            <li> <a class="dropdown-item" href="/events/Start ups">Start ups</a></li>
+                            <li><a class="dropdown-item" href="/events/Jewelry Launch Events">Jewelry Launch Events</a></li>
+                            <li> <a class="dropdown-item" href="/events/Networking Events">Networking Events</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
-                        <a class="nav-link dropdown-toggle {{ request()->is('Celebrities') ? 'active' : '' }}" href="#" id="celebritiesDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                             Celebrities
-                        </a>
+                        <a href="#" class="nav-link dropdown-toggle {{ request()->is('blog') ? 'active' : '' }}" data-bs-toggle="dropdown">Celebrities</a>
                         <ul class="dropdown-menu" aria-labelledby="celebritiesDropdown">
-                            <li><a class="dropdown-item" href="#">Hollywood Actresses</a></li>
-                            <li><a class="dropdown-item" href="#">Bollywood Actresses</a></li>
-                            <li><a class="dropdown-item" href="#">Influencers and Fashion Icons</a></li>
-                            <li><a class="dropdown-item" href="#">Red Carpet Jewelry Moments</a></li>
-                            <li><a class="dropdown-item" href="#">Celebrity Collaborations</a></li>
-                            <li><a class="dropdown-item" href="#">Jewelry Brands Loved by Celebrities</a></li>
+                            <li> <a class="dropdown-item" href="/celebrities/Hollywood Actresses">Hollywood Actresses</a></li>
+                            <li> <a class="dropdown-item" href="/celebrities/Bollywood Actresses">Bollywood Actresses</a></li>
+                            <li><a class="dropdown-item" href="/celebrities/Influencers and Fashion Icons">Influencers and
+                                Fashion Icons</a></li>
+                            <li><a class="dropdown-item" href="/celebrities/Red Carpet Jewelry Moments">Red Carpet Jewelry
+                                Moments</a></li>
+                            <li> <a class="dropdown-item" href="/celebrities/Celebrity Collaborations">Celebrity
+                                Collaborations</a></li>
+                            <li> <a class="dropdown-item" href="/celebrities/Jewellery Brands Loved by Celebrities">Jewellery
+                                Brands Loved by Celebrities</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown menu-title">
                         <a class="nav-link dropdown-toggle {{ request()->is('shopNow') ? 'active' : '' }}" href="#" id="shopNowDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                           data-bs-toggle="dropdown" aria-expanded="false">
                            Shop Now
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="shopNowDropdown">
-                            <li><a class="dropdown-item" href="#">Necklaces</a></li>
-                            <li><a class="dropdown-item" href="#">Earrings</a></li>
-                            <li><a class="dropdown-item" href="#">Bracelets</a></li>
-                            <li><a class="dropdown-item" href="#">Rings</a></li>
-                            <li><a class="dropdown-item" href="#">Sets and Collections</a></li>
-                            <li><a class="dropdown-item" href="#">Custom Jewelry</a></li>
+                            @foreach ($categories as $category)
+                                <li>
+                                    <a class="dropdown-item" href="/products/{{ $category->category_name }}">
+                                        {{ $category->category_name }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
                 </ul>

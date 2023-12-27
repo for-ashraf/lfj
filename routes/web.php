@@ -53,6 +53,7 @@ Route::get('/category/{key}', [HomeController::class, 'category'])->name('catego
 Route::get('/load-more-data', [HomeController::class, 'loadMoreData'])->name('load.more');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/products/{key}', [HomeController::class, 'showProducts'])->name('productShow');
+Route::get('/brands/{key}', [HomeController::class, 'showBrands'])->name('brandShow');
 
 
 
