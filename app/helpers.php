@@ -13,6 +13,19 @@ function getBlogImageUrl($blogId) {
     // If none of the specified extensions are found, return the default image URL
     return asset('uploads/default.jpg');
 }
+function getBrandImageUrl($brandId) {
+    $extensions = ['jpeg', 'png', 'jpg', 'gif'];
+
+    foreach ($extensions as $extension) {
+        $imagePath = public_path('uploads/brands/' . $brandId . '.' . $extension);
+        if (File::exists($imagePath)) {
+            return asset('uploads/brands/' . $brandId . '.' . $extension);
+        }
+    }
+
+    // If none of the specified extensions are found, return the default image URL
+    return asset('uploads/brands/default.jpg');
+}
 
 function getEventImageUrl($blogId) {
     $extensions = ['jpeg', 'png', 'jpg', 'gif'];

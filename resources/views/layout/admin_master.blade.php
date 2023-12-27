@@ -10,6 +10,8 @@
 
   gtag('config', 'G-Z8WPXRT9C1');
 </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1999165272148254"
+     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="description" content="Crush On The most popular Admin Dashboard template and ui kit">
@@ -71,6 +73,7 @@
 <li class="{{ request()->is('admin/tags') ? 'active' : '' }}"><a href="{{ route('tags.index') }}"><i class="fa fa-qrcode"></i><span>Tags</span></a></li>
 <li class="{{ request()->is('admin/events') ? 'active' : '' }}"><a href="{{ route('events.index') }}"><i class="fa fa-globe"></i><span>Events</span></a></li>
 <li class="{{ request()->is('admin/celebrities') ? 'active' : '' }}"><a href="{{ route('celebrities.index') }}"><i class="fa fa-star"></i><span>Celebrities</span></a></li>
+<li class="{{ request()->is('admin/brands') ? 'active' : '' }}"><a href="{{ route('brands.index') }}"><i class="fa fa-qrcode"></i><span>Brands</span></a></li>
 <li class="{{ request()->is('admin/image_gallery') ? 'active' : '' }}"><a href="{{ route('image_gallery.index') }}"><i class="fa fa-picture-o"></i><span>Image Gallery</span></a></li>
 <li class="{{ request()->is('admin/users') ? 'active' : '' }}"><a href="{{ route('users.index') }}"><i class="fa fa-lock"></i><span>Users</span></a></li>
                 {{-- <li >

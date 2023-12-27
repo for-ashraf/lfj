@@ -9,6 +9,25 @@
         align-items: center;
         justify-content: flex-start;
     }
+    .text-justify {
+        text-align: justify !important;
+        text-justify: inter-word !important;
+    }
+
+    .try-on-studio-button {
+        background-color: #ffc107; /* You can change the color here */
+        color: #333;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px; /* Adjust the margin as needed */
+    }
+
+    .try-on-studio-button:hover {
+        background-color: #ffca2b; /* Change the color on hover if desired */
+    }
 
     .text-link {
         font-size: 1.5rem;
@@ -97,7 +116,7 @@
     <div id="products_container" class="row">
         @foreach ($products as $product)
             <div class="col-md-4 mb-4">
-                <a href="{{ route('jewellerystudio', ['id' => $product->id]) }}" style="display: block;">
+                <a href="{{ $product->affiliate_link}}" style="display: block;">
                     <div class="card box-shadow" style="height: 480px;">
                         <img class="card-img-top" style="height: 70%;"
                             src="{{ asset('uploads/products/' . $product->featured_image) }}"
@@ -111,6 +130,7 @@
                                 <p class="card-text text-center">{{ $product->title }}</p>
                             </div>
                         </div>
+                        <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
                     </div>
                 </a>
             </div>
@@ -128,15 +148,16 @@
     @elseif($products instanceof \App\Models\AmazonProduct)
     <a target="_blank" href="{{ $products->affiliate_link }}">   
         <div class="card">
-            <a href="{{ route('jewellerystudio', ['id' => $products->id]) }}" style="display: block;"><img style="max-width: 300px; max-height: 430px;" src="{{ asset('/uploads/products/' . $products->featured_image) }}" alt="{{ $products->title }}" class="card-img"></a>
+           <img style="max-width: 300px; max-height: 430px;" src="{{ asset('/uploads/products/' . $products->featured_image) }}" alt="{{ $products->title }}" class="card-img">
             <div class="center-content">
                 <div class="card-overlay">
                     <h5 class="card-title">{{ $products->title }}</h5>
                    
                     <div style="display: flex; justify-content: space-between;">
-                        <a href="{{ $products->link }}" style="display: block;"><h6 style="color: red; margin: 0;">Buy ${{ $products->price }}</h6></a>
+                        <a href="{{ $products->affiliate_link }}" style="display: block;"><h6 style="color: red; margin: 0;">Buy ${{ $products->price }}</h6></a>
                         <h6 style="color: green; margin: 0;">LFJ Code: {{ $products->id }}</h6>
                     </div>
+                    <a href="{{ route('jewellerystudio.id', ['id' => $products->id]) }}" class="try-on-studio-button">Try on Studio</a>
                 </div>
                 
             </div>
@@ -152,7 +173,7 @@
     <div id="products_container" class="row">
         @foreach ($products as $product)
             <div class="col-md-4 mb-4">
-                <a href="{{ route('jewellerystudio', ['id' => $product->id]) }}" style="display: block;">
+                <a href="{{ $product->affiliate_link}}" style="display: block;">
                     <div class="card box-shadow" style="height: 480px;">
                         <img class="card-img-top" style="height: 70%;"
                             src="{{ asset('uploads/products/' . $product->featured_image) }}"
@@ -166,6 +187,7 @@
                                 <p class="card-text text-center">{{ $product->title }}</p>
                             </div>
                         </div>
+                        <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
                     </div>
                 </a>
             </div>

@@ -163,8 +163,9 @@
         <script src="{{ asset('js/fabric.min.js') }}"></script>
         <script>
             // Check if there is an image ID in the URL parameters
-            var urlParams = new URLSearchParams(window.location.search);
-            var imageID = urlParams.get('id');
+            var pathArray = window.location.pathname.split('/');
+            var imageID = pathArray.pop();
+         
 
             // Initialize the fabric canvas and an array to store loaded images
             var canvas = new fabric.Canvas('canvas');
@@ -195,8 +196,8 @@
 
                 if (lfjCode) {
                     // Construct the image source URL
-                    var imageSrc =  '{{ asset('uploads/products/') }}' + '/' + imageID + '.jpg';
-                    
+                    var imageSrc = '{{ asset('uploads/products/') }}' + '/' + lfjCode + '.jpg';
+
                     // Check if the image exists
                     fabric.Image.fromURL(imageSrc, function(img) {
                         img.scaleToWidth(400);
@@ -206,7 +207,7 @@
                         document.getElementById('error-message').textContent = ''; // Clear the error message
                     }, function() {
                         document.getElementById('error-message').textContent =
-                        'Image not found'; // Display error message
+                            'Image not found'; // Display error message
                     });
                 } else {
                     document.getElementById('error-message').textContent = 'Please enter LFJ Code'; // Display error message
@@ -248,29 +249,28 @@
 
             // If an image ID is provided in the URL, load and display the image
             if (imageID) {
-    // Use the asset function to generate the full URL
-    var imageSrc = '{{ asset('uploads/products/') }}' + '/' + imageID + '.jpg';
-    
-    // Check if the image exists
-    fabric.Image.fromURL(imageSrc, function(img) {
-        img.scaleToWidth(400);
-        img.scaleToHeight(400);
-        canvas.add(img).renderAll();
-        currentImages.push(img);
-        canvas.bringToFront(img);
+                // Use the asset function to generate the full URL
+                var imageSrc = '{{ asset('uploads/products/') }}' + '/' + imageID + '.jpg';
 
-        // Add a mouse click event listener to the canvas to reorder images
-        canvas.on('mouse:down', function(event) {
-            if (event.target) {
-                // Bring the clicked image to the front
-                canvas.bringToFront(event.target);
+                // Check if the image exists
+                fabric.Image.fromURL(imageSrc, function(img) {
+                    img.scaleToWidth(400);
+                    img.scaleToHeight(400);
+                    canvas.add(img).renderAll();
+                    currentImages.push(img);
+                    canvas.bringToFront(img);
+
+                    // Add a mouse click event listener to the canvas to reorder images
+                    canvas.on('mouse:down', function(event) {
+                        if (event.target) {
+                            // Bring the clicked image to the front
+                            canvas.bringToFront(event.target);
+                        }
+                    });
+
+                }, function() {
+                    console.log('Image not found');
+                });
             }
-        });
-
-    }, function() {
-        console.log('Image not found');
-    });
-}
-
         </script>
     @endsection

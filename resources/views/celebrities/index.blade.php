@@ -38,6 +38,7 @@
                                     <div class="mr-3">
                                         <i class="fa fa-calendar"></i> {{ $celebrity->birthdate }}
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -79,7 +80,10 @@
                                     <a href="{{ route('celebrities.destroy', $celebrity->celebrity_id) }}" class="btn btn-sm btn-danger" onclick="event.preventDefault(); deleteCelebrity({{ $celebrity->celebrity_id }});"><i class="fa fa-trash"></i> Delete</a>
                                 </div>
                             </div>
-                            <small class="d-block text-muted">{{ $celebrity->created_at->diffForHumans() }}</small>
+                            <small class="d-block text-muted">{{ $celebrity->created_at->diffForHumans() }}</small><hr>
+                            <div class="mr-3">
+                                {{ $celebrity->celebrity_type }}
+                             </div>
                         </div>
                     </div>
                     @endforeach

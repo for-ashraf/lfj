@@ -57,7 +57,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <div class="card-image">
-                        <img src="{{ asset('/uploads/brands/' . $brand->brand_image) }}" alt="{{ $brand->brand_name }}" class="card-img">
+                        <img src="{{ asset($brand->brand_image) }}" alt="{{ $brand->brand_name }}" class="card-img">
                         <div class="card-overlay">
                             <h5 class="card-title">{{ $brand->brand_name }}</h5>
                             <p class="card-text">{{ $brand->description }}</p>

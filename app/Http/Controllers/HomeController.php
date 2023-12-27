@@ -34,12 +34,6 @@ class HomeController extends Controller
     {
         return Categories::all();
     }
-
-    public function loadEvents()
-    {
-
-        return Events::orderBy('event_date', 'desc')->take(4)->get();
-    }
     public function loadJBrands()
     {
 
@@ -51,22 +45,29 @@ class HomeController extends Controller
         $blogs = Blogs::count();
         $events = Events::count();
         $images = ImageGallery::count();
-        $celebrities = Celebrities::count();
         $products = AmazonProduct::count();
         $amazonProducts = AmazonProduct::all();
         $categories = Categories::all();
 
         $products = AmazonProduct::inRandomOrder()
-            ->limit(30)
+            ->limit(8)
             ->get();
         $randBlogs = Blogs::inRandomOrder()
+            ->limit(5)
+            ->get();
+
+        $celebrities = Celebrities::inRandomOrder()
+            ->limit(2)
+            ->get();
+        $jbrands = $this->loadJBrands();
+        $currentDate = Carbon::now();
+
+        $upcomingEvents = Events::whereDate('event_from_date', '>=', $currentDate)
+            ->inRandomOrder()
             ->limit(3)
             ->get();
 
-        $jbrands = $this->loadJBrands();
-        $upcomingEvents = $this->loadEvents();
-
-        return view('home.index', compact('randBlogs','blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
+        return view('home.index', compact('randBlogs', 'blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
     }
 
     public function dashboard()
@@ -98,7 +99,7 @@ class HomeController extends Controller
 
         if ($id) {
             // Load the product image based on the ID
-            $product = Product::find($id);
+            $product = AmazonProduct::find($id);
 
             if ($product && $product->featured_image) {
                 $imagePath = 'uploads/products/' . $product->featured_image;
@@ -125,7 +126,7 @@ class HomeController extends Controller
 
         $now = Carbon::now();
 
-        $events = Events::where('event_date', '>=', $now)->get();
+        $events = Events::where('event_from_date', '>=', $now)->get();
 
         //$roles = Role::all();
         return view('home.events', compact('events', 'categories'));
@@ -153,7 +154,9 @@ class HomeController extends Controller
         // Check if $id is numeric
         if (is_numeric($id)) {
             $celebrities = Celebrities::find($id);
-            $blogs = $celebrities->blogs;
+            $blogs = Blogs::where('title', 'LIKE', "%$celebrities->name%")
+                ->orWhere('content', 'LIKE', "%$celebrities->name%")
+                ->get();
 
         } else {
             // If $id is not numeric, assume it's a celebrity name and find by name
@@ -202,11 +205,11 @@ class HomeController extends Controller
     public function showBrands($id)
     {
         $categories = Categories::all();
-
+        $brand = null;
         // Check if $id is numeric
         if (is_numeric($id)) {
             $brand = JewelleryBrand::find($id);
-          
+
         } else {
             ;
             // If $id is not numeric, try finding in event_category first
@@ -217,7 +220,7 @@ class HomeController extends Controller
             //     $events = Events::where('event_name', 'LIKE', "%$id%")
             //         ->orWhere('event_description', 'LIKE', "%$id%")
             //         ->get();
-            }
+        }
 
         //     $blogs = Blogs::where('title', 'LIKE', "%$id%")
         //         ->orWhere('content', 'LIKE', "%$id%")
@@ -257,15 +260,16 @@ class HomeController extends Controller
         $blogs = Blogs::latest()->take(6)->get();
         $blog = Blogs::find($id);
         $amazonProducts = AmazonProduct::join('categories', 'amazon_products.category', '=', 'categories.category_name')
-        ->where('categories.id', $blog->category_id)
-        ->take(12)
-        ->get();
+            ->where('categories.category_id', $blog->category_id)
+            ->take(12)
+            ->get();
+
         // Check if the blog exists
         if (!$blog) {
             abort(404); // Display a 404 error page if the blog is not found
         }
 
-        return view('home.showblog', compact('blog', 'blogs', 'categories','amazonProducts'));
+        return view('home.showblog', compact('blog', 'blogs', 'categories', 'amazonProducts'));
     }
 
     public function about()
@@ -312,12 +316,12 @@ class HomeController extends Controller
                     ->orWhere('description', 'like', '%' . $categoryName . '%')
                     ->paginate(5);
 
-                $events = Events::where('event_date', '>=', $currentDate)
+                $events = Events::where('event_from_date', '>=', $currentDate)
                     ->where(function ($query) use ($categoryName) {
                         $query->where('event_name', 'like', '%' . $categoryName . '%')
                             ->orWhere('event_description', 'like', '%' . $categoryName . '%');
                     })
-                    ->orderBy('event_date')
+                    ->orderBy('event_from_date')
                     ->take(5)
                     ->get();
             }
@@ -338,12 +342,12 @@ class HomeController extends Controller
                 ->orWhere('description', 'like', '%' . $key . '%')
                 ->paginate(5);
 
-            $events = Events::where('event_date', '>=', $currentDate)
+            $events = Events::where('event_from_date', '>=', $currentDate)
                 ->where(function ($query) use ($key) {
                     $query->where('event_name', 'like', '%' . $key . '%')
                         ->orWhere('event_description', 'like', '%' . $key . '%');
                 })
-                ->orderBy('event_date')
+                ->orderBy('event_from_date')
                 ->take(5)
                 ->get();
 

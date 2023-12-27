@@ -23,6 +23,7 @@ class Celebrities extends Model
         'tiktok',
         'snapchat',
         'website',
+        'celebrity_type',
     ];
 
     // Define any relationships here if needed

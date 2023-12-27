@@ -15,7 +15,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('categories.create') }}" class="btn btn-primary mr-2">New Event</a>
+                        <a href="{{ route('events.create') }}" class="btn btn-primary mr-2">New Event</a>
                         <div class="page-subtitle ml-0"> Total <font size='3' color='blue'>{{ $events->count() }} </font>Events</div>
                         <!-- Rest of the sorting and search options code -->
                     </div>
@@ -32,10 +32,10 @@
                             <div class="event-info">
                                 <div class="d-flex align-items-center">
                                     <div class="mr-3">
-                                        <i class="fa fa-calendar"></i> {{ $event->event_date }}
+                                        <i class="fa fa-calendar"></i> {{ $event->event_from_date }}
                                     </div>
                                     <div class="mr-3">
-                                        <i class="fa fa-clock"></i> {{ $event->event_time }}
+                                        <i class="fa fa-clock"></i> {{ $event->event_to_time }}
                                     </div>
                                 </div>
                             </div>

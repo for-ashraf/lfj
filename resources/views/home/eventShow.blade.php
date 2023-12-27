@@ -86,9 +86,9 @@
                                         <div>
                                             <h5 class="card-title">{{ $event->event_name }}</h5>
                                             <p class="card-text">
-                                                <span>{{ date('d', strtotime($event->event_date)) }}</span> -
-                                                <span>{{ date('M', strtotime($event->event_date)) }}</span> -
-                                                <span>{{ date('Y', strtotime($event->event_date)) }}</span>
+                                                <span>{{ date('d', strtotime($event->event_from_date)) }}</span> -
+                                                <span>{{ date('M', strtotime($event->event_from_date)) }}</span> -
+                                                <span>{{ date('Y', strtotime($event->event_from_date)) }}</span>
                                             </p>
                                             <p class="card-text">{{ $event->event_location }}</p>
                                             <div class="event-details-btn">
@@ -110,7 +110,7 @@
                 <div class="card-overlay">
                     <h5 class="card-title">{{ $events->event_name }}</h5>
                     <p class="card-text" style="color: grey">
-                        Date: {{ date('d', strtotime($events->event_date)) }} - {{ date('M', strtotime($events->event_date)) }} - {{ date('Y', strtotime($events->event_date)) }}
+                        Date: {{ date('d', strtotime($events->event_from_date)) }} - {{ date('M', strtotime($events->event_from_date)) }} - {{ date('Y', strtotime($events->event_from_date)) }}
                     </p>
                     <p class="card-text" style="color: grey">Location: {{ $events->event_location }}</p>
                     <p class="card-text" style="color: grey">Description: {{ $events->event_description }}</p>
