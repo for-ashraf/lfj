@@ -1,12 +1,43 @@
 @extends('../layout/landing_master') <!-- Specify the parent view to extend -->
+
 @if($products instanceof \App\Models\AmazonProduct)
 <style>
     /* Add your styles here */
     .container {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .text-justify {
+        text-align: justify !important;
+        text-justify: inter-word !important;
+    }
+
+    .try-on-studio-button {
+        background-color: #ffc107; /* You can change the color here */
+        color: #333;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px; /* Adjust the margin as needed */
+    }
+
+    .try-on-studio-button:hover {
+        background-color: #ffca2b; /* Change the color on hover if desired */
+    }
+
+    .text-link {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #FFC300;
+        margin-top: 20px;
+        display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh; /* Adjust as needed */
+   
     }
 
     .card {
@@ -46,24 +77,46 @@
 
     .card-text {
         font-size: 1rem;
-        color: #FF5733;
+        color: #0a0a0a;
     }
 
     .product-details-btn a {
         text-decoration: none;
         color: orange;
     }
+    .product-link {
+        display: inline-block;
+        color:yellow;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        opacity: 0.4;
+        margin-right: 5px;
+    }
+    .product-buy {
+        display: inline-block;
+        font-size: 14px;
+        color:yellow;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        opacity: 0.4;
+        margin-left: 5px;
+    }
 </style>
 @endif
-@section('content')
 
+@section('content')
 <div class="container mt-5">
-    <!-- Display a single product card -->
-    @if($products instanceof \Illuminate\Database\Eloquent\Collection && $products->count() > 0 || is_object($products))
+    <div class="text-link">
+        <a href="{{ route('jewellerystudio') }}" style="display: block; text-align: center;">Try our Jewellery Studio</a>
+    </div>
+    <br>
+    @if($products instanceof \Illuminate\Database\Eloquent\Collection && $products->count() > 0)
     <div id="products_container" class="row">
         @foreach ($products as $product)
             <div class="col-md-4 mb-4">
-                <a href="{{ $product->affiliate_link }}" target="_blank">
+                <a href="{{ $product->affiliate_link}}" style="display: block;">
                     <div class="card box-shadow" style="height: 480px;">
                         <img class="card-img-top" style="height: 70%;"
                             src="{{ asset('uploads/products/' . $product->featured_image) }}"
@@ -77,6 +130,7 @@
                                 <p class="card-text text-center">{{ $product->title }}</p>
                             </div>
                         </div>
+                        <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
                     </div>
                 </a>
             </div>
@@ -91,30 +145,66 @@
             </div>
         </div>
     </div>
-
     @elseif($products instanceof \App\Models\AmazonProduct)
     <a target="_blank" href="{{ $products->affiliate_link }}">   
-    <div class="card">
-            <img style="max-width: 300px; max-height:430px;" src="{{ asset('/uploads/products/' . $products->featured_image) }}" alt="{{ $products->title }}" class="card-img">
+        <div class="card">
+           <img style="max-width: 300px; max-height: 430px;" src="{{ asset('/uploads/products/' . $products->featured_image) }}" alt="{{ $products->title }}" class="card-img">
             <div class="center-content">
                 <div class="card-overlay">
                     <h5 class="card-title">{{ $products->title }}</h5>
-                    <p class="card-text">
-                        {{ $products->description }}
-                    </p>
-                    <div class="product-details-btn">
-                            <h5 style="color: orange; background-color:bisque">Buy Now</h5>
-                    </div>
+                   
                     <div style="display: flex; justify-content: space-between;">
-                        <h6 style="color:red; margin: 0;">${{ $products->price }}</h4>
-                        <h6 style="color:green; margin: 0;">LFJ Code: {{ $products->id }}</h6>
+                        <a href="{{ $products->affiliate_link }}" style="display: block;"><h6 style="color: red; margin: 0;">Buy ${{ $products->price }}</h6></a>
+                        <h6 style="color: green; margin: 0;">LFJ Code: {{ $products->id }}</h6>
                     </div>
+                    <a href="{{ route('jewellerystudio.id', ['id' => $products->id]) }}" class="try-on-studio-button">Try on Studio</a>
+                </div>
+                
+            </div>
+        </div>
+        <p class="card-text" style="text-align: justify;">
+            {{ $products->description }}
+        </p>
+        <br>
+    </a>
+    
+    @endif
+    @if($status == 1 && is_object($products))
+    <div id="products_container" class="row">
+        @foreach ($products as $product)
+            <div class="col-md-4 mb-4">
+                <a href="{{ $product->affiliate_link}}" style="display: block;">
+                    <div class="card box-shadow" style="height: 480px;">
+                        <img class="card-img-top" style="height: 70%;"
+                            src="{{ asset('uploads/products/' . $product->featured_image) }}"
+                            alt="{{ $product->title }}">
+                        <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h6 tyle="color:red; margin: 0;">${{ $product->price }}</h4>
+                                    <h6 class="card-text" style="color:green; margin: 0;">LFJ Code: {{ $product->id }}</h6>
+                                </div>
+                                <p class="card-text text-center">{{ $product->title }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+
+        <!-- Load More card for Products -->
+        <div id="load_more_products_card" class="col-md-4 content_box" style="display: none;">
+            <div class="card mb-4 box-shadow" style="height: 300px;">
+                <div class="card-body d-flex align-items-center justify-content-center text-center">
+                    <button class="btn btn-primary" id="load_more_products_button">Load More</button>
                 </div>
             </div>
         </div>
-    </a>
+    </div>
     @endif
 </div>
+
 <script>
     var startProduct = 15;
 
@@ -195,4 +285,5 @@
         $('#load_more_products_card').show();
     });
 </script>
+
 @endsection

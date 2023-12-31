@@ -203,6 +203,7 @@
                         @endif
                     </div>
                     <p class="card-title" style="display: flex; justify-content: center; align-items: center;font-size:50px;">{{ $celebrities->name }}</p>
+                    <p class="card-title" style="color: blueviolet; display: flex; justify-content: justify; align-items: justify; font-size: 18px; text-align: justify;">{{ $celebrities->description }}</p>
                 </div>
             @endif
         </div>

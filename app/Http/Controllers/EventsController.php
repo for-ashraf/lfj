@@ -42,7 +42,8 @@ class EventsController extends Controller
         $validatedData = $request->validate([
             'event_name' => 'required|string|max:255',
             'event_description' => 'nullable|string',
-            'event_date' => 'nullable|date',
+            'event_from_date' => 'nullable|date',
+            'event_to_date' => 'nullable|date',
             'event_location' => 'nullable|string|max:255',
             'gps_location' => 'nullable|string|max:40',
             'event_website' => 'nullable|string|max:255',
@@ -86,7 +87,8 @@ class EventsController extends Controller
         $validatedData = $request->validate([
             'event_name' => 'required|string|max:255',
             'event_description' => 'nullable|string',
-            'event_date' => 'nullable|date',
+            'event_from_date' => 'nullable|date',
+            'event_to_date' => 'nullable|date',
             'event_location' => 'nullable|string|max:255',
             'gps_location' => 'required|string|max:40',
             'event_website' => 'nullable|string|max:255',

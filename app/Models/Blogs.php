@@ -19,6 +19,7 @@ class Blogs extends Model
         'category_id',
         'publication_date',  
         'celebrity_id',
+        'meta_tags',
 
         // Add more attributes here if needed
     ];

@@ -1,364 +1,167 @@
 @extends('../layout/landing_master') <!-- Specify the parent view to extend -->
+@section('title', 'Blogs Page')
+@section('close_header')
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Unleash your inner sparkle! ✨ Dive into our captivating jewelry blog, a treasure trove of expert tips, trend reports, and dazzling inspiration. Explore stunning rings, statement necklaces, chic earrings, trendy bracelets, captivating watches, and playful anklets. Find your perfect accessory, stay ahead of the curve, and unlock the secrets of jewelry styling with Latest Fashion Jewellery.">
+<meta name="keywords" content="jewelry blog, jewelry trends 2024, fashion jewelry, celebrity styles, rings trends, statement necklaces, minimalist earrings, stackable bracelets, affordable watches, gift ideas, anklet layering, jewelry care tips, sustainable jewelry brands, personalized jewelry, engagement rings, bridal jewelry, men's jewelry">
+<meta name="author" content="Latest Fashion Jewellery">
+<meta name="robots" content="index, follow">
+<meta name="og:title" content="Latest Fashion Jewelry Blog: Your Guide to Sparkling Trends & Irresistible Styles">
+<meta name="og:description" content="Unleash your inner sparkle! ✨ Dive into our captivating jewelry blog, a treasure trove of expert tips, trend reports, and dazzling inspiration. Explore stunning rings, statement necklaces, chic earrings, trendy bracelets, captivating watches, and playful anklets. Find your perfect accessory, stay ahead of the curve, and unlock the secrets of jewelry styling with Latest Fashion Jewellery.">
+<meta name="og:image" content="{{ asset('uploads/blogs/5.jpg') }}">
+<meta name="og:url" content="https://www.latestfashionjewellery.com/blogs">
+<meta name="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rings, Necklaces, Earrings & More: Uncover Your Jewelry Obsession on Our Blog">
+<meta name="twitter:description" content="Unleash your inner sparkle! ✨ Dive into our captivating jewelry blog, a treasure trove of expert tips, trend reports, and dazzling inspiration. Explore stunning rings, statement necklaces, chic earrings, trendy bracelets, captivating watches, and playful anklets. Find your perfect accessory, stay ahead of the curve, and unlock the secrets of jewelry styling with Latest Fashion Jewellery.">
+<meta name="twitter:image" content="{{ asset('uploads/blogs/5.jpg') }}">
+
+    </head>
+@endsection
 @section('content')
-    <style>
-        *,
-        *::after,
-        *::before {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #e8e8e8;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            color: #363636;
-            font-size: 40px;
-        }
-
-        .inner-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-
-        .card {
-            flex-basis: 33.33333%;
-            padding: 15px;
-        }
-
-        .inner-card {
-            background-color: #fff;
-            padding: 15px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, .1)
-        }
-
-        .img-wrapper {
-            width: 100%;
-            height: 250px;
-            margin-bottom: 10px;
-        }
-
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .content {
-            margin-bottom: 20px;
-        }
-
-        .content h1 {
-            font-weight: 900;
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #444;
-        }
-
-        .content p {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #555;
-        }
-
-        .btn-wrapper {
-            display: block;
-            text-align: center;
-        }
-
-        .view-btn {
-            width: 70%;
-            height: 40px;
-            border: none;
-            background-color: steelblue;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .view-btn:hover {
-            box-shadow: 0 3px 6px rgba(0, 0, 0, .4);
-        }
-
-        .light-box {
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: rgba(0, 0, 0, .6);
-            width: 100%;
-            height: 100vh;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 200ms ease-out;
-        }
-
-        .box {
-            width: 600px;
-            height: 400px;
-            background-color: #fff;
-            transform: scale(0);
-            transition: all 200ms ease-in-out;
-            padding: 10px;
-            box-shadow: 0 3px 9px rgba(0, 0, 0, .1);
-            position: relative;
-        }
-
-        .box-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100vh;
-            padding: 15px;
-        }
-
-        .box .light-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        .box .close-btn {
-            position: absolute;
-            z-index: 100;
-            font-size: 30px;
-            color: #ccc;
-            left: 100%;
-            top: 0;
-            border: 2px solid #ccc;
-            border-radius: 50%;
-            display: block;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            line-height: 35px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: all 200ms linear;
-        }
-
-        /* Effect */
-        .effect .light-box {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .effect .light-box .box {
-            transform: scale(1);
-        }
-
-        @media (max-width: 780px) {
-            .card {
-                flex-basis: 50%;
-            }
-
-            .title {
-                font-size: 30px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .card {
-                flex-basis: 5100%;
-            }
-
-            .box .close-btn {
-                margin-left: 0;
-                left: 80%;
-                top: -12%;
-            }
-        }
-
-        .view-btn-large {
-            font-size: 18px;
-            /* Increase the font size to make the link larger */
-            padding: 10px 20px;
-            /* Adjust the padding as needed for larger size */
-            /* Add any other styles you need */
-        }
-
-        .credit {
-            font-size: 14px;
-        }
-    </style>
-    <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-                <div class="col-lg-8">
-                    <!-- Blog Detail Start -->
-                    <div class="row">
-                        @foreach ($myBlogs as $myblog)
-                            <div class="col-md-6 mb-4"> <!-- Adjust the column width and margin as needed -->
-                                <div class="card h-100">
-                                    <div class="inner-card">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('uploads/blogs/' . $myblog->featured_image) }}"
-                                                alt="">
-                                        </div>
-                                        <div class="content">
-                                            <h1>{{ $myblog->title }}</h1>
-                                            <p>{{ \Illuminate\Support\Str::words($myblog->content, 10, '...') }}</p>
-                                        </div>
-                                        <div class="btn-wrapper">
-                                            <a href="{{ route('home.showblog', $myblog->blog_id) }}" class="view-btn view-btn-large">View</a>
-                                        </div>
-                                    </div>
-                                </div>
+                <!-- Blog list Start -->
+               <div class="col-lg-8">
+    <div class="row g-5">
+        @foreach ($myBlogs as $blogs)
+            @if ($loop->index % 2 == 0)
+                <div class="col-md-6 wow slideInUp" data-wow-delay="0.1s">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+            @else
+                <div class="col-md-6 wow slideInUp" data-wow-delay="0.2s">
+                    <div class="blog-item bg-white rounded overflow-hidden">
+            @endif
+          <div class="blog-img position-relative overflow-hidden">
+                                <img class="img-fluid" src="{{ asset('uploads/blogs/' . $blogs->featured_image) }}"
+                                    alt="">
+                                <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4"
+                                    href="{{ url('/categories/' . $blogs->categories->category_name) }}">{{ $blogs->categories->category_name }}</a>
                             </div>
-                            @if ($loop->iteration % 2 == 0)
-                    </div>
-                    <div class="row">
-                        @endif
-                        @endforeach
-                        <h4 style="color:#478559">Search for huge collection of Jewellery Blogs</h4><br>
-                        <!-- Search Form Start -->
-                        <form action="{{ route('home.searchBlog') }}" method="GET">
-                            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                                <div class="input-group">
-                                    <input type="text" class="form-control p-3" placeholder="Keyword" name="query">
-                                    <!-- Add the name attribute to capture the input value -->
-                                    <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
-                                </div>
+                            <div class="d-flex mb-3">
+                                <small class="me-3"><i
+                                        class="far fa-user text-primary me-2"></i>{{ $blogs->author_name }}</small>
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $blogs->created_at }}</small>
                             </div>
-                        </form>
-                        <!-- Search Form End -->{{-- <h3 style="color:red">For more blogs, click <a href="{{route('home.categories')}}">here</a> or seach keyword above, please.</h3> --}}
-                    </div>
-
-                    <!-- Blog Detail End -->
-                    <hr>
-                    <!-- Tags Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Tag Cloud</h3>
-                        </div>
-                        <div class="d-flex flex-wrap m-n1">
-                            <a href="" class="btn btn-light m-1">Jewellery</a>
-                            <a href="" class="btn btn-light m-1">Fashion</a>
-                            <a href="" class="btn btn-light m-1">Events</a>
-                            <a href="" class="btn btn-light m-1">Celebrities</a>
-                            <a href="" class="btn btn-light m-1">Blogs</a>
-                            <a href="" class="btn btn-light m-1">Shop</a>
-                            <a href="" class="btn btn-light m-1">Latest</a>
-                            <a href="" class="btn btn-light m-1">Admirable</a>
-                            <a href="" class="btn btn-light m-1">Trends</a>
-                            <a href="" class="btn btn-light m-1">Fashionable</a>
-                            <a href="" class="btn btn-light m-1">Accessories</a>
-                            <a href="" class="btn btn-light m-1">Style</a>
-                            <a href="" class="btn btn-light m-1">Trendy</a>
-                            <a href="" class="btn btn-light m-1">Statement</a>
-                            <a href="" class="btn btn-light m-1">Elegant</a>
-                            <a href="" class="btn btn-light m-1">Luxury</a>
-                            <a href="" class="btn btn-light m-1">Sparkling</a>
-                            <a href="" class="btn btn-light m-1">Glamorous</a>
-                            <a href="" class="btn btn-light m-1">Handcrafted</a>
-                            <a href="" class="btn btn-light m-1">Artisan</a>
-                            <a href="" class="btn btn-light m-1">Fashion Week</a>
-                            <a href="" class="btn btn-light m-1">Red Carpet</a>
-                            <a href="" class="btn btn-light m-1">Designer</a>
-                            <a href="" class="btn btn-light m-1">Runway</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Sidebar Start -->
-                <div class="col-lg-4">
-                    <!-- Search Form Start -->
-                    <form action="{{ route('home.searchBlog') }}" method="GET">
-                        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                            <div class="input-group">
-                                <input type="text" class="form-control p-3" placeholder="Keyword" name="query">
-                                <!-- Add the name attribute to capture the input value -->
-                                <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Search Form End -->
-
-                    <!-- Category Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <a href="/categories">
-                                <h3 class="mb-0">Categories</h3>
+                            <h4 class="mb-3">{{ $blogs->title }}</h4>
+                            <p style="text-align: justify">
+                                {{ implode(' ', array_slice(str_word_count($blogs->content, 1), 0, 35)) }}
+                            </p>
+                            <a class="text-uppercase" href="{{ url('/blog/' . $blogs->blog_id) }}">
+                                Read More <i class="bi bi-arrow-right"></i>
                             </a>
-                        </div>
-                        <div class="link-animated d-flex flex-column justify-content-start">
-                            @foreach ($categories as $category)
-                                <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
-                                    href="/blogs/{{ $category->category_name }}"><i
-                                        class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
-                            @endforeach
-                        </div>
                     </div>
-                    <!-- Category End -->
+                </div>
+        @endforeach
+    </div>
+    <br><br>
+    <!-- Pagination Links -->
+    <div class="col-12 wow slideInUp" data-wow-delay="0.1s">
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-lg m-0">
+       {!! $myBlogs->links('pagination::bootstrap-5') !!}
+            </ul>
+        </nav>
+    </div>
+</div>
+        <!-- Blog list End -->
 
-                    <!-- Recent Post Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Recent Post</h3>
-                        </div>
-                        @foreach ($blogs as $blog)
-                            <div class="d-flex rounded overflow-hidden mb-3">
-                                <img class="img-fluid" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}"
-                                    style="width: 100px; height: 100px; object-fit: cover;" alt="">
-
-                                <a href="/blog/{{ $blog->blog_id }}"
-                                    class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">{{ $blog->title }}
-                                </a>
-                                </a>
-                            </div>
-                        @endforeach
-
+        <!-- Sidebar Start -->
+        <div class="col-lg-4">
+            <!-- Search Form Start -->
+            <form action="{{ route('home.searchBlog') }}" method="GET">
+                <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-3"
+                            placeholder="Search for blogs by title, content, or keywords..." name="query">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
                     </div>
-                    <!-- Recent Post End -->
+                </div>
+            </form>
+            <!-- Search Form End -->
 
-                    <!-- Image Start -->
-                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <img src="img/blog-1.jpg" alt="" class="img-fluid rounded">
-                    </div>
-                    <!-- Image End -->
+            <!-- Category Start -->
+            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                    <a href="/categories">
+                        <h3 class="mb-0">Categories</h3>
+                    </a>
+                </div>
+                <div class="link-animated d-flex flex-column justify-content-start">
+                    @foreach ($categories as $category)
+                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2"
+                            href="/blogs/{{ $category->category_name }}"><i
+                                class="bi bi-arrow-right me-2"></i>{{ $category->category_name }} </a>
+                    @endforeach
 
                 </div>
-                <!-- Sidebar End -->
             </div>
+            <!-- Category End -->
+
+            <!-- Recent Post Start -->
+            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                    <h3 class="mb-0">Recent Post</h3>
+                </div>
+                @foreach ($latestBlogs as $blog)
+                    <div class="d-flex rounded overflow-hidden mb-3">
+                        <img class="img-fluid" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}" style="width: 100px; height: 100px; object-fit: cover;"
+                            alt="{{ implode(' ', array_slice(str_word_count($blog->title, 1), 0, 6)) }}">
+                        <a href="{{ url('/blogs/' . $blog->blog_id)}}" class="h5 fw-semi-bold d-flex align-items-center bg-light px-3 mb-0">
+                            {{ implode(' ', array_slice(str_word_count($blog->title, 1), 0, 6)) }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+            
+            <!-- Recent Post End -->
+
+            <!-- Image Start -->
+            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                <img src="{{asset('uploads/blogs/5.jpg')}}" alt="Feature Blog Post" class="img-fluid rounded">
+            </div>
+            <!-- Image End -->
+
+            <!-- Tags Start -->
+            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                    <h3 class="mb-0">Tag Cloud</h3>
+                </div>
+                <div class="d-flex flex-wrap m-n1">
+                    <a href="" class="btn btn-light m-1">Jewellery</a>
+                    <a href="" class="btn btn-light m-1">Fashion</a>
+                    <a href="" class="btn btn-light m-1">Events</a>
+                    <a href="" class="btn btn-light m-1">Celebrities</a>
+                    <a href="" class="btn btn-light m-1">Blogs</a>
+                    <a href="" class="btn btn-light m-1">Shop</a>
+                    <a href="" class="btn btn-light m-1">Latest</a>
+                    <a href="" class="btn btn-light m-1">Admirable</a>
+                    <a href="" class="btn btn-light m-1">Trends</a>
+                    <a href="" class="btn btn-light m-1">Fashionable</a>
+                    <a href="" class="btn btn-light m-1">Accessories</a>
+                    <a href="" class="btn btn-light m-1">Style</a>
+                    <a href="" class="btn btn-light m-1">Trendy</a>
+                    <a href="" class="btn btn-light m-1">Statement</a>
+                    <a href="" class="btn btn-light m-1">Elegant</a>
+                    <a href="" class="btn btn-light m-1">Luxury</a>
+                    <a href="" class="btn btn-light m-1">Sparkling</a>
+                    <a href="" class="btn btn-light m-1">Glamorous</a>
+                    <a href="" class="btn btn-light m-1">Handcrafted</a>
+                    <a href="" class="btn btn-light m-1">Artisan</a>
+                    <a href="" class="btn btn-light m-1">Fashion Week</a>
+                    <a href="" class="btn btn-light m-1">Red Carpet</a>
+                    <a href="" class="btn btn-light m-1">Designer</a>
+                    <a href="" class="btn btn-light m-1">Runway</a>
+                </div>
+            </div>
+
         </div>
+        <!-- Tags End -->
     </div>
-    <!-- Blog End -->
-    <script>
-        // Ensure the DOM is fully loaded before adding the event listeners
-        document.addEventListener("DOMContentLoaded", function() {
-            let lightImg = document.querySelector(".light-img");
-            let viewBtn = document.querySelectorAll(".view-btn");
-
-            viewBtn.forEach(el => {
-                el.addEventListener("click", () => {
-                    document.body.classList.add("effect");
-                    let imgSrc = el.getAttribute("data-src");
-                    lightImg.src = imgSrc;
-                });
-            });
-
-            window.addEventListener("click", event => {
-                if (event.target.className == "box-wrapper" || event.target.className == "close-btn") {
-                    document.body.classList.remove("effect");
-                }
-            });
-        });
-    </script>
+    <!-- Sidebar End -->
+    </div>
+    </div>
+    </div>
 @endsection

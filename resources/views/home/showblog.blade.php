@@ -1,4 +1,41 @@
-@extends('../layout/landing_master') <!-- Specify the parent view to extend -->
+@extends('../layout/landing_master')
+<style>
+@section('title', $blog->title)
+@section('close_header')
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="og:url" content="https://www.latestfashionjewellery.com/">
+<meta name="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Latest Fashion Jewellery | Jewellery Studio, Events, Celebrity Styles, Blogs, Categories, Amazon Affiliate Products">
+<meta name="twitter:description" content="Explore the Latest Fashion Jewellery Studio, worldwide jewellery events, celebrity styles, insightful blogs, category-wise curated lists, and a vast collection of Amazon affiliate jewellery products. Experience the latest trends and discover exquisite jewelry designs.">
+<meta name="twitter:image" content="{{ asset('uploads/home/jewellery_studio.jpg') }}">
+{!! $blog->meta_tags !!}
+
+    </head>
+@endsection
+<style>
+    .text-justify {
+        text-align: justify !important;
+        text-justify: inter-word !important;
+    }
+
+    .try-on-studio-button {
+        background-color: #ffc107; /* You can change the color here */
+        color: #333;
+        font-weight: bold;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px; /* Adjust the margin as needed */
+    }
+
+    .try-on-studio-button:hover {
+        background-color: #ffca2b; /* Change the color on hover if desired */
+    }
+</style>
 @section('content')
     <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -7,12 +44,82 @@
                 <div class="col-lg-8">
                     <!-- Blog Detail Start -->
                     <div class="mb-5">
-                        <img class="img-fluid rounded mb-3" src="{{ asset('uploads/blogs/' . $blog->featured_image) }}"
-                            alt="{{ $blog->title }}" width="300" height="200">
+                        <img src="{{ asset('uploads/blogs/' . $blog->featured_image) }}" class="img-fluid rounded mx-auto" alt="{{ $blog->title }}" width="600" height="400">
+
                         <h1 class="mb-3">{{ $blog->title }}</h1>
-                        <p>{{ $blog->content }}</p>
+
+                        {{-- Split blog content --}}
+                        @php
+                            $contentParts = explode("\n\n", $blog->content);
+                            $firstPart = array_shift($contentParts);
+                            $remainingContent = implode("\n\n", $contentParts);
+                        @endphp
+
+                        <p>{!! nl2br($firstPart) !!}</p>
+                    </div>
+                    <!-- Blog Detail End -->
+
+                    <!-- Display 6 Amazon Products (First Part) -->
+                    <div id="products_container" class="row">
+                        @foreach ($amazonProducts->take(6) as $product)
+                        <div class="col-md-4 mb-4">
+                   
+                            <a href="{{ $product->affiliate_link }}" target="_blank">
+                                <div class="card box-shadow" style="max-height: 650px;">
+                                    <img class="card-img-top" style="max-height: 400px;"
+                                        src="{{ asset('uploads/products/' . $product->featured_image) }}"
+                                        alt="{{ $product->title }}">
+                                    <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                        <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <h6 class="card-title" style="color:red; margin: 0;">${{ $product->price }}</h4>
+                                                <h6 class="card-text" style="color:green; margin: 0;">LFJ Code: {{ $product->id }}</h6>
+                                            </div>
+                                            <p class="card-text text-justify" style="overflow: hidden;">
+                                                {{ substr($product->title, 0, 60) . "..." }}
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
+        
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
                     </div>
 
+                    <!-- Display Remaining Blog Content -->
+                    <p>{!! nl2br($remainingContent) !!}</p>
+
+                    <!-- Display 6 More Amazon Products (Last Part) -->
+                    <div id="products_container" class="row">
+                        @foreach ($amazonProducts->skip(6)->take(6) as $product)
+                        <div class="col-md-4 mb-4">
+                   
+                            <a href="{{ $product->affiliate_link }}" target="_blank">
+                                <div class="card box-shadow" style="max-height: 650px;">
+                                    <img class="card-img-top" style="max-height: 400px;"
+                                        src="{{ asset('uploads/products/' . $product->featured_image) }}"
+                                        alt="{{ $product->title }}">
+                                    <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                        <div class="card-body" style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <h6 class="card-title" style="color:red; margin: 0;">${{ $product->price }}</h4>
+                                                <h6 class="card-text" style="color:green; margin: 0;">LFJ Code: {{ $product->id }}</h6>
+                                            </div>
+                                            <p class="card-text text-justify" style="overflow: hidden;">
+                                                {{ $product->title }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}" class="try-on-studio-button">Try on Studio</a>
+        
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
                     <!-- Blog Detail End -->
                     <hr>
                     <!-- Tags Start -->

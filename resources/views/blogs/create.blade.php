@@ -92,7 +92,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Celebrity (Optional)</label>
                                 <select class="form-control {{ $errors->has('celebrity_id') ? 'is-invalid' : '' }}" name="celebrity_id">
@@ -106,6 +107,17 @@
                                 @error('celebrity_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            </div>
+                                </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Meta Tags (Optional)</label>
+                                    <input type="text" class="form-control {{ $errors->has('meta_tags') ? 'is-invalid' : '' }}" name="meta_tags" value="{{ old('meta_tags') }}" placeholder="Meta Tags...">
+                                    @error('meta_tags')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             </div>
                         </div>
 

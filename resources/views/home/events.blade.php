@@ -99,7 +99,7 @@
 <div class="container">
     <input type="text" id="searchInput" name="searchInput" style="height: 60px;color:rgb(233, 106, 117);" class="form-control search-box" placeholder="Search celebrities...">
 </div>
-<br>
+<br> 
 <div class="container">
     <div class="row">
         @foreach ($events as $event)
@@ -113,9 +113,9 @@
                                 <div>
                                     <h5 class="card-title">{{ $event->event_name }}</h5>
                                     <p class="card-text">
-                                        <span>{{ date('d', strtotime($event->event_date)) }}</span> -
-                                        <span>{{ date('M', strtotime($event->event_date)) }}</span> -
-                                        <span>{{ date('Y', strtotime($event->event_date)) }}</span>
+                                        <span>{{ date('d', strtotime($event->event_from_date)) }}</span> -
+                                        <span>{{ date('M', strtotime($event->event_from_date)) }}</span> -
+                                        <span>{{ date('Y', strtotime($event->event_from_date)) }}</span>
                                     </p>
                                     <p class="card-text">{{ $event->event_location }}</p>
                                     <div class="event-details-btn">

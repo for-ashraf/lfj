@@ -17,18 +17,18 @@ class JewelleryBrandController extends Controller
     public function index()
     {
         $jewelleryBrands = $this->loadJewelleryBrands();
-        return view('jewellery_brands.index', compact('jewelleryBrands'));
+        return view('brands.index', compact('jewelleryBrands'));
     }
 
     public function show($id)
     {
         $jewelleryBrand = JewelleryBrand::findOrFail($id);
-        return view('jewellery_brands.show', compact('jewelleryBrand'));
+        return view('brands.show', compact('jewelleryBrand'));
     }
 
     public function create()
     {
-        return view('jewellery_brands.create');
+        return view('brands.create');
     }
 
     public function store(Request $request)
@@ -40,31 +40,42 @@ class JewelleryBrandController extends Controller
             'website_url' => 'nullable|string|max:255',
             // Add any other validation rules for the brand fields
         ]);
-
+    
         $validatedData['description'] = strip_tags($validatedData['description']);
         $validatedData['description'] = trim($validatedData['description']);
-
+    
         $jewelleryBrand = JewelleryBrand::create($validatedData);
-
+    
         // Handle brand image upload if provided
         if ($request->hasFile('brand_image')) {
-            $imagePath = $request->file('brand_image')->store('uploads/jewellery_brands', 'public');
+            // Generate a unique filename based on the brand's ID
+            $imageFileName = $jewelleryBrand->id . '.' . $request->file('brand_image')->getClientOriginalExtension();
+            $imagePath = $this->uploadImage($request->file('brand_image'), 'uploads/brands', $imageFileName);
+    
+            // Update the brand with the generated image filename
             $jewelleryBrand->update(['brand_image' => $imagePath]);
         }
-
-        return redirect()->route('jewellery_brands.index')->with('success', 'Jewellery brand added successfully!');
+    
+        return redirect()->route('brands.index')->with('success', 'Jewellery brand added successfully!');
     }
+    
+    private function uploadImage($file, $path, $fileName)
+    {
+        $file->move($path, $fileName);
+        return $path . '/' . $fileName;
+    }
+    
 
     public function edit($id)
     {
         $jewelleryBrand = JewelleryBrand::findOrFail($id);
-        return view('jewellery_brands.edit', compact('jewelleryBrand'));
+        return view('brands.edit', compact('jewelleryBrand'));
     }
 
     public function update(Request $request, $id)
     {
         $jewelleryBrand = JewelleryBrand::findOrFail($id);
-
+    
         $validatedData = $request->validate([
             'brand_name' => 'required|string|max:255',
             'brand_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -72,38 +83,47 @@ class JewelleryBrandController extends Controller
             'website_url' => 'nullable|string|max:255',
             // Add any other validation rules for the brand fields
         ]);
-
+    
         $validatedData['description'] = strip_tags($validatedData['description']);
         $validatedData['description'] = trim($validatedData['description']);
-
+    
         // Handle brand image update if provided
         if ($request->hasFile('brand_image')) {
             // Delete the old image
-            if ($jewelleryBrand->brand_image) {
-                Storage::disk('public')->delete($jewelleryBrand->brand_image);
-            }
-
+            $this->deleteImage($jewelleryBrand->brand_image);
+    
+            // Define $imageFileName before using it
+            $imageFileName = $jewelleryBrand->id . '.' . $request->file('brand_image')->getClientOriginalExtension();
+    
             // Upload and update the new image
-            $imagePath = $request->file('brand_image')->store('uploads/jewellery_brands', 'public');
+            $imagePath = $this->uploadImage($request->file('brand_image'), 'uploads/brands', $imageFileName);
             $validatedData['brand_image'] = $imagePath;
         }
-
+    
         $jewelleryBrand->update($validatedData);
-
-        return redirect()->route('jewellery_brands.index')->with('success', 'Jewellery brand updated successfully!');
+    
+        return redirect()->route('brands.index')->with('success', 'Jewellery brand updated successfully!');
     }
+    
 
     public function destroy($id)
     {
         $jewelleryBrand = JewelleryBrand::findOrFail($id);
-
+    
         // Delete the brand image
-        if ($jewelleryBrand->brand_image) {
-            Storage::disk('public')->delete($jewelleryBrand->brand_image);
-        }
-
+        $this->deleteImage($jewelleryBrand->brand_image);
+    
         $jewelleryBrand->delete();
+    
+        return redirect()->route('brands.index')->with('success', 'Jewellery brand deleted successfully!');
+    }
+    
 
-        return redirect()->route('jewellery_brands.index')->with('success', 'Jewellery brand deleted successfully!');
+
+    private function deleteImage($imagePath)
+    {
+        if ($imagePath && file_exists(public_path($imagePath))) {
+            unlink(public_path($imagePath));
+        }
     }
 }

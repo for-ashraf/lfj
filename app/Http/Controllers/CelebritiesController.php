@@ -46,6 +46,7 @@ class CelebritiesController extends Controller
             'tiktok' => 'nullable|string|max:300',
             'snapchat' => 'nullable|string|max:300',
             'website' => 'nullable|string|max:300',
+            'celebrity_type' => 'required|string|max:30',
             // Add any other validation rules for the celebrity fields
         ]);
         $validatedData['description'] = strip_tags($validatedData['description']);
@@ -90,6 +91,7 @@ class CelebritiesController extends Controller
             'tiktok' => 'nullable|string|max:300',
             'snapchat' => 'nullable|string|max:300',
             'website' => 'nullable|string|max:300',
+            'celebrity_type' => 'required|string|max:30',
             // Add any other validation rules for the celebrity fields
         ]);
         $validatedData['description'] = strip_tags($validatedData['description']);

@@ -28,9 +28,16 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="event_date">Event Date</label>
-                        <input type="date" class="form-control" id="event_date" name="event_date" value="{{ $event->event_date }}">
-                        @error('event_date')
+                        <label for="event_date">Event From Date</label>
+                        <input type="date" class="form-control" id="event_from_date" name="event_from_date" value="{{ $event->event_from_date }}">
+                        @error('event_from_date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="event_date">Event To Date</label>
+                        <input type="date" class="form-control" id="event_to_date" name="event_to_date" value="{{ $event->event_to_date }}">
+                        @error('event_to_date')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

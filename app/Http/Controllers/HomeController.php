@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Carbon\Carbon;
 use App\Models\Categories;
@@ -20,25 +20,19 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function loadBlogsRange($startIndex, $batchSize)
-    {
-        // Fetch the next batch of blogs based on $startIndex and $batchSize
-        $blogs = Blogs::skip($startIndex)->take($batchSize)->get();
+    // public function loadBlogsRange($startIndexf, $batchSize)
+    // {
+    //     // Fetch the next batch of blogs based on $startIndex and $batchSize
+    //     $blogs = Blogs::skip($startIndex)->take($batchSize)->get();
 
-        // Return a Blade view with the loaded blogs
-        return $blogs;
-    }
+    //     // Return a Blade view with the loaded blogs
+    //     return $blogs;
+    // }
 
 
     public function loadCategories()
     {
         return Categories::all();
-    }
-
-    public function loadEvents()
-    {
-
-        return Events::orderBy('event_date', 'desc')->take(4)->get();
     }
     public function loadJBrands()
     {
@@ -51,19 +45,29 @@ class HomeController extends Controller
         $blogs = Blogs::count();
         $events = Events::count();
         $images = ImageGallery::count();
-        $celebrities = Celebrities::count();
-        $products = AmazonProduct::count();
+        $product = AmazonProduct::count();
         $amazonProducts = AmazonProduct::all();
         $categories = Categories::all();
 
         $products = AmazonProduct::inRandomOrder()
-            ->limit(30)
+            ->limit(8)
+            ->get();
+        $randBlogs = Blogs::inRandomOrder()
+            ->limit(5)
             ->get();
 
+        $celebrities = Celebrities::inRandomOrder()
+            ->limit(2)
+            ->get();
         $jbrands = $this->loadJBrands();
-        $upcomingEvents = $this->loadEvents();
+        $currentDate = Carbon::now();
 
-        return view('home.index', compact('blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products'));
+        $upcomingEvents = Events::whereDate('event_from_date', '>=', $currentDate)
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+
+        return view('home.index', compact('randBlogs', 'blogs', 'celebrities', 'events', 'categories', 'jbrands', 'upcomingEvents', 'products','product'));
     }
 
     public function dashboard()
@@ -81,13 +85,12 @@ class HomeController extends Controller
     public function blogs()
     {
         $categories = Categories::all();
-        $blogs = Blogs::latest()->take(6)->get();
-        $myBlogs = Blogs::inRandomOrder()
-            ->limit(10)
-            ->get();
-        //$roles = Role::all();
-        return view('home.blogs', compact('blogs', 'categories', 'myBlogs'));
+        $latestBlogs = Blogs::latest()->take(6)->get();
+        $myBlogs = Blogs::inRandomOrder()->paginate(6); // Use paginate instead of samplePaginate
+    
+        return view('home.blogs', compact('latestBlogs', 'categories', 'myBlogs'));
     }
+    
     public function jstudio($id = null)
     {
         $categories = Categories::all();
@@ -95,7 +98,7 @@ class HomeController extends Controller
 
         if ($id) {
             // Load the product image based on the ID
-            $product = Product::find($id);
+            $product = AmazonProduct::find($id);
 
             if ($product && $product->featured_image) {
                 $imagePath = 'uploads/products/' . $product->featured_image;
@@ -122,7 +125,7 @@ class HomeController extends Controller
 
         $now = Carbon::now();
 
-        $events = Events::where('event_date', '>=', $now)->get();
+        $events = Events::where('event_from_date', '>=', $now)->get();
 
         //$roles = Role::all();
         return view('home.events', compact('events', 'categories'));
@@ -198,6 +201,32 @@ class HomeController extends Controller
         }
         return view('home.eventShow', compact('events', 'categories', 'blogs'));
     }
+    public function showBrands($id)
+    {
+        $categories = Categories::all();
+        $brand = null;
+        // Check if $id is numeric
+        if (is_numeric($id)) {
+            $brand = JewelleryBrand::find($id);
+
+        } else {
+            ;
+            // If $id is not numeric, try finding in event_category first
+            // $events = Events::where('event_category', 'LIKE', "%$id%")->get();
+
+            // if ($events->isEmpty()) {
+            //     // If not found in event_category, assume it's an event name and find by name
+            //     $events = Events::where('event_name', 'LIKE', "%$id%")
+            //         ->orWhere('event_description', 'LIKE', "%$id%")
+            //         ->get();
+        }
+
+        //     $blogs = Blogs::where('title', 'LIKE', "%$id%")
+        //         ->orWhere('content', 'LIKE', "%$id%")
+        //         ->get();
+        // }
+        return view('home.brandShow', compact('brand', 'categories'));
+    }
     public function showCategory($category)
     {
         $sblogs = Blogs::latest()->take(6)->get();
@@ -229,13 +258,17 @@ class HomeController extends Controller
         // Retrieve the blog with the given ID from your database
         $blogs = Blogs::latest()->take(6)->get();
         $blog = Blogs::find($id);
+        $amazonProducts = AmazonProduct::join('categories', 'amazon_products.category', '=', 'categories.category_name')
+            ->where('categories.category_id', $blog->category_id)
+            ->take(12)
+            ->get();
 
         // Check if the blog exists
         if (!$blog) {
             abort(404); // Display a 404 error page if the blog is not found
         }
 
-        return view('home.showblog', compact('blog', 'blogs', 'categories'));
+        return view('home.showblog', compact('blog', 'blogs', 'categories', 'amazonProducts'));
     }
 
     public function about()
@@ -282,12 +315,12 @@ class HomeController extends Controller
                     ->orWhere('description', 'like', '%' . $categoryName . '%')
                     ->paginate(5);
 
-                $events = Events::where('event_date', '>=', $currentDate)
+                $events = Events::where('event_from_date', '>=', $currentDate)
                     ->where(function ($query) use ($categoryName) {
                         $query->where('event_name', 'like', '%' . $categoryName . '%')
                             ->orWhere('event_description', 'like', '%' . $categoryName . '%');
                     })
-                    ->orderBy('event_date')
+                    ->orderBy('event_from_date')
                     ->take(5)
                     ->get();
             }
@@ -308,12 +341,12 @@ class HomeController extends Controller
                 ->orWhere('description', 'like', '%' . $key . '%')
                 ->paginate(5);
 
-            $events = Events::where('event_date', '>=', $currentDate)
+            $events = Events::where('event_from_date', '>=', $currentDate)
                 ->where(function ($query) use ($key) {
                     $query->where('event_name', 'like', '%' . $key . '%')
                         ->orWhere('event_description', 'like', '%' . $key . '%');
                 })
-                ->orderBy('event_date')
+                ->orderBy('event_from_date')
                 ->take(5)
                 ->get();
 
@@ -369,7 +402,7 @@ class HomeController extends Controller
     public function showProducts($key)
     {
         $categories = Categories::all();
-
+        $status = 0;
         // Check if $key is numeric
         if (is_numeric($key)) {
             $products = AmazonProduct::find($key);
@@ -378,20 +411,21 @@ class HomeController extends Controller
             $products = AmazonProduct::where('title', 'LIKE', "%$key%")
                 ->orWhere('description', 'LIKE', "%$key%")
                 ->get();
-           
+
             if ($products->isEmpty()) {
                 $allProducts = AmazonProduct::all();
                 $perPage = 14;
                 $currentPage = LengthAwarePaginator::resolveCurrentPage();
                 $currentItems = $allProducts->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        
+
                 $products = new LengthAwarePaginator($currentItems, count($allProducts), $perPage);
-                     
+                $status = 1;
             }
 
         }
 
-        return view('home.productShow', compact('products', 'categories'));
+
+        return view('home.productShow', compact('products', 'categories', 'status'));
     }
 
 }

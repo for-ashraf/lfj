@@ -88,9 +88,9 @@ class BlogsController extends Controller
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'required',
             'celebrity_id'=>'nullable',
+            'meta_tags' => 'nullable|string',
         ]);
-        $content = str_replace('&nbsp;', ' ', $request->input('content'));
-        $content = trim(strip_tags($request->input('content')));
+     
         // If the validation passes, it means the form data is valid.
         // Now you can process the form data (e.g., save it to the database).
         $author = BlogAuthor::where('author_name', $request['author_name'])->first();
@@ -99,13 +99,15 @@ class BlogsController extends Controller
         // Create a new blog entry with the validated data, including the author_id
         $blog = Blogs::create([
             'title' => $validatedData['title'],
-            'content' => $content,    
+            'content' => $validatedData['content'],    
             'author_name' => $validatedData['author_name'],
             'author_id' => $validatedData['author_id'],            
             'celebrity_id' => $validatedData['celebrity_id'],            
             'featured_image' => '', // Set an empty value for now, we'll update it later
             'category_id' => $validatedData['category_id'],
             'publication_date' => now(),
+            'meta_tags' => $validatedData['meta_tags'] ?? null,
+
         ]);
         if ($blog->save()){
             $tagsId = collect($request->tags)->map(function ($tag) {
@@ -141,7 +143,7 @@ class BlogsController extends Controller
     
         // After processing the data, you can redirect the user to a success page
         // or the same page with a success message.
-        return redirect()->route('blogs.index')->with('success', 'Category added successfully!');
+        return redirect()->route('blogs.index')->with('success', 'Blog has been added successfully!');
     }
 public function edit($id)
 {
@@ -167,22 +169,22 @@ public function update(Request $request, $id)
         'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'category_id' => 'required',
         'celebrity_id'=>'nullable',
+        'meta_tags' => 'nullable|string',
     ]);
-    $content = str_replace('&nbsp;', ' ', $request->input('content'));
-    $content = trim(strip_tags($request->input('content')));
-    
-    // Retrieve the author by name and update the author_id in the validated data
+      // Retrieve the author by name and update the author_id in the validated data
     $author = BlogAuthor::where('author_name', $validatedData['author_name'])->first();
     $validatedData['author_id'] = $author->author_id;
 
     // Update the blog entry with the validated data
     $blog->update([
         'title' => $validatedData['title'],
-        'content' => $content,
+        'content' => $validatedData['content'],
         'author_name' => $validatedData['author_name'],
         'author_id' => $validatedData['author_id'],
         'category_id' => $validatedData['category_id'],
         'celebrity_id'=> $validatedData['celebrity_id'],
+        'meta_tags' => $validatedData['meta_tags'] ?? null,
+
     ]);
 
     // Update the tags associated with the blog entry

@@ -8,7 +8,8 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\AmazonProductsController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ImageGalleryController;
-use App\Http\Controllers\HomeController; // Import HomeController
+use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\JewelleryBrandController;
 
 Auth::routes();
 
@@ -20,6 +21,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::middleware(['auth'])->group(function () {
     // Define routes that require authentication here.
     Route::resource('admin/users', UserController::class);
+    Route::resource('admin/brands', JewelleryBrandController::class);
     Route::resource('admin/categories', CategoriesController::class);
     Route::resource('admin/blogs', BlogsController::class);
     Route::resource('admin/celebrities', CelebritiesController::class);
@@ -53,6 +55,7 @@ Route::get('/category/{key}', [HomeController::class, 'category'])->name('catego
 Route::get('/load-more-data', [HomeController::class, 'loadMoreData'])->name('load.more');
 Route::get('/products', [HomeController::class, 'products'])->name('products');
 Route::get('/products/{key}', [HomeController::class, 'showProducts'])->name('productShow');
+Route::get('/brands/{key}', [HomeController::class, 'showBrands'])->name('brandShow');
 
 
 

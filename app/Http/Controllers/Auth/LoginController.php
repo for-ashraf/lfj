@@ -22,7 +22,7 @@ class LoginController extends Controller
             return route('backend.dashboard'); // Redirect admins to the backend dashboard.
         }
 
-        return RouteServiceProvider::HOME; // Redirect regular users to the root URL.
+        return route('backend.dashboard'); // Redirect admins to the backend dashboard.
     }
 
     public function __construct()

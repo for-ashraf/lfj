@@ -15,54 +15,104 @@
 
     <!-- Style for Cards -->
     <style>
+        /* Common styles */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .text-link {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFC300;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             border: none;
+            border-radius: 10px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            transition: transform 0.3s;
+            background-color: #FCE5CD;
+            padding: 20px;
+            margin: 20px;
+            max-width: 600px;
+            /* Adjust as needed */
+        }
+        .try-on-studio-button
+        {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            background-color: #b2d100;
+            color: black;
+            opacity: 0.8;
+        }
+        .card-img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .card-title {
-            color: #f0645c;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FFC300;
             text-align: center;
-            /* Center-align the title */
         }
 
         .card-text {
+            font-size: 1rem;
             color: #5c5c5c;
             text-align: center;
-            /* Center-align the text */
         }
 
-        .card-img-top {
-            max-height: 350px;
-            /* Set a maximum height for the image */
-            width: 100%;
-            /* Ensure the image takes the full width of the container */
-            object-fit: contain;
-            /* Ensure the entire image is visible without cropping */
+        .product-details-btn a,
+        .product-link,
+        .product-buy {
+            text-decoration: none;
+            color: yellow;
         }
 
-        /* Additional style for blog cards */
+        .product-link,
+        .product-buy {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            opacity: 0.4;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        /* Additional styles for blog cards */
         #blogs_container .card {
-            /* Add specific styles for blog cards */
-            // Customize the styles as per your preference
             background-color: #f8f9fa;
-            /* Light gray background */
             border-radius: 10px;
-            /* Rounded corners */
             transition: transform 0.3s ease-in-out;
-            /* Smooth transition on hover */
-
-            /* You can add more styles here */
         }
 
         #blogs_container .card:hover {
             transform: scale(1.05);
-            /* Enlarge on hover */
         }
 
         #blogs_container .card-body {
             padding: 15px;
-            /* Add some padding inside the card body */
         }
 
         .my-alert {
@@ -73,6 +123,7 @@
             text-align: center;
         }
     </style>
+
 
     <main>
         <div class="container my-5">
@@ -87,15 +138,29 @@
             <div id="products_container" class="row">
                 @foreach ($products as $product)
                     <div class="col-md-4 mb-4">
+
                         <a href="{{ $product->affiliate_link }}" target="_blank">
-                            <div class="card box-shadow" style="height: 100%;">
-                                <img class="card-img-top" style="height: 90%;"
+                            <div class="card box-shadow" style="max-height: 650px;">
+                                <img class="card-img-top" style="max-height: 400px;"
                                     src="{{ asset('uploads/products/' . $product->featured_image) }}"
                                     alt="{{ $product->title }}">
-                                <div class="card-body" style="height: 20%;">
-                                    <h4 class="card-title">${{ $product->price }}</h4>
-                                    <p class="card-text">{{ $product->title }}</p>
+                                <div class="card-body"
+                                    style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div class="card-body"
+                                        style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <h6 class="card-title" style="color:red; margin: 0;">${{ $product->price }}</h6>
+                                                <h6 class="card-text" style="color:green; margin: 0;">LFJ Code:
+                                                    {{ $product->id }}</h6>
+                                        </div>
+                                        <p class="card-text text-justify" style="overflow: hidden;">
+                                            {{ $product->title }}
+                                        </p>
+                                    </div>
                                 </div>
+                                <a href="{{ route('jewellerystudio.id', ['id' => $product->id]) }}"
+                                    class="try-on-studio-button">Try on Studio</a>
+
                             </div>
                         </a>
                     </div>
@@ -105,7 +170,8 @@
                 <div id="load_more_products_card" class="col-md-4 content_box" style="display: none;">
                     <div class="card mb-4 box-shadow" style="height: 440px;">
                         <div class="card-body d-flex align-items-center justify-content-center text-center">
-                            <button class="btn btn-primary" id="load_more_products_button">Load More</button>
+                            <button class="btn btn-primary" id="load_more_products_button">Load
+                                More</button>
                         </div>
                     </div>
                 </div>
@@ -113,6 +179,7 @@
 
             <!-- Blog Section -->
             <h2 class="mb-4">Latest Blog Posts</h2>
+            @if(count($blogs) > 0)
             <div id="blogs_container" class="row">
                 @foreach ($blogs as $blog)
                     <div class="col-md-4">
@@ -122,7 +189,8 @@
                                     alt="{{ $blog->title }}">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $blog->title }}</h4>
-                                    <p class="card-text">{{ \Illuminate\Support\Str::words($blog->content, 20, '...') }}
+                                    <p class="card-text">
+                                        {{ \Illuminate\Support\Str::words($blog->content, 20, '...') }}
                                     </p>
                                 </div>
                             </div>
@@ -135,17 +203,20 @@
                     <a href="{{ route('blogs') }}">
                         <div class="card mb-4 box-shadow" style="height: 440px;">
                             <div class="card-body d-flex align-items-center justify-content-center text-center">
-                                <button class="btn btn-primary" id="load_more_blog_button">Load More</button>
+                                <button class="btn btn-primary" id="load_more_blog_button">Load
+                                    More</button>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
+            @endif
             <!-- Events Section -->
-
+            @if(count($events) > 0)
             <h2 class="mb-4">Upcoming Events</h2>
             <div id="events_container" class="row">
                 @foreach ($events as $event)
+              
                     <div class="col-md-4">
                         <a href="{{ route('eventShow', ['id' => $event->event_id]) }}">
                             <div class="card mb-4">
@@ -154,7 +225,8 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $event->event_name }}</h4>
                                     <p class="card-text">
-                                        {{ \Illuminate\Support\Str::words($event->event_description, 20, '...') }}</p>
+                                        {{ \Illuminate\Support\Str::words($event->event_description, 20, '...') }}
+                                    </p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between">
                                     <small
@@ -164,6 +236,7 @@
                             </div>
                         </a>
                     </div>
+                    
                 @endforeach
 
                 <!-- Load More card for Events -->
@@ -171,7 +244,8 @@
                     <a href="{{ route('events') }}">
                         <div class="card mb-4 box-shadow" style="height: 440px;">
                             <div class="card-body d-flex align-items-center justify-content-center text-center">
-                                <button class="btn btn-primary" id="load_more_event_button">Load More</button>
+                                <button class="btn btn-primary" id="load_more_event_button">Load
+                                    More</button>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
                                 <small class="text-muted"></small>
@@ -181,7 +255,10 @@
                     </a>
                 </div>
             </div>
+            @endif
+            
             <h2 class="mb-4">Featured Celebrities</h2>
+            @if(count($celebrities) > 0)
             <div id="celebrities_container" class="row">
                 @foreach ($celebrities as $celebrity)
                     <div class="col-md-4 mb-4">
@@ -193,7 +270,8 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $celebrity->name }}</h4>
                                     <p class="card-text">
-                                        {{ \Illuminate\Support\Str::words($celebrity->description, 20, '...') }}</p>
+                                        {{ \Illuminate\Support\Str::words($celebrity->description, 20, '...') }}
+                                    </p>
                                 </div>
                                 <div class="card-footer bg-light d-flex justify-content-between">
                                     <small
@@ -229,7 +307,7 @@
                     </a>
                 </div>
             </div>
-
+            @endif
 
 
         </div>
@@ -266,15 +344,26 @@
                             var html = '';
                             for (var i = 0; i < data.data.length; i++) {
                                 html += `<div class="col-md-4 mb-4">
-                             <a href="${data.data[i].affiliate_link}" target="_blank">
-                            <div class="card box-shadow" style="height: 100%;">
-                                <img class="card-img-top" style="height: 90%;" src="${baseUrl + "/" + data.data[i].featured_image}" alt="${data.data[i].title}">
-                                <div class="card-body" style="height: 20%;">
-                                    <h4 class="card-title">$${data.data[i].price}</h4>
-                                    <p class="card-text">${data.data[i].title}</p>
-                                </div>
-                            </div>
-                        </div>`;
+                                            <a href="${data.data[i].affiliate_link}" target="_blank">
+                                                <div class="card box-shadow" style="max-height: 650px;">
+                                                    <img class="card-img-top" style="max-height: 400px;" src="${baseUrl + "/" + data.data[i].featured_image}" alt="${data.data[i].title}">
+                                                    <div class="card-body"
+                                    style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div class="card-body"
+                                        style="height: 30%; display: flex; flex-direction: column; justify-content: space-between;">
+                                  
+                                                    <div style="display: flex; justify-content: space-between;">
+                                                        <h6 class="card-title" style="color:red; margin: 0;">${data.data[i].price }</h6>
+                                                        <h6 class="card-text" style="color:green; margin: 0;">LFJ Code: ${data.data[i].id }</h6>
+                                                        </div
+                                                        <p class="card-text text-justify" style="overflow: hidden;"> ${data.data[i].title }</p>
+                                                        </div>
+                                                        </div>
+                                                        <a href="/jewellerystudio/${data.data[i].id}" class="try-on-studio-button" target="_blank">Try on Studio</a>
+                                                        </div>
+                                                        </a>
+                                                        </div>
+                                                        `;
                             }
 
                             // Append the new content within the existing container
