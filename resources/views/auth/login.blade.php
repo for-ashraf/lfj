@@ -1,6 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
+
+    .card-header {
+        background-color: #3490dc;
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px 0;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    .btn-primary {
+        background-color: #3490dc;
+        border: 1px solid #3490dc;
+        border-radius: 5px;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: #267cb9;
+        border: 1px solid #267cb9;
+    }
+
+    /* Placeholder styles for SVG images */
+    .svg-placeholder {
+        width: 100%;
+        max-height: 200px; /* Adjust height as needed */
+        margin-bottom: 20px;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -65,6 +122,10 @@
                             </div>
                         </div>
                     </form>
+                    <div class="text-center">
+                        <!-- Placeholder for SVG image 1 -->
+                     
+                    </div>
                 </div>
             </div>
         </div>
